@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'anmition/fadeanimation.dart';
 import 'login.dart';
 
+// ignore: constant_identifier_names
 enum Gender { fullname, Email, password, confirmpassword, phone }
 
 class Singup extends StatefulWidget {
@@ -17,21 +18,36 @@ class _SingupState extends State<Singup> {
   Color enabled = Colors.white;
   Color enabledtxt = Colors.white;
   Color deaible = Colors.white;
-  Color backgroundColor = Color.fromARGB(188, 13, 172, 40);
+  Color backgroundColor = const Color.fromARGB(188, 13, 172, 40);
   bool ispasswordev = true;
   Gender? selected;
+
+  final TextEditingController nomeController =
+      TextEditingController();
+  final TextEditingController emailController =
+      TextEditingController();
+  final TextEditingController senhaController =
+      TextEditingController();
+  final TextEditingController telefoneController =
+      TextEditingController();
+  final TextEditingController dataController =
+      TextEditingController();
+  final TextEditingController responsavelController =
+      TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
     var we = MediaQuery.of(context).size.width;
     var he = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 14, 139, 35),
+      backgroundColor: const Color.fromARGB(255, 14, 139, 35),
       body: SingleChildScrollView(
-        child: SizedBox(
-          width: we,
-          height: he,
-          child: Column(
+        
+        scrollDirection: Axis.vertical,
+        child: Column(
+          
+          
             children: <Widget>[
               SizedBox(
                 height: he * 0.05,
@@ -75,11 +91,13 @@ class _SingupState extends State<Singup> {
                   height: he * 0.071,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
-                    color:
-                        selected == Gender.fullname ? enabled : backgroundColor,
+                    color: selected == Gender.fullname
+                        ? enabled
+                        : backgroundColor,
                   ),
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
+                    controller: nomeController,
                     onTap: () {
                       setState(() {
                         selected = Gender.fullname;
@@ -90,18 +108,21 @@ class _SingupState extends State<Singup> {
                       border: InputBorder.none,
                       prefixIcon: Icon(
                         Icons.person_outlined,
-                        color:
-                            selected == Gender.fullname ? enabledtxt : deaible,
+                        color: selected == Gender.fullname
+                            ? enabledtxt
+                            : deaible,
                       ),
                       hintText: 'Nome Completo',
                       hintStyle: TextStyle(
-                        color:
-                            selected == Gender.fullname ? enabledtxt : deaible,
+                        color: selected == Gender.fullname
+                            ? enabledtxt
+                            : deaible,
                       ),
                     ),
                     style: TextStyle(
-                        color:
-                            selected == Gender.fullname ? enabledtxt : deaible,
+                        color: selected == Gender.fullname
+                            ? enabledtxt
+                            : deaible,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -116,10 +137,12 @@ class _SingupState extends State<Singup> {
                   height: he * 0.071,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
-                    color: selected == Gender.phone ? enabled : backgroundColor,
+                    color:
+                        selected == Gender.phone ? enabled : backgroundColor,
                   ),
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
+                    controller: emailController,
                     onTap: () {
                       setState(() {
                         selected = Gender.phone;
@@ -130,15 +153,18 @@ class _SingupState extends State<Singup> {
                       border: InputBorder.none,
                       prefixIcon: Icon(
                         Icons.phone_android_outlined,
-                        color: selected == Gender.phone ? enabledtxt : deaible,
+                        color:
+                            selected == Gender.phone ? enabledtxt : deaible,
                       ),
                       hintText: 'Telefone',
                       hintStyle: TextStyle(
-                        color: selected == Gender.phone ? enabledtxt : deaible,
+                        color:
+                            selected == Gender.phone ? enabledtxt : deaible,
                       ),
                     ),
                     style: TextStyle(
-                        color: selected == Gender.phone ? enabledtxt : deaible,
+                        color:
+                            selected == Gender.phone ? enabledtxt : deaible,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -153,7 +179,8 @@ class _SingupState extends State<Singup> {
                   height: he * 0.071,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
-                    color: selected == Gender.Email ? enabled : backgroundColor,
+                    color:
+                        selected == Gender.Email ? enabled : backgroundColor,
                   ),
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
@@ -167,15 +194,18 @@ class _SingupState extends State<Singup> {
                       border: InputBorder.none,
                       prefixIcon: Icon(
                         Icons.email_outlined,
-                        color: selected == Gender.Email ? enabledtxt : deaible,
+                        color:
+                            selected == Gender.Email ? enabledtxt : deaible,
                       ),
                       hintText: 'E-mail',
                       hintStyle: TextStyle(
-                        color: selected == Gender.Email ? enabledtxt : deaible,
+                        color:
+                            selected == Gender.Email ? enabledtxt : deaible,
                       ),
                     ),
                     style: TextStyle(
-                        color: selected == Gender.Email ? enabledtxt : deaible,
+                        color:
+                            selected == Gender.Email ? enabledtxt : deaible,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -233,8 +263,9 @@ class _SingupState extends State<Singup> {
                                 : deaible)),
                     obscureText: ispasswordev,
                     style: TextStyle(
-                        color:
-                            selected == Gender.password ? enabledtxt : deaible,
+                        color: selected == Gender.password
+                            ? enabledtxt
+                            : deaible,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -304,10 +335,139 @@ class _SingupState extends State<Singup> {
               ),
               FadeAnimation(
                 delay: 1,
+                child: Container(
+                  width: we * 0.9,
+                  height: he * 0.071,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: selected == Gender.password
+                          ? enabled
+                          : backgroundColor),
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    onTap: () {
+                      setState(() {
+                        selected = Gender.password;
+                      });
+                    },
+                    decoration: InputDecoration(
+                        enabledBorder: InputBorder.none,
+                        border: InputBorder.none,
+                        prefixIcon: Icon(
+                          Icons.date_range_outlined,
+                          color: selected == Gender.password
+                              ? enabledtxt
+                              : deaible,
+                        ),
+                        hintText: 'Data Nascimento',
+                        hintStyle: TextStyle(
+                            color: selected == Gender.password
+                                ? enabledtxt
+                                : deaible)),
+                    obscureText: ispasswordev,
+                    style: TextStyle(
+                        color: selected == Gender.password
+                            ? enabledtxt
+                            : deaible,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: he * 0.02,
+              ),
+              FadeAnimation(
+                delay: 1,
+                child: Container(
+                  width: we * 0.9,
+                  height: he * 0.071,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: selected == Gender.password
+                          ? enabled
+                          : backgroundColor),
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    onTap: () {
+                      setState(() {
+                        selected = Gender.password;
+                      });
+                    },
+                    decoration: InputDecoration(
+                        enabledBorder: InputBorder.none,
+                        border: InputBorder.none,
+                        prefixIcon: Icon(
+                          Icons.phone,
+                          color: selected == Gender.password
+                              ? enabledtxt
+                              : deaible,
+                        ),
+                        hintText: 'Telefone',
+                        hintStyle: TextStyle(
+                            color: selected == Gender.password
+                                ? enabledtxt
+                                : deaible)),
+                    obscureText: ispasswordev,
+                    style: TextStyle(
+                        color: selected == Gender.password
+                            ? enabledtxt
+                            : deaible,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: he * 0.02,
+              ),
+              FadeAnimation(
+                delay: 1,
+                child: Container(
+                  width: we * 0.9,
+                  height: he * 0.071,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: selected == Gender.password
+                          ? enabled
+                          : backgroundColor),
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    onTap: () {
+                      setState(() {
+                        selected = Gender.password;
+                      });
+                    },
+                    decoration: InputDecoration(
+                        enabledBorder: InputBorder.none,
+                        border: InputBorder.none,
+                        prefixIcon: Icon(
+                          Icons.family_restroom,
+                          color: selected == Gender.password
+                              ? enabledtxt
+                              : deaible,
+                        ),
+                        hintText: 'Você é responsavel por alguém?',
+                        hintStyle: TextStyle(
+                            color: selected == Gender.password
+                                ? enabledtxt
+                                : deaible)),
+                    obscureText: ispasswordev,
+                    style: TextStyle(
+                        color: selected == Gender.password
+                            ? enabledtxt
+                            : deaible,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: he * 0.02,
+              ),
+              FadeAnimation(
+                delay: 1,
                 child: TextButton(
                     onPressed: () {},
                     child: Text(
-                      "SING UP",
+                      "Cadastrar",
                       style: GoogleFonts.heebo(
                         color: Colors.white,
                         letterSpacing: 0.5,
@@ -316,7 +476,8 @@ class _SingupState extends State<Singup> {
                       ),
                     ),
                     style: TextButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 22, 31, 110),
+                        backgroundColor:
+                            const Color.fromARGB(255, 22, 31, 110),
                         padding: const EdgeInsets.symmetric(
                             vertical: 15.0, horizontal: 80),
                         shape: RoundedRectangleBorder(
@@ -337,7 +498,7 @@ class _SingupState extends State<Singup> {
                       onTap: () {
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (context) {
-                          return Login();
+                          return const Login();
                         }));
                       },
                       child: Text("Logar",
@@ -354,7 +515,6 @@ class _SingupState extends State<Singup> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }

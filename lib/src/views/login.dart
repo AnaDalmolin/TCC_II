@@ -1,5 +1,4 @@
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tcc_ll/src/views/singup.dart';
@@ -7,11 +6,14 @@ import 'package:tcc_ll/src/views/singup.dart';
 import 'anmition/fadeanimation.dart';
 
 enum Gender {
+  // ignore: constant_identifier_names
   Email,
   password,
 }
 
 class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
+
   @override
   State<Login> createState() => _LoginState();
 }
@@ -20,7 +22,7 @@ class _LoginState extends State<Login> {
   Color enabled =Colors.white;
   Color enabledtxt = Colors.white;
   Color deaible = Colors.white;
-  Color backgroundColor = Color.fromARGB(188, 13, 172, 40);
+  Color backgroundColor = const Color.fromARGB(188, 13, 172, 40);
   bool ispasswordev = true;
   Gender? selected;
 
@@ -29,10 +31,10 @@ class _LoginState extends State<Login> {
     var we = MediaQuery.of(context).size.width;
     var he = MediaQuery.of(context).size.height;
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 14, 139, 35),
+        backgroundColor: const Color.fromARGB(255, 14, 139, 35),
         body: SingleChildScrollView(
-          child: Expanded(
-            flex: 1,
+          child: Center(
+            
             child: SizedBox(
               width: we,
               height: he,
@@ -41,25 +43,11 @@ class _LoginState extends State<Login> {
                   FadeAnimation(
                     delay: 0.8,
                     child: Image(
-                      image: AssetImage(
+                      image: const AssetImage(
                           'assets/handy-finance.gif'),
                       width: we * 0.9,
                       height: he * 0.4,
                       alignment: Alignment.center,
-                    ),
-                  ),
-                  FadeAnimation(
-                    delay: 1,
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 230.0),
-                      child: Text(
-                        "Login",
-                        style: GoogleFonts.bebasNeue(
-                            color: Color.fromARGB(255, 22, 31, 110),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 35,
-                            letterSpacing: 2),
-                      ),
                     ),
                   ),
                   SizedBox(
@@ -153,7 +141,7 @@ class _LoginState extends State<Login> {
                               onPressed: () =>
                                   setState(() => ispasswordev = !ispasswordev),
                             ),
-                            hintText: 'Password',
+                            hintText: 'Senha',
                             hintStyle: TextStyle(
                                 color: selected == Gender.password
                                     ? enabledtxt
@@ -184,7 +172,7 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         style: TextButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 22, 31, 110),
+                            backgroundColor: const Color.fromARGB(255, 22, 31, 110),
                             padding: const EdgeInsets.symmetric(
                                 vertical: 15.0, horizontal: 80),
                             shape: RoundedRectangleBorder(
@@ -195,9 +183,9 @@ class _LoginState extends State<Login> {
                   ),
                   FadeAnimation(
                     delay: 1,
-                    child: Text("Forgot password?",
+                    child: Text("Esqueceu sua senha?",
                         style: GoogleFonts.heebo(
-                          color: Color.fromARGB(255, 3, 3, 3).withOpacity(0.9),
+                          color: Colors.white,
                           letterSpacing: 0.5,
                         )),
                   ),
@@ -209,7 +197,7 @@ class _LoginState extends State<Login> {
                       children: [
                         Text("Ainda Não tem conta? ",
                             style: GoogleFonts.heebo(
-                              color: Color.fromARGB(255, 12, 12, 12),
+                              color: Colors.white,
                               letterSpacing: 0.5,
                             )),
                         GestureDetector(
@@ -221,7 +209,7 @@ class _LoginState extends State<Login> {
                           },
                           child: Text("Cadastre-se",
                               style: GoogleFonts.heebo(
-                                color: Color.fromARGB(255, 22, 31, 110)
+                                color: const Color.fromARGB(255, 22, 31, 110)
                                     .withOpacity(0.9),
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 0.5,
