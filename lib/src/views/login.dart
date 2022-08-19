@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tcc_ll/src/views/singup.dart';
@@ -19,10 +18,10 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  Color enabled =Colors.white;
+  Color enabled = Colors.white;
   Color enabledtxt = Colors.white;
   Color deaible = Colors.white;
-  Color backgroundColor = const Color.fromARGB(188, 13, 172, 40);
+  Color backgroundColor = Color.fromARGB(255, 230, 46, 0);
   bool ispasswordev = true;
   Gender? selected;
 
@@ -31,10 +30,9 @@ class _LoginState extends State<Login> {
     var we = MediaQuery.of(context).size.width;
     var he = MediaQuery.of(context).size.height;
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 14, 139, 35),
+        backgroundColor: const Color.fromARGB(187, 171, 7, 177),
         body: SingleChildScrollView(
           child: Center(
-            
             child: SizedBox(
               width: we,
               height: he,
@@ -43,8 +41,7 @@ class _LoginState extends State<Login> {
                   FadeAnimation(
                     delay: 0.8,
                     child: Image(
-                      image: const AssetImage(
-                          'assets/handy-finance.gif'),
+                      image: const AssetImage('assets/handy-finance.gif'),
                       width: we * 0.9,
                       height: he * 0.4,
                       alignment: Alignment.center,
@@ -63,9 +60,7 @@ class _LoginState extends State<Login> {
                       height: he * 0.071,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
-                        color: selected == Gender.Email
-                            ? enabled
-                            : backgroundColor,
+                        color: const Color.fromARGB(255, 241, 67, 24),
                       ),
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
@@ -105,9 +100,7 @@ class _LoginState extends State<Login> {
                       height: he * 0.071,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
-                          color: selected == Gender.password
-                              ? enabled
-                              : backgroundColor),
+                          color: Color.fromARGB(255, 241, 67, 24)),
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
                         onTap: () {
@@ -172,7 +165,8 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         style: TextButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 22, 31, 110),
+                            backgroundColor:
+                                const Color.fromARGB(255, 230, 46, 0),
                             padding: const EdgeInsets.symmetric(
                                 vertical: 15.0, horizontal: 80),
                             shape: RoundedRectangleBorder(
@@ -209,7 +203,7 @@ class _LoginState extends State<Login> {
                           },
                           child: Text("Cadastre-se",
                               style: GoogleFonts.heebo(
-                                color: const Color.fromARGB(255, 22, 31, 110)
+                                color: Color.fromARGB(255, 230, 46, 0)
                                     .withOpacity(0.9),
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 0.5,
