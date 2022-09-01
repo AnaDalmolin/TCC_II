@@ -26,8 +26,8 @@ class UserDB {
     final List<Map<String, dynamic>> result = await db.query(_tableName);
     final List<User> users = [];
     for (Map<String, dynamic> row in result) {
-      final User user =
-          User(row['id'], row['name'], row['email'], row['senha'], row['telefone'], row['data'], row['responsavel']);
+      final User user = User(row['id'], row['name'], row['email'], row['senha'],
+          row['telefone'], row['data'], row['responsavel']);
       users.add(user);
     }
     return users;
@@ -35,7 +35,7 @@ class UserDB {
 }
 
 Map<String, dynamic> _toMap(User user) {
-  final Map<String, dynamic> userMap = Map();
+  final Map<String, dynamic> userMap = {};
   userMap['name'] = user.name;
   userMap['email'] = user.email;
   userMap['senha'] = user.senha;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tcc_ll/src/bloc/cadastro.dart';
 
 import 'anmition/fadeanimation.dart';
 import 'login.dart';
@@ -22,12 +23,11 @@ class _SingupState extends State<Singup> {
   bool ispasswordev = true;
   Gender? selected;
 
-  final TextEditingController nomeController = TextEditingController();
+  final TextEditingController confSenhaController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController senhaController = TextEditingController();
-  final TextEditingController telefoneController = TextEditingController();
-  final TextEditingController dataController = TextEditingController();
-  final TextEditingController responsavelController = TextEditingController();
+
+  var bloc = CadastroBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -85,44 +85,7 @@ class _SingupState extends State<Singup> {
                 ),
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
-                  controller: nomeController,
-                  onTap: () {
-                    setState(() {
-                      selected = Gender.fullname;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    enabledBorder: InputBorder.none,
-                    border: InputBorder.none,
-                    prefixIcon: Icon(
-                      Icons.person_outlined,
-                      color: selected == Gender.fullname ? enabledtxt : deaible,
-                    ),
-                    hintText: 'Nome Completo',
-                    hintStyle: TextStyle(
-                      color: selected == Gender.fullname ? enabledtxt : deaible,
-                    ),
-                  ),
-                  style: TextStyle(
-                      color: selected == Gender.fullname ? enabledtxt : deaible,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: he * 0.02,
-            ),
-            FadeAnimation(
-              delay: 1,
-              child: Container(
-                width: we * 0.9,
-                height: he * 0.071,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: const Color.fromARGB(255, 241, 67, 24),
-                ),
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
+                  controller: emailController,
                   onTap: () {
                     setState(() {
                       selected = Gender.Email;
@@ -159,6 +122,7 @@ class _SingupState extends State<Singup> {
                     color: const Color.fromARGB(255, 241, 67, 24)),
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
+                  controller: senhaController,
                   onTap: () {
                     setState(() {
                       selected = Gender.password;
@@ -214,6 +178,7 @@ class _SingupState extends State<Singup> {
                     color: const Color.fromARGB(255, 241, 67, 24)),
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
+                  controller: confSenhaController,
                   onTap: () {
                     setState(() {
                       selected = Gender.confirmpassword;
@@ -265,7 +230,10 @@ class _SingupState extends State<Singup> {
             FadeAnimation(
               delay: 1,
               child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    CadastroBloc.register(
+                        emailController.text, senhaController.text);
+                  },
                   child: Text(
                     "Cadastrar",
                     style: GoogleFonts.heebo(

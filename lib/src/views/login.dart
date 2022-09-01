@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tcc_ll/src/bloc/cadastro.dart';
 import 'package:tcc_ll/src/views/singup.dart';
 
 import 'anmition/fadeanimation.dart';
+import 'cadastroPerfil.dart';
 
 enum Gender {
   // ignore: constant_identifier_names
@@ -21,9 +23,12 @@ class _LoginState extends State<Login> {
   Color enabled = Colors.white;
   Color enabledtxt = Colors.white;
   Color deaible = Colors.white;
-  Color backgroundColor = Color.fromARGB(255, 230, 46, 0);
+  Color backgroundColor = const Color.fromARGB(255, 230, 46, 0);
   bool ispasswordev = true;
   Gender? selected;
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController senhaController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +69,7 @@ class _LoginState extends State<Login> {
                       ),
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
+                        controller: emailController,
                         onTap: () {
                           setState(() {
                             selected = Gender.Email;
@@ -100,9 +106,10 @@ class _LoginState extends State<Login> {
                       height: he * 0.071,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
-                          color: Color.fromARGB(255, 241, 67, 24)),
+                          color: const Color.fromARGB(255, 241, 67, 24)),
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
+                        controller: senhaController,
                         onTap: () {
                           setState(() {
                             selected = Gender.password;
@@ -154,7 +161,14 @@ class _LoginState extends State<Login> {
                   FadeAnimation(
                     delay: 1,
                     child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          CadastroBloc.login(
+                              emailController.text, senhaController.text);
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return const CadastroPerfil();
+                          }));
+                        },
                         child: Text(
                           "Login",
                           style: GoogleFonts.heebo(

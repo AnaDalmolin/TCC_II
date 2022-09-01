@@ -43,8 +43,10 @@ dependencies:
   cloud_firestore: ^3.4.0
   firebase_core: ^1.20.0
   firebase_auth: ^3.6.0
-
-  
+  flutter_custom_clippers: ^2.0.0
+  datetime_picker_formfield: ^2.0.1
+  mask_text_input_formatter: ^2.4.0
+  switcher_button: ^0.0.4
 
 dev_dependencies:
   flutter_test:
@@ -64,7 +66,7 @@ flutter_native_splash:
   image: assets/Splash_App.png
   android_disable_fullscreen: false
   fill: true
-    
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
