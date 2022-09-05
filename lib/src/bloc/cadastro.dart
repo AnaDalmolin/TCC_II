@@ -22,19 +22,31 @@ class CadastroBloc {
     }
   }
 
-  static login(email, password) async {
-    try {
-      FirebaseAuth auth = FirebaseAuth.instance;
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
-    }
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  Future<User> handleSignInEmail(email, password) async {
+    UserCredential result =
+        await auth.signInWithEmailAndPassword(email: email, password: password);
+    final User user = result.user!;
+
+    return user;
   }
+
+  Future<User> handleSignUp(email, password) async {
+    UserCredential result = await auth.createUserWithEmailAndPassword(
+        email: email, password: password);
+    final User user = result.user!;
+
+    return user;
+  }
+
+  // static login(email, password) async {
+  //   FirebaseAuth auth = FirebaseAuth.instance;
+  //   final FirebaseAuth user = (await auth.signInWithEmailAndPassword(
+  //           email: email, password: password))
+  //       .user as FirebaseAuth;
+  //   return user;
+  // }
 
   CadastroPerfil(nome, data, telefone, responsavel, termo) {
     print(nome);
@@ -43,6 +55,8 @@ class CadastroBloc {
     print(responsavel);
     print(termo);
   }
+
+  static void setState(Null Function() param0) {}
 
   // @override
   // void dispose() {}

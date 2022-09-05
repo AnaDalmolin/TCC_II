@@ -1,3 +1,6 @@
+// ignore_for_file: unnecessary_new
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tcc_ll/src/bloc/cadastro.dart';
@@ -5,12 +8,6 @@ import 'package:tcc_ll/src/views/singup.dart';
 
 import 'anmition/fadeanimation.dart';
 import 'cadastroPerfil.dart';
-
-enum Gender {
-  // ignore: constant_identifier_names
-  Email,
-  password,
-}
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -20,12 +17,18 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
   Color enabled = Colors.white;
   Color enabledtxt = Colors.white;
   Color deaible = Colors.white;
   Color backgroundColor = const Color.fromARGB(255, 230, 46, 0);
   bool ispasswordev = true;
   Gender? selected;
+
+  FirebaseAuth authHandler = FirebaseAuth.instance;
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController senhaController = TextEditingController();
@@ -37,199 +40,241 @@ class _LoginState extends State<Login> {
     return Scaffold(
         backgroundColor: const Color.fromARGB(187, 171, 7, 177),
         body: SingleChildScrollView(
-          child: Center(
-            child: SizedBox(
-              width: we,
-              height: he,
-              child: Column(
-                children: <Widget>[
-                  FadeAnimation(
-                    delay: 0.8,
-                    child: Image(
-                      image: const AssetImage('assets/handy-finance.gif'),
-                      width: we * 0.9,
-                      height: he * 0.4,
-                      alignment: Alignment.center,
-                    ),
-                  ),
-                  SizedBox(
-                    height: he * 0.01,
-                  ),
-                  SizedBox(
-                    height: he * 0.04,
-                  ),
-                  FadeAnimation(
-                    delay: 1,
-                    child: Container(
-                      width: we * 0.9,
-                      height: he * 0.071,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: const Color.fromARGB(255, 241, 67, 24),
-                      ),
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextField(
-                        controller: emailController,
-                        onTap: () {
-                          setState(() {
-                            selected = Gender.Email;
-                          });
-                        },
-                        decoration: InputDecoration(
-                          enabledBorder: InputBorder.none,
-                          border: InputBorder.none,
-                          prefixIcon: Icon(
-                            Icons.email_outlined,
-                            color:
-                                selected == Gender.Email ? enabledtxt : deaible,
-                          ),
-                          hintText: 'Email',
-                          hintStyle: TextStyle(
-                            color:
-                                selected == Gender.Email ? enabledtxt : deaible,
-                          ),
-                        ),
-                        style: TextStyle(
-                            color:
-                                selected == Gender.Email ? enabledtxt : deaible,
-                            fontWeight: FontWeight.bold),
+          child: Form(
+            key: _formKey,
+            child: Center(
+              child: SizedBox(
+                width: we,
+                height: he,
+                child: Column(
+                  children: <Widget>[
+                    FadeAnimation(
+                      delay: 0.8,
+                      child: Image(
+                        image: const AssetImage('assets/handy-finance.gif'),
+                        width: we * 0.9,
+                        height: he * 0.4,
+                        alignment: Alignment.center,
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: he * 0.02,
-                  ),
-                  FadeAnimation(
-                    delay: 1,
-                    child: Container(
-                      width: we * 0.9,
-                      height: he * 0.071,
-                      decoration: BoxDecoration(
+                    SizedBox(
+                      height: he * 0.01,
+                    ),
+                    SizedBox(
+                      height: he * 0.04,
+                    ),
+                    FadeAnimation(
+                      delay: 1,
+                      child: Container(
+                        width: we * 0.9,
+                        height: he * 0.071,
+                        decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
-                          color: const Color.fromARGB(255, 241, 67, 24)),
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextField(
-                        controller: senhaController,
-                        onTap: () {
-                          setState(() {
-                            selected = Gender.password;
-                          });
-                        },
-                        decoration: InputDecoration(
+                          color: const Color.fromARGB(255, 241, 67, 24),
+                        ),
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
+                          controller: emailController,
+                          onTap: () {
+                            setState(() {
+                              selected = Gender.Email;
+                            });
+                          },
+                          decoration: InputDecoration(
                             enabledBorder: InputBorder.none,
                             border: InputBorder.none,
                             prefixIcon: Icon(
-                              Icons.lock_open_outlined,
-                              color: selected == Gender.password
+                              Icons.email_outlined,
+                              color: selected == Gender.Email
                                   ? enabledtxt
                                   : deaible,
                             ),
-                            suffixIcon: IconButton(
-                              icon: ispasswordev
-                                  ? Icon(
-                                      Icons.visibility_off,
-                                      color: selected == Gender.password
-                                          ? enabledtxt
-                                          : deaible,
-                                    )
-                                  : Icon(
-                                      Icons.visibility,
-                                      color: selected == Gender.password
-                                          ? enabledtxt
-                                          : deaible,
-                                    ),
-                              onPressed: () =>
-                                  setState(() => ispasswordev = !ispasswordev),
-                            ),
-                            hintText: 'Senha',
+                            hintText: 'Email',
                             hintStyle: TextStyle(
-                                color: selected == Gender.password
-                                    ? enabledtxt
-                                    : deaible)),
-                        obscureText: ispasswordev,
-                        style: TextStyle(
-                            color: selected == Gender.password
-                                ? enabledtxt
-                                : deaible,
-                            fontWeight: FontWeight.bold),
+                              color: selected == Gender.Email
+                                  ? enabledtxt
+                                  : deaible,
+                            ),
+                          ),
+                          style: TextStyle(
+                              color: selected == Gender.Email
+                                  ? enabledtxt
+                                  : deaible,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: he * 0.02,
-                  ),
-                  FadeAnimation(
-                    delay: 1,
-                    child: TextButton(
-                        onPressed: () {
-                          CadastroBloc.login(
-                              emailController.text, senhaController.text);
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            return const CadastroPerfil();
-                          }));
-                        },
-                        child: Text(
-                          "Login",
-                          style: GoogleFonts.heebo(
-                            color: Colors.white,
-                            letterSpacing: 0.5,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                    SizedBox(
+                      height: he * 0.02,
+                    ),
+                    FadeAnimation(
+                      delay: 1,
+                      child: Container(
+                        width: we * 0.9,
+                        height: he * 0.071,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                            color: const Color.fromARGB(255, 241, 67, 24)),
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          controller: senhaController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
+                          onTap: () {
+                            setState(() {
+                              selected = Gender.password;
+                            });
+                          },
+                          decoration: InputDecoration(
+                              enabledBorder: InputBorder.none,
+                              border: InputBorder.none,
+                              prefixIcon: Icon(
+                                Icons.lock_open_outlined,
+                                color: selected == Gender.password
+                                    ? enabledtxt
+                                    : deaible,
+                              ),
+                              suffixIcon: IconButton(
+                                icon: ispasswordev
+                                    ? Icon(
+                                        Icons.visibility_off,
+                                        color: selected == Gender.password
+                                            ? enabledtxt
+                                            : deaible,
+                                      )
+                                    : Icon(
+                                        Icons.visibility,
+                                        color: selected == Gender.password
+                                            ? enabledtxt
+                                            : deaible,
+                                      ),
+                                onPressed: () => setState(
+                                    () => ispasswordev = !ispasswordev),
+                              ),
+                              hintText: 'Senha',
+                              hintStyle: TextStyle(
+                                  color: selected == Gender.password
+                                      ? enabledtxt
+                                      : deaible)),
+                          obscureText: ispasswordev,
+                          style: TextStyle(
+                              color: selected == Gender.password
+                                  ? enabledtxt
+                                  : deaible,
+                              fontWeight: FontWeight.bold),
                         ),
-                        style: TextButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromARGB(255, 230, 46, 0),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 15.0, horizontal: 80),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0)))),
-                  ),
-                  SizedBox(
-                    height: he * 0.01,
-                  ),
-                  FadeAnimation(
-                    delay: 1,
-                    child: Text("Esqueceu sua senha?",
-                        style: GoogleFonts.heebo(
-                          color: Colors.white,
-                          letterSpacing: 0.5,
-                        )),
-                  ),
-                  SizedBox(height: he * 0.12),
-                  FadeAnimation(
-                    delay: 1,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Ainda Não tem conta? ",
+                      ),
+                    ),
+                    SizedBox(
+                      height: he * 0.02,
+                    ),
+                    FadeAnimation(
+                      delay: 1,
+                      child: TextButton(
+                          onPressed: () {
+                            handleSignInEmail(
+                                    emailController.text, senhaController.text)
+                                .then((User user) {
+                              Navigator.push(
+                                  context,
+                                  new MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CadastroPerfil()));
+                            }).catchError((e) => print(e));
+                            //  ScaffoldMessenger.of(context).showSnackBar(
+                            //     const SnackBar(
+                            //       backgroundColor: Colors.redAccent,
+                            //       content: Text(
+                            //         'Dados Invalido',
+                            //         style: TextStyle(
+                            //           color: Colors.white,
+                            //           // background: Colors.white,
+                            //           decorationColor: Colors.white,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   );
+                          },
+                          child: Text(
+                            "Login",
                             style: GoogleFonts.heebo(
                               color: Colors.white,
                               letterSpacing: 0.5,
-                            )),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) {
-                              return const Singup();
-                            }));
-                          },
-                          child: Text("Cadastre-se",
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          style: TextButton.styleFrom(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 230, 46, 0),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 15.0, horizontal: 80),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0)))),
+                    ),
+                    SizedBox(
+                      height: he * 0.01,
+                    ),
+                    FadeAnimation(
+                      delay: 1,
+                      child: Text("Esqueceu sua senha?",
+                          style: GoogleFonts.heebo(
+                            color: Colors.white,
+                            letterSpacing: 0.5,
+                          )),
+                    ),
+                    SizedBox(height: he * 0.12),
+                    FadeAnimation(
+                      delay: 1,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Ainda Não tem conta? ",
                               style: GoogleFonts.heebo(
-                                color: Color.fromARGB(255, 230, 46, 0)
-                                    .withOpacity(0.9),
-                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
                                 letterSpacing: 0.5,
                               )),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(builder: (context) {
+                                return const Singup();
+                              }));
+                            },
+                            child: Text("Cadastre-se",
+                                style: GoogleFonts.heebo(
+                                  color: const Color.fromARGB(255, 230, 46, 0)
+                                      .withOpacity(0.9),
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 0.5,
+                                )),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
         ));
+  }
+
+  Future<User> handleSignInEmail(email, password) async {
+    UserCredential result =
+        await auth.signInWithEmailAndPassword(email: email, password: password);
+    final User user = result.user!;
+
+    return user;
   }
 }

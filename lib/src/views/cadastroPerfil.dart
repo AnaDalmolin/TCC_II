@@ -87,7 +87,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                 ),
               ),
               SizedBox(
-                height: he * 0.01,
+                height: he * 0.02,
               ),
               FadeAnimation(
                 delay: 1,
@@ -127,7 +127,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                 ),
               ),
               SizedBox(
-                height: he * 0.01,
+                height: he * 0.02,
               ),
               FadeAnimation(
                 delay: 1,
@@ -159,7 +159,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                 ),
               ),
               SizedBox(
-                height: he * 0.01,
+                height: he * 0.02,
               ),
               FadeAnimation(
                 delay: 1,
@@ -174,7 +174,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                       padding: const EdgeInsets.all(8.0),
                       child: SwitcherButton(
                         onColor: const Color.fromARGB(187, 171, 7, 177),
-                        offColor: Color.fromARGB(234, 250, 247, 247),
+                        offColor: const Color.fromARGB(234, 250, 247, 247),
                         value: bloc.termo,
                         onChange: (value) {
                           setState(() {
@@ -185,7 +185,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                       ),
                     ),
                     SizedBox(
-                      height: he * 0.01,
+                      height: he * 0.02,
                     ),
                     const Text(
                       "Você é responsalvel por alguém?",
@@ -221,7 +221,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                 ),
               ),
               SizedBox(
-                height: he * 0.01,
+                height: he * 0.02,
               ),
               FadeAnimation(
                 delay: 1,
