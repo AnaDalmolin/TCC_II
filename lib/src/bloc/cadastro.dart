@@ -5,48 +5,64 @@ class CadastroBloc {
   bool termo = false;
   bool responsalvel = false;
 
-  //CRIANDO PELO FIREBASE
-  static register(email, password) async {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  //FUNCAO PARA USUARIO LOGAR COM A CONTA CRIADA NO FIREBASE
+  static Future<User?> signInUsingEmailPassword({
+    required String email,
+    required String password,
+  }) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+
     try {
-      FirebaseAuth auth = FirebaseAuth.instance;
-      UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      user = userCredential.user;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        // ignore: avoid_print
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        // ignore: avoid_print
+        print('Wrong password provided.');
+      } else {
+        // ignore: avoid_print
+        print("dados incoretos");
+      }
+    }
+
+    return user;
+  }
+
+  //FUNCAO PARA O USUARIO CRIAR UMA CONTA NO FIREBASE
+  static Future<User?> registerUsingEmailPassword({
+    required String email,
+    required String password,
+  }) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+    try {
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      user = userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
+        // ignore: avoid_print
         print('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
+        // ignore: avoid_print
         print('The account already exists for that email.');
       }
     } catch (e) {
       print(e);
     }
-  }
-
-  final FirebaseAuth auth = FirebaseAuth.instance;
-
-  Future<User> handleSignInEmail(email, password) async {
-    UserCredential result =
-        await auth.signInWithEmailAndPassword(email: email, password: password);
-    final User user = result.user!;
-
     return user;
   }
-
-  Future<User> handleSignUp(email, password) async {
-    UserCredential result = await auth.createUserWithEmailAndPassword(
-        email: email, password: password);
-    final User user = result.user!;
-
-    return user;
-  }
-
-  // static login(email, password) async {
-  //   FirebaseAuth auth = FirebaseAuth.instance;
-  //   final FirebaseAuth user = (await auth.signInWithEmailAndPassword(
-  //           email: email, password: password))
-  //       .user as FirebaseAuth;
-  //   return user;
-  // }
 
   CadastroPerfil(nome, data, telefone, responsavel, termo) {
     print(nome);
@@ -55,8 +71,6 @@ class CadastroBloc {
     print(responsavel);
     print(termo);
   }
-
-  static void setState(Null Function() param0) {}
 
   // @override
   // void dispose() {}
