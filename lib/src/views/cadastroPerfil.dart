@@ -2,17 +2,19 @@
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:switcher_button/switcher_button.dart';
 import 'package:tcc_ll/src/bloc/cadastro.dart';
+import 'package:tcc_ll/src/views/telaPrincipal.dart';
 
 import 'anmition/fadeanimation.dart';
 
 class CadastroPerfil extends StatefulWidget {
-  const CadastroPerfil({Key? key}) : super(key: key);
-
+  // ignore: prefer_const_constructors_in_immutables
+  CadastroPerfil({Key? key, required this.user}) : super(key: key);
+  final User user;
   @override
   State<CadastroPerfil> createState() => _CadastroPerfilState();
 }
@@ -24,10 +26,12 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
       TextEditingController();
   var bloc = CadastroBloc();
   final format = DateFormat("dd-MM-yyyy");
+
   @override
   Widget build(BuildContext context) {
     var we = MediaQuery.of(context).size.width;
     var he = MediaQuery.of(context).size.height;
+    print(widget.user);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -167,14 +171,10 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                   children: [
                     Container(
                       margin: const EdgeInsets.only(left: 20, right: 5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16.0),
-                        color: const Color.fromARGB(255, 241, 67, 24),
-                      ),
                       padding: const EdgeInsets.all(8.0),
                       child: SwitcherButton(
                         onColor: const Color.fromARGB(187, 171, 7, 177),
-                        offColor: const Color.fromARGB(234, 250, 247, 247),
+                        offColor: Color.fromARGB(255, 240, 143, 119),
                         value: bloc.termo,
                         onChange: (value) {
                           setState(() {
@@ -228,11 +228,17 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                 child: TextButton(
                   onPressed: () {
                     bloc.CadastroPerfil(
-                        nomeController,
-                        dataNascimentoController,
-                        telefoneController,
+                        nomeController.text,
+                        dataNascimentoController.text,
+                        telefoneController.text,
                         bloc.responsalvel,
-                        bloc.termo);
+                        bloc.termo,
+                        widget.user.uid);
+
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                          builder: (context) => const TelaInicial()),
+                    );
                   },
                   child: Text(
                     "Cadastrar informações",

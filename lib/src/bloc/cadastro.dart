@@ -1,11 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 
 class CadastroBloc {
   bool termo = false;
   bool responsalvel = false;
 
   final FirebaseAuth auth = FirebaseAuth.instance;
+  final db = FirebaseFirestore.instance;
 
   //FUNCAO PARA USUARIO LOGAR COM A CONTA CRIADA NO FIREBASE
   static Future<User?> signInUsingEmailPassword({
@@ -13,6 +14,7 @@ class CadastroBloc {
     required String password,
   }) async {
     FirebaseAuth auth = FirebaseAuth.instance;
+
     User? user;
 
     try {
@@ -64,12 +66,19 @@ class CadastroBloc {
     return user;
   }
 
-  CadastroPerfil(nome, data, telefone, responsavel, termo) {
-    print(nome);
-    print(data);
-    print(telefone);
-    print(responsavel);
-    print(termo);
+  // cadastrar
+
+  CadastroPerfil(nome, data, telefone, responsavel, termo, id) {
+    db.collection('CadastroPerfil').doc(id).set(
+      {
+        "id": id,
+        "Nome": nome,
+        "Data": data,
+        "Telefone": telefone,
+        "Responsavel": responsavel,
+        "termo": termo,
+      },
+    );
   }
 
   // @override

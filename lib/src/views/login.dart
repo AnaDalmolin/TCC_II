@@ -188,8 +188,9 @@ class _LoginState extends State<Login> {
                             if (user != null) {
                               Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        const CadastroPerfil()),
+                                    builder: (context) => CadastroPerfil(
+                                          user: user,
+                                        )),
                               );
                             }
                           } else {
