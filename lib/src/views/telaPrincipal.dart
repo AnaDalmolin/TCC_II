@@ -8,8 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:tcc_ll/src/views/TelaConquista.dart';
 import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
 import 'package:tcc_ll/src/views/singup.dart';
+import 'package:tcc_ll/src/views/telaObjetivo.dart';
 
 class TelaInicial extends StatefulWidget {
   const TelaInicial({Key? key}) : super(key: key);
@@ -216,115 +218,118 @@ class _TelaInicialState extends State<TelaInicial> {
             SizedBox(
               height: he * 0.03,
             ),
-            Container(
-              width: we * 0.8,
-              height: 150,
-              decoration: ShapeDecoration(
-                gradient: LinearGradient(colors: const [
-                  Colors.deepOrange,
-                  Colors.deepPurple,
-                ]),
-                shadows: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    // ignore: unnecessary_new
-                    offset: new Offset(10.0, 10.0),
-                    blurRadius: 10.0,
-                  ),
-                ],
-                shape: SmoothRectangleBorder(
-                  borderRadius: SmoothBorderRadius(
-                    cornerRadius: 10,
-                    cornerSmoothing: 0.5,
+            FadeAnimation(
+              delay: 1,
+              child: Container(
+                width: we * 0.8,
+                height: 150,
+                decoration: ShapeDecoration(
+                  gradient: LinearGradient(colors: const [
+                    Colors.deepOrange,
+                    Colors.deepPurple,
+                  ]),
+                  shadows: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      // ignore: unnecessary_new
+                      offset: new Offset(10.0, 10.0),
+                      blurRadius: 10.0,
+                    ),
+                  ],
+                  shape: SmoothRectangleBorder(
+                    borderRadius: SmoothBorderRadius(
+                      cornerRadius: 10,
+                      cornerSmoothing: 0.5,
+                    ),
                   ),
                 ),
-              ),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Objetivo em andamento:",
-                          style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            letterSpacing: 0.2,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Objetivo em andamento:",
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              letterSpacing: 0.2,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      children: [
-                        Text(
-                          "HeadSet",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            letterSpacing: 0.2,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            "HeadSet",
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              letterSpacing: 0.2,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "50%",
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.poppins(
-                                color: Colors.white,
-                                letterSpacing: 0.2,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "50%",
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  letterSpacing: 0.2,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: he * 0.03,
+                            width: he * 0.02,
+                          ),
+                          SizedBox(
+                            width: 200,
+                            child: StepProgressIndicator(
+                              totalSteps: 100,
+                              currentStep: 50,
+                              size: 12,
+                              padding: 0,
+                              selectedColor: Colors.yellow,
+                              unselectedColor: Colors.cyan,
+                              roundedEdges: Radius.circular(10),
+                              selectedGradientColor: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: const [
+                                  Colors.yellowAccent,
+                                  Colors.deepOrange
+                                ],
+                              ),
+                              unselectedGradientColor: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: const [Colors.white, Colors.white],
                               ),
                             ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: he * 0.03,
-                          width: he * 0.02,
-                        ),
-                        SizedBox(
-                          width: 200,
-                          child: StepProgressIndicator(
-                            totalSteps: 100,
-                            currentStep: 50,
-                            size: 12,
-                            padding: 0,
-                            selectedColor: Colors.yellow,
-                            unselectedColor: Colors.cyan,
-                            roundedEdges: Radius.circular(10),
-                            selectedGradientColor: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: const [
-                                Colors.yellowAccent,
-                                Colors.deepOrange
-                              ],
-                            ),
-                            unselectedGradientColor: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: const [Colors.white, Colors.white],
-                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
@@ -340,13 +345,25 @@ class _TelaInicialState extends State<TelaInicial> {
           TabData(
             iconData: Icons.military_tech_outlined,
             title: "Conquistas",
-            onclick: () {},
+            onclick: () {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => TelaConquista()));
+            },
           ),
           TabData(
-            iconData: Icons.home,
-            title: "Inicio",
-          ),
-          TabData(iconData: Icons.radar, title: "Objetivo")
+              iconData: Icons.home,
+              title: "Inicio",
+              onclick: () {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => TelaInicial()));
+              }),
+          TabData(
+              iconData: Icons.radar,
+              title: "Objetivo",
+              onclick: () {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => TelaObjetivo()));
+              })
         ],
         initialSelection: 1,
         onTabChangedListener: (position) {
