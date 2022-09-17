@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tcc_ll/src/bloc/cadastro.dart';
 import 'package:tcc_ll/src/views/singup.dart';
+import 'package:tcc_ll/src/views/telaPrincipal.dart';
 
 import 'anmition/fadeanimation.dart';
 import 'cadastroPerfil.dart';
@@ -179,35 +180,40 @@ class _LoginState extends State<Login> {
                     delay: 1,
                     child: TextButton(
                         onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            User? user =
-                                await CadastroBloc.signInUsingEmailPassword(
-                              email: emailController.text,
-                              password: senhaController.text,
-                            );
-                            if (user != null) {
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => CadastroPerfil(
-                                          user: user,
-                                        )),
-                              );
-                            }
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                backgroundColor: Colors.redAccent,
-                                content: Text(
-                                  'Dados Invalido',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    // background: Colors.white,
-                                    decorationColor: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => const TelaInicial()));
+                          // if (_formKey.currentState!.validate()) {
+                          //   User? user =
+                          //       await CadastroBloc.signInUsingEmailPassword(
+                          //     email: emailController.text,
+                          //     password: senhaController.text,
+                          //   );
+                          //   print(CadastroBloc().ValidaCadastro(user));
+                          //   if (user != null) {
+                          //     Navigator.of(context).pushReplacement(
+                          //       MaterialPageRoute(
+                          //           // builder: (context) => const TelaInicial()),
+                          //       builder: (context) => CadastroPerfil(
+                          //             user: user,
+                          //           )),
+                          //     );
+                          //   }
+                          // } else {
+                          //   ScaffoldMessenger.of(context).showSnackBar(
+                          //     const SnackBar(
+                          //       backgroundColor: Colors.redAccent,
+                          //       content: Text(
+                          //         'Dados Invalido',
+                          //         style: TextStyle(
+                          //           color: Colors.white,
+                          //           // background: Colors.white,
+                          //           decorationColor: Colors.white,
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   );
+                          // }
                         },
                         child: Text(
                           "Login",

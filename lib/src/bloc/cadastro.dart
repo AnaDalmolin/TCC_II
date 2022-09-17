@@ -66,8 +66,7 @@ class CadastroBloc {
     return user;
   }
 
-  // cadastrar
-
+  // ignore: non_constant_identifier_names
   CadastroPerfil(nome, data, telefone, responsavel, termo, id) {
     db.collection('CadastroPerfil').doc(id).set(
       {
@@ -79,6 +78,13 @@ class CadastroBloc {
         "termo": termo,
       },
     );
+  }
+
+  // ignore: non_constant_identifier_names
+  ValidaCadastro(user) {
+    // String id = '';
+    final cadastros =
+        FirebaseFirestore.instance.collection('CadastroPerfil').snapshots();
   }
 
   // @override

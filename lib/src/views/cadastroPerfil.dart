@@ -145,6 +145,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                     onTap: () {},
+                    controller: telefoneController,
                     decoration: const InputDecoration(
                       enabledBorder: InputBorder.none,
                       border: InputBorder.none,
