@@ -1,18 +1,18 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:fancy_bottom_navigation_2/fancy_bottom_navigation.dart';
 import 'package:figma_squircle/figma_squircle.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
 import 'package:tcc_ll/src/views/singup.dart';
 import 'package:tcc_ll/src/views/telaObjetivo.dart';
 import 'package:tcc_ll/src/views/telaPrincipal.dart';
 
+// ignore: must_be_immutable
 class TelaConquista extends StatefulWidget {
-  const TelaConquista({Key? key}) : super(key: key);
-
+  TelaConquista({Key? key, required this.user}) : super(key: key);
+  User user;
   @override
   State<TelaConquista> createState() => _TelaConquistaState();
 }
@@ -95,16 +95,20 @@ class _TelaConquistaState extends State<TelaConquista> {
             iconData: Icons.home,
             title: "Inicio",
             onclick: () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => TelaInicial()));
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => TelaInicial(
+                        user: widget.user,
+                      )));
             },
           ),
           TabData(
               iconData: Icons.radar,
               title: "Objetivo",
               onclick: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => TelaObjetivo()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => TelaObjetivo(
+                          user: widget.user,
+                        )));
               })
         ],
         initialSelection: 0,

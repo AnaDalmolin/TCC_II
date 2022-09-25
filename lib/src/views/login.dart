@@ -187,13 +187,12 @@ class _LoginState extends State<Login> {
                               password: senhaController.text,
                             );
                             if (user != null) {
-                              print(CadastroBloc().ValidaCadastro(user));
                               if (await CadastroBloc().ValidaCadastro(user) ==
                                   true) {
                                 Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const TelaInicial()));
+                                            TelaInicial(user: user)));
                               } else {
                                 Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(

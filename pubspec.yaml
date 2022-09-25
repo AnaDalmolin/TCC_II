@@ -51,6 +51,7 @@ dependencies:
   avatars: ^3.0.2
   fancy_bottom_navigation_2: ^0.3.5
   figma_squircle: ^0.5.3
+  currency_text_input_formatter: ^2.1.7
 
 dev_dependencies:
   flutter_test:

@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:avatars/avatars.dart';
 import 'package:fancy_bottom_navigation_2/fancy_bottom_navigation.dart';
 import 'package:figma_squircle/figma_squircle.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,9 +14,10 @@ import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
 import 'package:tcc_ll/src/views/singup.dart';
 import 'package:tcc_ll/src/views/telaObjetivo.dart';
 
+// ignore: must_be_immutable
 class TelaInicial extends StatefulWidget {
-  const TelaInicial({Key? key}) : super(key: key);
-
+  TelaInicial({Key? key, required this.user}) : super(key: key);
+  User user;
   @override
   State<TelaInicial> createState() => _TelaInicialState();
 }
@@ -346,23 +348,27 @@ class _TelaInicialState extends State<TelaInicial> {
             iconData: Icons.military_tech_outlined,
             title: "Conquistas",
             onclick: () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => TelaConquista()));
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => TelaConquista(
+                        user: widget.user,
+                      )));
             },
           ),
           TabData(
               iconData: Icons.home,
               title: "Inicio",
               onclick: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => TelaInicial()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => TelaInicial(
+                          user: widget.user,
+                        )));
               }),
           TabData(
               iconData: Icons.radar,
               title: "Objetivo",
               onclick: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => TelaObjetivo()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => TelaObjetivo(user: widget.user)));
               })
         ],
         initialSelection: 1,

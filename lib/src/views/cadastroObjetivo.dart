@@ -1,57 +1,71 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:fancy_bottom_navigation_2/fancy_bottom_navigation.dart';
-import 'package:figma_squircle/figma_squircle.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tcc_ll/src/bloc/objetivo.dart';
 import 'package:tcc_ll/src/views/TelaConquista.dart';
 import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
-import 'package:tcc_ll/src/views/singup.dart';
 import 'package:tcc_ll/src/views/telaObjetivo.dart';
 import 'package:tcc_ll/src/views/telaPrincipal.dart';
 
 class CadastroObjetivo extends StatefulWidget {
-  const CadastroObjetivo({Key? key}) : super(key: key);
-
+  const CadastroObjetivo({Key? key, required this.user}) : super(key: key);
+  final User user;
   @override
   State<CadastroObjetivo> createState() => _CadastroObjetivoState();
 }
 
 class _CadastroObjetivoState extends State<CadastroObjetivo> {
   int currentPage = 0;
-  bool ispasswordev = true;
-  Gender? selected;
+  var bloc = ObjetivoBloc();
+
+  final TextEditingController nomeController = TextEditingController();
+  final TextEditingController valorController = TextEditingController();
+  final TextEditingController descricaoController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var we = MediaQuery.of(context).size.width;
     var he = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tela Conquistas"),
+        title: const Text("Novo Objetivo"),
         backgroundColor: const Color.fromARGB(255, 230, 46, 0),
       ),
       body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
         child: Column(
           children: [
             ClipPath(
               clipper: WaveClipperOne(),
               child: Container(
                 height: 100,
-                width: 400,
+                width: 450,
                 color: const Color.fromARGB(255, 230, 46, 0),
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
                       children: [
-                        Text(
-                          "Criar Novo Objetivo +",
-                          style: GoogleFonts.poppins(
-                            color: const Color.fromARGB(255, 230, 46, 0),
-                            letterSpacing: 0.2,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Container(
+                            margin: const EdgeInsets.only(left: 5, right: 0),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Container(
+                                margin:
+                                    const EdgeInsets.only(left: 10, right: 5),
+                                child: Text("Cadastre Seu Novo Objetivo!",
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.white,
+                                      letterSpacing: 0.5,
+                                      fontSize: 20,
+                                    )),
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -65,24 +79,143 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
             ),
             FadeAnimation(
               delay: 1,
-              child: ClipSmoothRect(
-                child: Container(
-                  // width: we * 0.6,
-                  // height: 120,;
-                  decoration: ShapeDecoration(
-                    gradient: LinearGradient(colors: const [
-                      Colors.deepOrange,
-                      Color.fromARGB(255, 221, 27, 37),
-                    ]),
-                    shape: SmoothRectangleBorder(
-                      borderRadius: SmoothBorderRadius(
-                        cornerRadius: 10,
-                        cornerSmoothing: 0.5,
-                      ),
+              child: Container(
+                width: we * 0.9,
+                height: he * 0.071,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: const Color.fromARGB(255, 241, 67, 24),
+                ),
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: nomeController,
+                  onTap: () {},
+                  decoration: const InputDecoration(
+                    enabledBorder: InputBorder.none,
+                    border: InputBorder.none,
+                    prefixIcon: Icon(
+                      Icons.radar,
+                      color: Colors.white,
+                    ),
+                    hintText: 'Nome Objetivo',
+                    hintStyle: TextStyle(
+                      color: Colors.white,
                     ),
                   ),
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: he * 0.04,
+            ),
+            FadeAnimation(
+              delay: 1,
+              child: Container(
+                width: we * 0.9,
+                height: he * 0.071,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: const Color.fromARGB(255, 241, 67, 24),
+                ),
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: valorController,
+                  onTap: () {},
+                  inputFormatters: [
+                    CurrencyTextInputFormatter(
+                      locale: 'pt_BR',
+                    )
+                  ],
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    enabledBorder: InputBorder.none,
+                    border: InputBorder.none,
+                    prefixIcon: Icon(
+                      Icons.attach_money_rounded,
+                      color: Colors.white,
+                    ),
+                    hintText: 'Valor Objetivo',
+                    hintStyle: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: he * 0.04,
+            ),
+            FadeAnimation(
+              delay: 1,
+              child: Container(
+                width: we * 0.9,
+                height: he * 0.071,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: const Color.fromARGB(255, 241, 67, 24),
+                ),
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: descricaoController,
+                  onTap: () {},
+                  decoration: const InputDecoration(
+                    enabledBorder: InputBorder.none,
+                    border: InputBorder.none,
+                    prefixIcon: Icon(
+                      Icons.description_outlined,
+                      color: Colors.white,
+                    ),
+                    hintText: 'Valor Objetivo',
+                    hintStyle: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: he * 0.04,
+            ),
+            FadeAnimation(
+              delay: 1,
+              child: TextButton(
+                onPressed: () {
+                  bloc.CadastroObjetivo(
+                    nomeController.text,
+                    valorController.text,
+                    descricaoController.text,
+                    widget.user.uid,
+                  );
 
-                  // padding: const EdgeInsets.all(8.0),
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                        builder: (context) => TelaObjetivo(
+                              user: widget.user,
+                            )),
+                  );
+                },
+                child: Text(
+                  "Cadastrar informações",
+                  style: GoogleFonts.heebo(
+                    color: Colors.white,
+                    letterSpacing: 0.2,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                style: TextButton.styleFrom(
+                  backgroundColor: Color.fromARGB(226, 171, 7, 177),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 15.0, horizontal: 80),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
                 ),
               ),
             ),
@@ -100,24 +233,30 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
             iconData: Icons.military_tech_outlined,
             title: "Conquistas",
             onclick: () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => TelaConquista()));
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => TelaConquista(
+                        user: widget.user,
+                      )));
             },
           ),
           TabData(
             iconData: Icons.home,
             title: "Inicio",
             onclick: () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => TelaInicial()));
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => TelaInicial(
+                        user: widget.user,
+                      )));
             },
           ),
           TabData(
               iconData: Icons.radar,
               title: "Objetivo",
               onclick: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => TelaObjetivo()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => TelaObjetivo(
+                          user: widget.user,
+                        )));
               })
         ],
         initialSelection: 2,

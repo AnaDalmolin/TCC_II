@@ -238,7 +238,9 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
 
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                          builder: (context) => const TelaInicial()),
+                          builder: (context) => TelaInicial(
+                                user: widget.user,
+                              )),
                     );
                   },
                   child: Text(

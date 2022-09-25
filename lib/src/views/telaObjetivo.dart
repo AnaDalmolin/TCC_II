@@ -1,9 +1,7 @@
-// ignore_for_file: prefer_const_constructors
-import 'dart:ui';
-
-import 'package:avatars/avatars.dart';
+// ignore: file_names
 import 'package:fancy_bottom_navigation_2/fancy_bottom_navigation.dart';
 import 'package:figma_squircle/figma_squircle.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,11 +10,12 @@ import 'package:tcc_ll/src/views/TelaConquista.dart';
 import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
 import 'package:tcc_ll/src/views/cadastroObjetivo.dart';
 import 'package:tcc_ll/src/views/singup.dart';
-import 'package:tcc_ll/src/views/telaObjetivo.dart';
 import 'package:tcc_ll/src/views/telaPrincipal.dart';
 
 class TelaObjetivo extends StatefulWidget {
-  const TelaObjetivo({Key? key}) : super(key: key);
+  const TelaObjetivo({Key? key, required this.user}) : super(key: key);
+
+  final User user;
 
   @override
   State<TelaObjetivo> createState() => _TelaObjetivoState();
@@ -43,7 +42,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
               clipper: WaveClipperOne(),
               child: Container(
                 height: 100,
-                width: 400,
+                width: 450,
                 color: const Color.fromARGB(255, 230, 46, 0),
                 child: Center(
                   child: Padding(
@@ -56,10 +55,11 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                             margin: const EdgeInsets.only(left: 50, right: 5),
                             child: TextButton(
                               onPressed: () {
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            CadastroObjetivo()));
+                                Navigator.of(context)
+                                    .pushReplacement(MaterialPageRoute(
+                                        builder: (context) => CadastroObjetivo(
+                                              user: widget.user,
+                                            )));
                               },
                               child: Text(
                                 "Criar Novo Objetivo +",
@@ -235,24 +235,26 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
             iconData: Icons.military_tech_outlined,
             title: "Conquistas",
             onclick: () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => TelaConquista()));
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => TelaConquista(
+                        user: widget.user,
+                      )));
             },
           ),
           TabData(
             iconData: Icons.home,
             title: "Inicio",
             onclick: () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => TelaInicial()));
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => TelaInicial(user: widget.user)));
             },
           ),
           TabData(
               iconData: Icons.radar,
               title: "Objetivo",
               onclick: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => TelaObjetivo()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => TelaObjetivo(user: widget.user)));
               })
         ],
         initialSelection: 2,
