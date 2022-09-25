@@ -10,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:tcc_ll/src/views/TelaConquista.dart';
 import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
+import 'package:tcc_ll/src/views/cadastroObjetivo.dart';
 import 'package:tcc_ll/src/views/singup.dart';
 import 'package:tcc_ll/src/views/telaObjetivo.dart';
 import 'package:tcc_ll/src/views/telaPrincipal.dart';
@@ -54,7 +55,12 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                           child: Container(
                             margin: const EdgeInsets.only(left: 50, right: 5),
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            CadastroObjetivo()));
+                              },
                               child: Text(
                                 "Criar Novo Objetivo +",
                                 style: GoogleFonts.poppins(
