@@ -180,40 +180,45 @@ class _LoginState extends State<Login> {
                     delay: 1,
                     child: TextButton(
                         onPressed: () async {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) => const TelaInicial()));
-                          // if (_formKey.currentState!.validate()) {
-                          //   User? user =
-                          //       await CadastroBloc.signInUsingEmailPassword(
-                          //     email: emailController.text,
-                          //     password: senhaController.text,
-                          //   );
-                          //   print(CadastroBloc().ValidaCadastro(user));
-                          //   if (user != null) {
-                          //     Navigator.of(context).pushReplacement(
-                          //       MaterialPageRoute(
-                          //           // builder: (context) => const TelaInicial()),
-                          //       builder: (context) => CadastroPerfil(
-                          //             user: user,
-                          //           )),
-                          //     );
-                          //   }
-                          // } else {
-                          //   ScaffoldMessenger.of(context).showSnackBar(
-                          //     const SnackBar(
-                          //       backgroundColor: Colors.redAccent,
-                          //       content: Text(
-                          //         'Dados Invalido',
-                          //         style: TextStyle(
-                          //           color: Colors.white,
-                          //           // background: Colors.white,
-                          //           decorationColor: Colors.white,
-                          //         ),
-                          //       ),
-                          //     ),
-                          //   );
-                          // }
+                          if (_formKey.currentState!.validate()) {
+                            User? user =
+                                await CadastroBloc.signInUsingEmailPassword(
+                              email: emailController.text,
+                              password: senhaController.text,
+                            );
+                            if (user != null) {
+                              print(CadastroBloc().ValidaCadastro(user));
+                              if (await CadastroBloc().ValidaCadastro(user) ==
+                                  true) {
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const TelaInicial()));
+                              } else {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      // builder: (context) => const TelaInicial()),
+                                      builder: (context) => CadastroPerfil(
+                                            user: user,
+                                          )),
+                                );
+                              }
+                            }
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                backgroundColor: Colors.redAccent,
+                                content: Text(
+                                  'Dados Invalido',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    // background: Colors.white,
+                                    decorationColor: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
                         },
                         child: Text(
                           "Login",

@@ -31,7 +31,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
   Widget build(BuildContext context) {
     var we = MediaQuery.of(context).size.width;
     var he = MediaQuery.of(context).size.height;
-    print(widget.user);
+    // print(widget.user);
     return Scaffold(
       appBar: AppBar(
         title: const Text(

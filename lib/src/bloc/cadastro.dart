@@ -81,10 +81,23 @@ class CadastroBloc {
   }
 
   // ignore: non_constant_identifier_names
-  ValidaCadastro(user) {
-    // String id = '';
-    final cadastros =
-        FirebaseFirestore.instance.collection('CadastroPerfil').snapshots();
+  ValidaCadastro(user) async {
+    final QuerySnapshot result = await Future.value(FirebaseFirestore.instance
+        .collection("CadastroPerfil")
+        .where(FieldPath.documentId, isEqualTo: user.uid)
+        .limit(1)
+        .get());
+
+    // ignore: unnecessary_null_comparison
+    if (result != null) {
+      final map = result.docs[0].data();
+      if (map != null) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    return false;
   }
 
   // @override
