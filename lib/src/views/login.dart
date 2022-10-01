@@ -202,6 +202,20 @@ class _LoginState extends State<Login> {
                                           )),
                                 );
                               }
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  backgroundColor: Colors.redAccent,
+                                  content: Text(
+                                    'Dados Invalido',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      // background: Colors.white,
+                                      decorationColor: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              );
                             }
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(

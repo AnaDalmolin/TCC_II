@@ -169,7 +169,7 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
                       Icons.description_outlined,
                       color: Colors.white,
                     ),
-                    hintText: 'Valor Objetivo',
+                    hintText: 'Descrição Objetivo',
                     hintStyle: TextStyle(
                       color: Colors.white,
                     ),
@@ -187,11 +187,11 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
               child: TextButton(
                 onPressed: () {
                   bloc.CadastroObjetivo(
-                    nomeController.text,
-                    valorController.text,
-                    descricaoController.text,
-                    widget.user.uid,
-                  );
+                      nomeController.text,
+                      valorController.value,
+                      descricaoController.text,
+                      widget.user.uid,
+                      0);
 
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(

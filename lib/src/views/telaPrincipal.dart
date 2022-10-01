@@ -36,14 +36,13 @@ class _TelaInicialState extends State<TelaInicial> {
         backgroundColor: const Color.fromARGB(255, 230, 46, 0),
       ),
       body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
         child: Column(
           children: [
             ClipPath(
               clipper: WaveClipperOne(),
               child: Container(
                 height: 100,
-                width: 400,
+                width: 450,
                 color: const Color.fromARGB(255, 230, 46, 0),
                 child: Center(
                   child: Padding(
@@ -81,8 +80,8 @@ class _TelaInicialState extends State<TelaInicial> {
               delay: 1,
               child: ClipSmoothRect(
                 child: Container(
-                  // width: we * 0.6,
-                  // height: 120,;
+                  width: 300,
+                  height: 70,
                   decoration: ShapeDecoration(
                     gradient: LinearGradient(colors: const [
                       Colors.deepOrange,
@@ -97,10 +96,6 @@ class _TelaInicialState extends State<TelaInicial> {
                   ),
                   child: Column(
                     children: [
-                      Row(
-                        // ignore: prefer_const_literals_to_create_immutables
-                        children: [],
-                      ),
                       Row(
                         // ignore: prefer_const_literals_to_create_immutables
                         children: [
