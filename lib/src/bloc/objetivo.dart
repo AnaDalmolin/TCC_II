@@ -6,25 +6,35 @@ class ObjetivoBloc {
 
   // ignore: non_constant_identifier_names
   CadastroObjetivo(nome, descricao, valor, id, deposito) {
-    db.collection('CadastroObjetivo').doc(id).set(
+    db.collection('CadastroObjetivo').add(
       {
         "id": id,
         "Nome": nome,
-        "valor": valor,
-        "Descrição": descricao,
-        "Deposito": deposito,
+        "Valor": valor,
+        "Desposito": deposito,
+        "Descricao": descricao,
       },
     );
   }
 
   listarObjetivo(user, list) async {
-    final QuerySnapshot result = await Future.value(FirebaseFirestore.instance
-        .collection("CadastroObjetivo")
-        .where(FieldPath.documentId, isEqualTo: user.uid)
-        .limit(10)
-        .get());
+    final QuerySnapshot result = await Future.value(
+        FirebaseFirestore.instance.collection("CadastroObjetivo").get());
+    print(result);
+    for (var i = 0; i < result.size; i++) {
+      print(result.docs[i].data());
+      list.add(result.docs[i].data());
+    }
+    // if(itens.)
 
-    list = result.docs[0].data();
+    // for (var i = 0; i < itens.length; i++) {
+    //   if (itens[i] == user.uid) {
+    //     print('---------------------------------------------------');
+    //     print('entrou');
+    //     print('---------------------------------------------------');
+    //   }
+    // }
+
     return list;
   }
 

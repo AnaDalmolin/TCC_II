@@ -186,12 +186,8 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
               delay: 1,
               child: TextButton(
                 onPressed: () {
-                  bloc.CadastroObjetivo(
-                      nomeController.text,
-                      valorController.value,
-                      descricaoController.text,
-                      widget.user.uid,
-                      0);
+                  bloc.CadastroObjetivo(widget.user.uid, nomeController.text,
+                      valorController.text, descricaoController.text, 0);
 
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(

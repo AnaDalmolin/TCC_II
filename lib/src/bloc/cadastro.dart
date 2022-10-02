@@ -68,7 +68,7 @@ class CadastroBloc {
 
   // ignore: non_constant_identifier_names
   CadastroPerfil(nome, data, telefone, responsavel, termo, id) {
-    db.collection('CadastroPerfil').doc(id).set(
+    db.collection('CadastroPerfil').add(
       {
         "id": id,
         "Nome": nome,
@@ -82,11 +82,8 @@ class CadastroBloc {
 
   // ignore: non_constant_identifier_names
   ValidaCadastro(user) async {
-    final QuerySnapshot result = await Future.value(FirebaseFirestore.instance
-        .collection("CadastroPerfil")
-        .where(FieldPath.documentId, isEqualTo: user.uid)
-        .limit(1)
-        .get());
+    final QuerySnapshot result = await Future.value(
+        FirebaseFirestore.instance.collection("CadastroPerfil").get());
 
     // ignore: unnecessary_null_comparison
     if (result != null) {

@@ -293,12 +293,12 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
   }
 
   final List<Color> kMixedColors = [
-    Color(0xff71A5D7),
-    Color(0xff72CCD4),
-    Color(0xffFBAB57),
-    Color(0xffF8B993),
-    Color(0xff962D17),
-    Color(0xffc657fb),
-    Color(0xfffb8457),
+    Color(0xf80163),
+    Color(0xf80118),
+    Color(0x8301f8),
+    Color(0x03c0c5),
+    Color(0x09c838),
+    Color(0xdf690a),
+    Color(0xdf290a),
   ];
 }
