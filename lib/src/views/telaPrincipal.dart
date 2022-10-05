@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 import 'package:avatars/avatars.dart';
+import 'package:curved_drawer_fork/curved_drawer_fork.dart';
 import 'package:fancy_bottom_navigation_2/fancy_bottom_navigation.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,6 +35,19 @@ class _TelaInicialState extends State<TelaInicial> {
       appBar: AppBar(
         title: const Text("Tela Inicial"),
         backgroundColor: const Color.fromARGB(255, 230, 46, 0),
+      ),
+      drawer: CurvedDrawer(
+        index: index,
+        width: leftWidth,
+        color: Colors.deepPurple,
+        buttonBackgroundColor: colorPallete[leftBackgroundColor],
+        labelColor: const Color.fromARGB(255, 230, 46, 0),
+        items: _drawerItems,
+        onTap: (newIndex) {
+          setState(() {
+            index = newIndex;
+          });
+        },
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -332,47 +346,38 @@ class _TelaInicialState extends State<TelaInicial> {
           ],
         ),
       ),
-      bottomNavigationBar: FancyBottomNavigation(
-        circleColor: Colors.white,
-        barBackgroundColor: const Color.fromARGB(255, 230, 46, 0),
-        activeIconColor: const Color.fromARGB(255, 230, 46, 0),
-        inactiveIconColor: Colors.white,
-        textColor: Colors.white,
-        tabs: [
-          TabData(
-            iconData: Icons.military_tech_outlined,
-            title: "Conquistas",
-            onclick: () {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => TelaConquista(
-                        user: widget.user,
-                      )));
-            },
-          ),
-          TabData(
-              iconData: Icons.home,
-              title: "Inicio",
-              onclick: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => TelaInicial(
-                          user: widget.user,
-                        )));
-              }),
-          TabData(
-              iconData: Icons.radar,
-              title: "Objetivo",
-              onclick: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => TelaObjetivo(user: widget.user)));
-              })
-        ],
-        initialSelection: 1,
-        onTabChangedListener: (position) {
-          setState(() {
-            currentPage = position;
-          });
-        },
-      ),
     );
   }
+
+  int index = 0;
+  double leftWidth = 75.0;
+  int leftTextColor = 1;
+  int leftBackgroundColor = 0;
+  double rightWidth = 75.0;
+  int rightTextColor = 1;
+  int rightBackgroundColor = 0;
+  final List<Color> colorPallete = <Color>[
+    Colors.white,
+    Colors.black,
+    Colors.blue,
+    Colors.blueAccent,
+    Colors.red,
+    Colors.redAccent,
+    Colors.teal,
+    Colors.orange,
+    Colors.pink,
+    Colors.purple,
+    Colors.lime,
+    Colors.green
+  ];
+  List<DrawerItem> _drawerItems = <DrawerItem>[
+    DrawerItem(icon: Icon(Icons.people), label: "People"),
+    DrawerItem(icon: Icon(Icons.trending_up), label: "Trending"),
+    DrawerItem(icon: Icon(Icons.tv)),
+    DrawerItem(icon: Icon(Icons.work), label: "Work"),
+    DrawerItem(icon: Icon(Icons.web)),
+    DrawerItem(icon: Icon(Icons.videogame_asset)),
+    DrawerItem(icon: Icon(Icons.book), label: "Book"),
+    DrawerItem(icon: Icon(Icons.call), label: "Telephone")
+  ];
 }

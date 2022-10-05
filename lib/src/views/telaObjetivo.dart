@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scaled_list/scaled_list.dart';
+import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:tcc_ll/src/bloc/objetivo.dart';
 import 'package:tcc_ll/src/views/TelaConquista.dart';
@@ -104,143 +105,36 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
             SizedBox(
               height: he * 0.04,
             ),
-            FadeAnimation(
-              delay: 1,
-              child: ClipSmoothRect(
-                child: Container(
-                  // width: we * 0.6,
-                  // height: 120,;
-                  decoration: ShapeDecoration(
-                    gradient: const LinearGradient(colors: [
-                      Colors.deepOrange,
-                      Color.fromARGB(255, 221, 27, 37),
-                    ]),
-                    shape: SmoothRectangleBorder(
-                      borderRadius: SmoothBorderRadius(
-                        cornerRadius: 10,
-                        cornerSmoothing: 0.5,
-                      ),
-                    ),
-                  ),
-
-                  // padding: const EdgeInsets.all(8.0),
-                ),
-              ),
-            ),
             ScaledList(
+              cardWidthRatio: 0.75,
+              selectedCardHeightRatio: 0.75,
+              unSelectedCardHeightRatio: 0.35,
               itemCount: objetivos.length,
               itemColor: (index) {
                 return kMixedColors[index % kMixedColors.length];
               },
               itemBuilder: (index, selectedIndex) {
                 final obj = objetivos[index];
+
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    FadeAnimation(
-                      delay: 1,
-                      child: Container(
-                        width: we * 0.8,
-                        height: 150,
-                        decoration: ShapeDecoration(
-                          gradient: const LinearGradient(colors: [
-                            Colors.deepOrange,
-                            Colors.deepPurple,
-                          ]),
-                          shadows: [
-                            BoxShadow(
-                              color: Colors.grey,
-                              // ignore: unnecessary_new
-                              offset: new Offset(10.0, 10.0),
-                              blurRadius: 10.0,
-                            ),
-                          ],
-                          shape: SmoothRectangleBorder(
-                            borderRadius: SmoothBorderRadius(
-                              cornerRadius: 10,
-                              cornerSmoothing: 0.5,
-                            ),
-                          ),
-                        ),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Row(
-                                children: [],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    // objetivos.Nome[index],
-                                    "Teste",
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.poppins(
-                                      color: Colors.white,
-                                      letterSpacing: 0.2,
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Row(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "50%",
-                                        textAlign: TextAlign.center,
-                                        style: GoogleFonts.poppins(
-                                          color: Colors.white,
-                                          letterSpacing: 0.2,
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: he * 0.03,
-                                    width: he * 0.02,
-                                  ),
-                                  const SizedBox(
-                                    width: 200,
-                                    child: StepProgressIndicator(
-                                      totalSteps: 100,
-                                      currentStep: 50,
-                                      size: 12,
-                                      padding: 0,
-                                      selectedColor: Colors.yellow,
-                                      unselectedColor: Colors.cyan,
-                                      roundedEdges: Radius.circular(10),
-                                      selectedGradientColor: LinearGradient(
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight,
-                                        colors: [
-                                          Colors.yellowAccent,
-                                          Colors.deepOrange
-                                        ],
-                                      ),
-                                      unselectedGradientColor: LinearGradient(
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight,
-                                        colors: [Colors.white, Colors.white],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    Text(obj["Descricao"],
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          letterSpacing: 0.5,
+                          fontSize: 30,
+                        )),
+                    SizedBox(
+                      height: he * 0.04,
+                    ),
+                    SleekCircularSlider(
+                      appearance: CircularSliderAppearance(
+                          customWidths:
+                              CustomSliderWidths(progressBarWidth: 10)),
+                      min: 0,
+                      max: 100,
+                      initialValue: 14,
                     ),
                   ],
                 );
@@ -292,13 +186,20 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
     );
   }
 
+  // formatarValor(valor) {
+  //   String retorno = valor.replaceAll("[^0-9]", "");
+
+  //   print(retorno);
+  //   return retorno;
+  // }
+
   final List<Color> kMixedColors = [
-    Color(0xf80163),
-    Color(0xf80118),
-    Color(0x8301f8),
-    Color(0x03c0c5),
-    Color(0x09c838),
-    Color(0xdf690a),
-    Color(0xdf290a),
+    Color(0xff71A5D7),
+    Color(0xff72CCD4),
+    Color(0xffFBAB57),
+    Color(0xffF8B993),
+    Color(0xff962D17),
+    Color(0xffc657fb),
+    Color(0xfffb8457),
   ];
 }
