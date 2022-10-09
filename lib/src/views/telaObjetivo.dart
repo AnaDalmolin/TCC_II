@@ -108,7 +108,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
             ScaledList(
               cardWidthRatio: 0.75,
               selectedCardHeightRatio: 0.75,
-              unSelectedCardHeightRatio: 0.35,
+              unSelectedCardHeightRatio: 0.50,
               itemCount: objetivos.length,
               itemColor: (index) {
                 return kMixedColors[index % kMixedColors.length];
@@ -119,11 +119,29 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Container(
+                      margin: const EdgeInsets.only(left: 200, right: 0),
+                      child: IconButton(
+                        icon: const Icon(Icons.delete),
+                        color: Colors.white,
+                        onPressed: () =>
+                            setState(() => ispasswordev = !ispasswordev),
+                      ),
+                    ),
                     Text(obj["Descricao"],
                         style: GoogleFonts.poppins(
                           color: Colors.white,
                           letterSpacing: 0.5,
                           fontSize: 30,
+                        )),
+                    SizedBox(
+                      height: he * 0.04,
+                    ),
+                    Text(obj["Valor"],
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          letterSpacing: 0.5,
+                          fontSize: 20,
                         )),
                     SizedBox(
                       height: he * 0.04,
@@ -134,7 +152,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                               CustomSliderWidths(progressBarWidth: 10)),
                       min: 0,
                       max: 100,
-                      initialValue: 14,
+                      initialValue: 0,
                     ),
                   ],
                 );
@@ -187,7 +205,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
   }
 
   // formatarValor(valor) {
-  //   String retorno = valor.replaceAll("[^0-9]", "");
+  //   String retorno = valor.replace(/\D/g, '');
 
   //   print(retorno);
   //   return retorno;

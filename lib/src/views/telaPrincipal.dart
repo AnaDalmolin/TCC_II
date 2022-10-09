@@ -1,8 +1,5 @@
 // ignore_for_file: prefer_const_constructors
-import 'dart:ui';
-
 import 'package:avatars/avatars.dart';
-import 'package:curved_drawer_fork/curved_drawer_fork.dart';
 import 'package:fancy_bottom_navigation_2/fancy_bottom_navigation.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,6 +8,7 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:tcc_ll/src/views/TelaConquista.dart';
+import 'package:tcc_ll/src/views/TelaDepositoSaque.dart';
 import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
 import 'package:tcc_ll/src/views/singup.dart';
 import 'package:tcc_ll/src/views/telaObjetivo.dart';
@@ -35,19 +33,6 @@ class _TelaInicialState extends State<TelaInicial> {
       appBar: AppBar(
         title: const Text("Tela Inicial"),
         backgroundColor: const Color.fromARGB(255, 230, 46, 0),
-      ),
-      drawer: CurvedDrawer(
-        index: index,
-        width: leftWidth,
-        color: Colors.deepPurple,
-        buttonBackgroundColor: colorPallete[leftBackgroundColor],
-        labelColor: const Color.fromARGB(255, 230, 46, 0),
-        items: _drawerItems,
-        onTap: (newIndex) {
-          setState(() {
-            index = newIndex;
-          });
-        },
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -169,7 +154,13 @@ class _TelaInicialState extends State<TelaInicial> {
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => CadastroDepositoSaque(
+                                  user: widget.user,
+                                  movimento: false,
+                                )));
+                      },
                       child: Text(
                         "Anotar Saque",
                         style: GoogleFonts.poppins(
@@ -199,7 +190,13 @@ class _TelaInicialState extends State<TelaInicial> {
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => CadastroDepositoSaque(
+                                  user: widget.user,
+                                  movimento: true,
+                                )));
+                      },
                       child: Text(
                         "Anotar Deposito",
                         style: GoogleFonts.poppins(
@@ -346,6 +343,50 @@ class _TelaInicialState extends State<TelaInicial> {
           ],
         ),
       ),
+      bottomNavigationBar: FancyBottomNavigation(
+        circleColor: Colors.white,
+        barBackgroundColor: const Color.fromARGB(255, 230, 46, 0),
+        activeIconColor: const Color.fromARGB(255, 230, 46, 0),
+        inactiveIconColor: Colors.white,
+        textColor: Colors.white,
+        tabs: [
+          TabData(
+            iconData: Icons.military_tech_outlined,
+            title: "Conquistas",
+            onclick: () {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => TelaConquista(
+                        user: widget.user,
+                      )));
+            },
+          ),
+          TabData(
+            iconData: Icons.home,
+            title: "Inicio",
+            onclick: () {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => TelaInicial(
+                        user: widget.user,
+                      )));
+            },
+          ),
+          TabData(
+              iconData: Icons.radar,
+              title: "Objetivo",
+              onclick: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => TelaObjetivo(
+                          user: widget.user,
+                        )));
+              })
+        ],
+        initialSelection: 1,
+        onTabChangedListener: (position) {
+          setState(() {
+            currentPage = position;
+          });
+        },
+      ),
     );
   }
 
@@ -369,15 +410,5 @@ class _TelaInicialState extends State<TelaInicial> {
     Colors.purple,
     Colors.lime,
     Colors.green
-  ];
-  List<DrawerItem> _drawerItems = <DrawerItem>[
-    DrawerItem(icon: Icon(Icons.people), label: "People"),
-    DrawerItem(icon: Icon(Icons.trending_up), label: "Trending"),
-    DrawerItem(icon: Icon(Icons.tv)),
-    DrawerItem(icon: Icon(Icons.work), label: "Work"),
-    DrawerItem(icon: Icon(Icons.web)),
-    DrawerItem(icon: Icon(Icons.videogame_asset)),
-    DrawerItem(icon: Icon(Icons.book), label: "Book"),
-    DrawerItem(icon: Icon(Icons.call), label: "Telephone")
   ];
 }

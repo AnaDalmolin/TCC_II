@@ -54,7 +54,6 @@ dependencies:
   currency_text_input_formatter: ^2.1.7
   scaled_list: ^2.0.0
   sleek_circular_slider: ^2.0.1
-  curved_drawer_fork: ^0.0.1+1
 
 dev_dependencies:
   flutter_test:
