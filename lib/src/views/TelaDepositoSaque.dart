@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tcc_ll/src/bloc/basebloc.dart';
+import 'package:tcc_ll/src/bloc/movimentacao.dart';
 import 'package:tcc_ll/src/bloc/objetivo.dart';
 import 'package:tcc_ll/src/views/TelaConquista.dart';
 import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
@@ -22,14 +24,14 @@ class CadastroDepositoSaque extends StatefulWidget {
 }
 // TRUE = ANOTAÇÃO DE DEPOSITO
 // FALSE = ANOTAÇÃO DE SAQUE
+//FORMATAR VALOR COM MASKMONEY valorController.text.replaceAll(RegExp('[^0-9,]'), '')
 
 class _CadastroDepositoSaqueState extends State<CadastroDepositoSaque> {
   int currentPage = 0;
-  var bloc = ObjetivoBloc();
+  var bloc = MovimentacaoBloc();
+  var blocBase = BaseBloc();
 
-  final TextEditingController nomeController = TextEditingController();
   final TextEditingController valorController = TextEditingController();
-  final TextEditingController descricaoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -115,15 +117,13 @@ class _CadastroDepositoSaqueState extends State<CadastroDepositoSaque> {
               delay: 1,
               child: TextButton(
                 onPressed: () {
-                  bloc.CadastroObjetivo(widget.user.uid, nomeController.text,
-                      valorController.text, descricaoController.text, 0);
+                  // bloc.CadastroAnotacaoSaque(
+                  //     valorController.text, widget.user.uid);
 
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                        builder: (context) => TelaObjetivo(
-                              user: widget.user,
-                            )),
-                  );
+                  // print(valorController.text);
+                  // print(valorController.text.replaceAll(RegExp[('[^0-9,]'), ''));
+                  // print(valorController.value);
+                  print(blocBase.formatValor(valorController.text));
                 },
                 child: Text(
                   "Cadastrar Movimentação",

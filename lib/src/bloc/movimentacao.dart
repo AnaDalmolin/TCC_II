@@ -1,16 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ObjetivoBloc {
+class MovimentacaoBloc {
   final db = FirebaseFirestore.instance;
 
   // ignore: non_constant_identifier_names
   CadastroAnotacaoSaque(valor, id) {
-    db.collection('CadastroAnotacaoSaque').add(
-      {
-        "id": id,
-        "Valor": valor,
-      },
-    );
+    print(valor);
+    // db.collection('CadastroAnotacaoSaque').add(
+    //   {
+    //     "id": id,
+    //     "Valor": valor,
+    //   },
+    // );
   }
 
   // ignore: non_constant_identifier_names
