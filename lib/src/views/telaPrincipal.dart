@@ -7,6 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:tcc_ll/src/bloc/cadastro.dart';
+import 'package:tcc_ll/src/bloc/movimentacao.dart';
+import 'package:tcc_ll/src/views/Perfil.dart';
 import 'package:tcc_ll/src/views/TelaConquista.dart';
 import 'package:tcc_ll/src/views/TelaDepositoSaque.dart';
 import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
@@ -24,7 +27,21 @@ class TelaInicial extends StatefulWidget {
 class _TelaInicialState extends State<TelaInicial> {
   int currentPage = 0;
   bool ispasswordev = true;
+  bool responsalvel = false;
   Gender? selected;
+  List movimentacao = [];
+
+  var bloc = MovimentacaoBloc();
+  var blocCadastro = CadastroBloc();
+
+  @override
+  void initState() async {
+    await blocCadastro.IndentificarResponsavel(widget.user, responsalvel);
+    await bloc.listarAnotacoesMovimentacao(widget.user, movimentacao);
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var we = MediaQuery.of(context).size.width;
@@ -53,6 +70,16 @@ class _TelaInicialState extends State<TelaInicial> {
                           shape: AvatarShape.rectangle(
                               50, 50, BorderRadius.all(Radius.circular(20.0))),
                           name: 'Ana Dal Molin',
+                          onTap: () {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => TelaPerfil(
+                                  user: widget.user,
+                                  responsavel: responsalvel,
+                                ),
+                              ),
+                            );
+                          },
                         ),
                         Padding(
                           padding: const EdgeInsets.all(5.0),

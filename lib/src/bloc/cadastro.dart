@@ -39,6 +39,11 @@ class CadastroBloc {
     return user;
   }
 
+  IndentificarResponsavel(user, responsavel) async {
+    final QuerySnapshot result = await Future.value(
+        FirebaseFirestore.instance.collection("CadastroPerfil").get());
+  }
+
   //FUNCAO PARA O USUARIO CRIAR UMA CONTA NO FIREBASE
   static Future<User?> registerUsingEmailPassword({
     required String email,

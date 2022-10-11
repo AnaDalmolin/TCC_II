@@ -117,13 +117,16 @@ class _CadastroDepositoSaqueState extends State<CadastroDepositoSaque> {
               delay: 1,
               child: TextButton(
                 onPressed: () {
-                  // bloc.CadastroAnotacaoSaque(
-                  //     valorController.text, widget.user.uid);
+                  double valorMovimento =
+                      blocBase.formatValor(valorController.text);
 
-                  // print(valorController.text);
-                  // print(valorController.text.replaceAll(RegExp[('[^0-9,]'), ''));
-                  // print(valorController.value);
-                  print(blocBase.formatValor(valorController.text));
+                  bloc.CadastroAnotacaoMovimentacao(
+                      valorMovimento, widget.user, widget.movimento);
+
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => TelaInicial(
+                            user: widget.user,
+                          )));
                 },
                 child: Text(
                   "Cadastrar Movimentação",

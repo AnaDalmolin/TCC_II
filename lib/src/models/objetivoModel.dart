@@ -1,31 +1,24 @@
-// import 'dart:core';
-// import 'dart:core';
-// import 'dart:ffi';
-
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:tcc_ll/src/models/baseModel.dart';
 
-// class ObjetivoModel extends BaseModel {
-//   int id;
-//   var nome;
-//   Float valor;
-//   Float deposito;
-//   var descricao;
-//   var _documentId;
+// class Person extends BaseModel {
+//   String _documentId;
+//   String name;
+//   bool active;
+//   DateTime birthDate;
 
-//   ObjetivoModel(this.id, this.nome, this.valor, this.deposito, this.descricao);
+//   Person();
 
-//   ObjetivoModel.fromMap(DocumentSnapshot document, this.id, this.nome,
-//       this.valor, this.deposito, this.descricao) {
+//   Person.fromMap(DocumentSnapshot document) {
+//     _documentId = document.documentID;
 
-//     this.id = document.data["id"];
-//     this.nome = document.data["nome"];
-//     this.valor = document.data["valor"] ?? false;
-//     this.deposito = document.data["deposito"] ?? false;
-//     this.descricao = document.data["descricao"] ?? false;
-//     this._documentId; = document.data["_documentId;"] ?? false;
-
+//     this.name = document.data["name"];
+//     this.active = document.data["active"] ?? false;
+//     Timestamp timestamp = document.data["birthDate"];
+//     this.birthDate =
+//         DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch);
 //   }
+
 //   @override
 //   toMap() {
 //     var map = new Map<String, dynamic>();

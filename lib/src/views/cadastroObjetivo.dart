@@ -188,7 +188,6 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
                 onPressed: () {
                   bloc.CadastroObjetivo(widget.user.uid, nomeController.text,
                       valorController.text, descricaoController.text, 0);
-
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                         builder: (context) => TelaObjetivo(
