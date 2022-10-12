@@ -1,4 +1,5 @@
 // ignore: file_names
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_bottom_navigation_2/fancy_bottom_navigation.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,6 +10,8 @@ import 'package:scaled_list/scaled_list.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:tcc_ll/src/bloc/objetivo.dart';
+import 'package:tcc_ll/src/bloc/objetivoTeste.dart';
+import 'package:tcc_ll/src/models/objetivoModel.dart';
 import 'package:tcc_ll/src/views/TelaConquista.dart';
 import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
 import 'package:tcc_ll/src/views/cadastroObjetivo.dart';
@@ -26,11 +29,11 @@ class TelaObjetivo extends StatefulWidget {
 
 class _TelaObjetivoState extends State<TelaObjetivo> {
   var bloc = ObjetivoBloc();
-  List objetivos = [];
+  List<Objetivo> objetivos = [];
+
   @override
   void initState() {
     bloc.listarObjetivo(widget.user, objetivos);
-    print(objetivos);
     super.initState();
   }
 
@@ -63,7 +66,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                         Padding(
                           padding: const EdgeInsets.all(20.0),
                           child: Container(
-                            margin: const EdgeInsets.only(left: 50, right: 5),
+                            margin: const EdgeInsets.only(left: 60, right: 5),
                             child: TextButton(
                               onPressed: () {
                                 Navigator.of(context)
@@ -105,59 +108,79 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
             SizedBox(
               height: he * 0.04,
             ),
-            ScaledList(
-              cardWidthRatio: 0.75,
-              selectedCardHeightRatio: 0.75,
-              unSelectedCardHeightRatio: 0.50,
-              itemCount: objetivos.length,
-              itemColor: (index) {
-                return kMixedColors[index % kMixedColors.length];
-              },
-              itemBuilder: (index, selectedIndex) {
-                final obj = objetivos[index];
+            StreamBuilder<QuerySnapshot>(
+                stream: DatabaseObjetivo.readItems(user: widget.user),
+                builder: (context, snapshot) {
+                  print(snapshot);
+                  if (snapshot.hasError) {
+                    return Text('Something went wrong');
+                  } else if (snapshot.hasData || snapshot.data != null) {
+                    return ScaledList(
+                      cardWidthRatio: 0.75,
+                      selectedCardHeightRatio: 0.75,
+                      unSelectedCardHeightRatio: 0.50,
+                      itemCount: snapshot.data!.docs.length,
+                      itemColor: (index) {
+                        return kMixedColors[index % kMixedColors.length];
+                      },
+                      itemBuilder: (index, selectedIndex) {
+                        var doc = snapshot.data!.docs[index];
+                        var data = doc.data() as Map;
 
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 200, right: 0),
-                      child: IconButton(
-                        icon: const Icon(Icons.delete),
-                        color: Colors.white,
-                        onPressed: () =>
-                            setState(() => ispasswordev = !ispasswordev),
+                        print(doc);
+                        print(data);
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin:
+                                  const EdgeInsets.only(left: 200, right: 0),
+                              child: IconButton(
+                                icon: const Icon(Icons.delete),
+                                color: Colors.white,
+                                onPressed: () => setState(
+                                    () => ispasswordev = !ispasswordev),
+                              ),
+                            ),
+                            Text(data['nome'],
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  letterSpacing: 0.5,
+                                  fontSize: 30,
+                                )),
+                            SizedBox(
+                              height: he * 0.04,
+                            ),
+                            Text(data['valor'],
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  letterSpacing: 0.5,
+                                  fontSize: 20,
+                                )),
+                            SizedBox(
+                              height: he * 0.04,
+                            ),
+                            SleekCircularSlider(
+                              appearance: CircularSliderAppearance(
+                                  customWidths:
+                                      CustomSliderWidths(progressBarWidth: 10)),
+                              min: 0,
+                              max: 100,
+                              initialValue: 0,
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        Colors.orangeAccent,
                       ),
                     ),
-                    Text(obj["Descricao"],
-                        style: GoogleFonts.poppins(
-                          color: Colors.white,
-                          letterSpacing: 0.5,
-                          fontSize: 30,
-                        )),
-                    SizedBox(
-                      height: he * 0.04,
-                    ),
-                    Text(obj["Valor"],
-                        style: GoogleFonts.poppins(
-                          color: Colors.white,
-                          letterSpacing: 0.5,
-                          fontSize: 20,
-                        )),
-                    SizedBox(
-                      height: he * 0.04,
-                    ),
-                    SleekCircularSlider(
-                      appearance: CircularSliderAppearance(
-                          customWidths:
-                              CustomSliderWidths(progressBarWidth: 10)),
-                      min: 0,
-                      max: 100,
-                      initialValue: 0,
-                    ),
-                  ],
-                );
-              },
-            ),
+                  );
+                }),
           ],
         ),
       ),

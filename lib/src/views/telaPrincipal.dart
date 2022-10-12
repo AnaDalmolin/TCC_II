@@ -35,9 +35,9 @@ class _TelaInicialState extends State<TelaInicial> {
   var blocCadastro = CadastroBloc();
 
   @override
-  void initState() async {
-    await blocCadastro.IndentificarResponsavel(widget.user, responsalvel);
-    await bloc.listarAnotacoesMovimentacao(widget.user, movimentacao);
+  void initState() {
+    blocCadastro.IndentificarResponsavel(widget.user, responsalvel);
+    bloc.listarAnotacoesMovimentacao(widget.user, movimentacao);
     // TODO: implement initState
     super.initState();
   }

@@ -5,7 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tcc_ll/src/bloc/basebloc.dart';
 import 'package:tcc_ll/src/bloc/objetivo.dart';
+import 'package:tcc_ll/src/bloc/objetivoTeste.dart';
 import 'package:tcc_ll/src/views/TelaConquista.dart';
 import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
 import 'package:tcc_ll/src/views/telaObjetivo.dart';
@@ -21,6 +23,7 @@ class CadastroObjetivo extends StatefulWidget {
 class _CadastroObjetivoState extends State<CadastroObjetivo> {
   int currentPage = 0;
   var bloc = ObjetivoBloc();
+  var blocBase = BaseBloc();
 
   final TextEditingController nomeController = TextEditingController();
   final TextEditingController valorController = TextEditingController();
@@ -185,15 +188,25 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
             FadeAnimation(
               delay: 1,
               child: TextButton(
-                onPressed: () {
-                  bloc.CadastroObjetivo(widget.user.uid, nomeController.text,
-                      valorController.text, descricaoController.text, 0);
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                        builder: (context) => TelaObjetivo(
-                              user: widget.user,
-                            )),
-                  );
+                onPressed: () async {
+                  print(blocBase.formatValor(valorController.text));
+                  await DatabaseObjetivo.addItem(
+                      nome: nomeController.text,
+                      valor: blocBase.formatValor(valorController.text),
+                      descricao: descricaoController.text,
+                      deposito: 0,
+                      userId: widget.user.uid);
+
+                  Navigator.of(context).pop();
+
+                  // bloc.CadastroObjetivo(widget.user.uid, nomeController.text,
+                  //     valorController.text, descricaoController.text, 0);
+                  // Navigator.of(context).pushReplacement(
+                  //   MaterialPageRoute(
+                  //       builder: (context) => TelaObjetivo(
+                  //             user: widget.user,
+                  //           )),
+                  // );
                 },
                 child: Text(
                   "Cadastrar informações",
