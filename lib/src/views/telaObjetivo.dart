@@ -1,19 +1,15 @@
 // ignore: file_names
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_bottom_navigation_2/fancy_bottom_navigation.dart';
-import 'package:figma_squircle/figma_squircle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scaled_list/scaled_list.dart';
-import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
-import 'package:tcc_ll/src/bloc/objetivo.dart';
 import 'package:tcc_ll/src/bloc/objetivo.dart';
 import 'package:tcc_ll/src/models/objetivoModel.dart';
 import 'package:tcc_ll/src/views/TelaConquista.dart';
-import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
 import 'package:tcc_ll/src/views/cadastroObjetivo.dart';
 import 'package:tcc_ll/src/views/depositoObjetivo.dart';
 import 'package:tcc_ll/src/views/singup.dart';
@@ -110,7 +106,6 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
             StreamBuilder<QuerySnapshot>(
                 stream: DatabaseObjetivo.readItems(user: widget.user),
                 builder: (context, snapshot) {
-                  print(snapshot);
                   if (snapshot.hasError) {
                     return Text('Something went wrong');
                   } else if (snapshot.hasData || snapshot.data != null) {
@@ -134,11 +129,13 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                                   margin:
                                       const EdgeInsets.only(left: 25, right: 0),
                                   child: IconButton(
-                                    icon: const Icon(Icons.delete),
-                                    color: Colors.white,
-                                    onPressed: () => setState(
-                                        () => ispasswordev = !ispasswordev),
-                                  ),
+                                      icon: const Icon(Icons.delete),
+                                      color: Colors.white,
+                                      onPressed: () async {
+                                        await DatabaseObjetivo.deleteItem(
+                                          docId: snapshot.data!.docs[index].id,
+                                        );
+                                      }),
                                 ),
                                 Container(
                                   margin: const EdgeInsets.only(
@@ -179,13 +176,25 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                             SizedBox(
                               height: he * 0.04,
                             ),
-                            SleekCircularSlider(
-                              appearance: CircularSliderAppearance(
-                                  customWidths:
-                                      CustomSliderWidths(progressBarWidth: 10)),
-                              min: 0,
-                              max: 100,
-                              initialValue: data['deposito'],
+                            StepProgressIndicator(
+                              totalSteps: data['valor'].toInt(),
+                              currentStep: data['deposito'].toInt(),
+                              size: 6,
+                              padding: 0,
+                              roundedEdges: Radius.circular(10),
+
+                              // ignore: prefer_const_constructors
+                              selectedGradientColor: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [Colors.deepOrange, Colors.orange],
+                              ),
+                              // ignore: prefer_const_constructors
+                              unselectedGradientColor: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [Colors.grey, Colors.white],
+                              ),
                             ),
                           ],
                         );
@@ -254,12 +263,8 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
   // }
 
   final List<Color> kMixedColors = [
-    Color(0xff71A5D7),
-    Color(0xff72CCD4),
-    Color(0xffFBAB57),
-    Color(0xffF8B993),
-    Color(0xff962D17),
-    Color(0xffc657fb),
-    Color(0xfffb8457),
+    Colors.purple,
+    Colors.blue,
+    Colors.red,
   ];
 }
