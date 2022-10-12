@@ -6,27 +6,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tcc_ll/src/bloc/basebloc.dart';
-import 'package:tcc_ll/src/bloc/objetivo.dart';
+import 'package:tcc_ll/src/bloc/movimentacao.dart';
 import 'package:tcc_ll/src/bloc/objetivo.dart';
 import 'package:tcc_ll/src/views/TelaConquista.dart';
 import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
 import 'package:tcc_ll/src/views/telaObjetivo.dart';
 import 'package:tcc_ll/src/views/telaPrincipal.dart';
 
-class CadastroObjetivo extends StatefulWidget {
-  const CadastroObjetivo({Key? key, required this.user}) : super(key: key);
+// ignore: must_be_immutable
+class CadastroDepositoObjetivo extends StatefulWidget {
+  const CadastroDepositoObjetivo(
+      {Key? key,
+      required this.user,
+      required this.objetivo,
+      required this.docId})
+      : super(key: key);
   final User user;
+  final Object objetivo;
+  final String docId;
   @override
-  State<CadastroObjetivo> createState() => _CadastroObjetivoState();
+  State<CadastroDepositoObjetivo> createState() =>
+      _CadastroDepositoObjetivoState();
 }
+// TRUE = ANOTAÇÃO DE DEPOSITO
+// FALSE = ANOTAÇÃO DE SAQUE
+//FORMATAR VALOR COM MASKMONEY valorController.text.replaceAll(RegExp('[^0-9,]'), '')
 
-class _CadastroObjetivoState extends State<CadastroObjetivo> {
+class _CadastroDepositoObjetivoState extends State<CadastroDepositoObjetivo> {
   int currentPage = 0;
+  var bloc = MovimentacaoBloc();
   var blocBase = BaseBloc();
 
-  final TextEditingController nomeController = TextEditingController();
   final TextEditingController valorController = TextEditingController();
-  final TextEditingController descricaoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +45,7 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
     var he = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Novo Objetivo"),
+        title: const Text("Guardar para objetivo!"),
         backgroundColor: const Color.fromARGB(255, 230, 46, 0),
       ),
       body: SingleChildScrollView(
@@ -51,61 +62,18 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 5, right: 0),
-                            child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Container(
-                                margin:
-                                    const EdgeInsets.only(left: 10, right: 5),
-                                child: Text("Cadastre Seu Novo Objetivo!",
-                                    style: GoogleFonts.poppins(
-                                      color: Colors.white,
-                                      letterSpacing: 0.5,
-                                      fontSize: 20,
-                                    )),
-                              ),
-                            ),
-                          ),
+                        Container(
+                          margin: const EdgeInsets.only(left: 60, right: 0),
+                          child: Text("Guardar para objetivo!",
+                              style: GoogleFonts.poppins(
+                                color: Colors.white,
+                                letterSpacing: 0.5,
+                                fontSize: 20,
+                              )),
                         ),
                       ],
                     ),
                   ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: he * 0.04,
-            ),
-            FadeAnimation(
-              delay: 1,
-              child: Container(
-                width: we * 0.9,
-                height: he * 0.071,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: const Color.fromARGB(255, 241, 67, 24),
-                ),
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: nomeController,
-                  onTap: () {},
-                  decoration: const InputDecoration(
-                    enabledBorder: InputBorder.none,
-                    border: InputBorder.none,
-                    prefixIcon: Icon(
-                      Icons.radar,
-                      color: Colors.white,
-                    ),
-                    hintText: 'Nome Objetivo',
-                    hintStyle: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                  style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -138,40 +106,7 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
                       Icons.attach_money_rounded,
                       color: Colors.white,
                     ),
-                    hintText: 'Valor Objetivo',
-                    hintStyle: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                  style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: he * 0.04,
-            ),
-            FadeAnimation(
-              delay: 1,
-              child: Container(
-                width: we * 0.9,
-                height: he * 0.071,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: const Color.fromARGB(255, 241, 67, 24),
-                ),
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: descricaoController,
-                  onTap: () {},
-                  decoration: const InputDecoration(
-                    enabledBorder: InputBorder.none,
-                    border: InputBorder.none,
-                    prefixIcon: Icon(
-                      Icons.description_outlined,
-                      color: Colors.white,
-                    ),
-                    hintText: 'Descrição Objetivo',
+                    hintText: 'Valor Movimentação',
                     hintStyle: TextStyle(
                       color: Colors.white,
                     ),
@@ -188,12 +123,18 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
               delay: 1,
               child: TextButton(
                 onPressed: () async {
-                  await DatabaseObjetivo.addItem(
-                      nome: nomeController.text,
-                      valor: blocBase.formatValor(valorController.text),
-                      descricao: descricaoController.text,
-                      deposito: 0,
-                      userId: widget.user.uid);
+                  var data = widget.objetivo as Map;
+                  await DatabaseObjetivo.updateItem(
+                      nome: data["nome"],
+                      valor: data["valor"],
+                      descricao: data["descricao"],
+                      deposito: DatabaseObjetivo.somaDeposito(
+                        valorExistente: data['deposito'],
+                        valorDepositado:
+                            blocBase.formatValor(valorController.text),
+                      ),
+                      userId: widget.user.uid,
+                      docId: widget.docId);
 
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
@@ -203,7 +144,7 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
                   );
                 },
                 child: Text(
-                  "Cadastrar informações",
+                  "Cadastrar Movimentação",
                   style: GoogleFonts.heebo(
                     color: Colors.white,
                     letterSpacing: 0.2,
@@ -261,7 +202,7 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
                         )));
               })
         ],
-        initialSelection: 2,
+        initialSelection: 1,
         onTabChangedListener: (position) {
           setState(() {
             currentPage = position;

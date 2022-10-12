@@ -10,11 +10,12 @@ import 'package:scaled_list/scaled_list.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:tcc_ll/src/bloc/objetivo.dart';
-import 'package:tcc_ll/src/bloc/objetivoTeste.dart';
+import 'package:tcc_ll/src/bloc/objetivo.dart';
 import 'package:tcc_ll/src/models/objetivoModel.dart';
 import 'package:tcc_ll/src/views/TelaConquista.dart';
 import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
 import 'package:tcc_ll/src/views/cadastroObjetivo.dart';
+import 'package:tcc_ll/src/views/depositoObjetivo.dart';
 import 'package:tcc_ll/src/views/singup.dart';
 import 'package:tcc_ll/src/views/telaPrincipal.dart';
 
@@ -28,12 +29,10 @@ class TelaObjetivo extends StatefulWidget {
 }
 
 class _TelaObjetivoState extends State<TelaObjetivo> {
-  var bloc = ObjetivoBloc();
   List<Objetivo> objetivos = [];
 
   @override
   void initState() {
-    bloc.listarObjetivo(widget.user, objetivos);
     super.initState();
   }
 
@@ -126,21 +125,41 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                       itemBuilder: (index, selectedIndex) {
                         var doc = snapshot.data!.docs[index];
                         var data = doc.data() as Map;
-
-                        print(doc);
-                        print(data);
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              margin:
-                                  const EdgeInsets.only(left: 200, right: 0),
-                              child: IconButton(
-                                icon: const Icon(Icons.delete),
-                                color: Colors.white,
-                                onPressed: () => setState(
-                                    () => ispasswordev = !ispasswordev),
-                              ),
+                            Row(
+                              children: [
+                                Container(
+                                  margin:
+                                      const EdgeInsets.only(left: 25, right: 0),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.delete),
+                                    color: Colors.white,
+                                    onPressed: () => setState(
+                                        () => ispasswordev = !ispasswordev),
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 160, right: 0),
+                                  child: IconButton(
+                                      icon: const Icon(
+                                          Icons.attach_money_rounded),
+                                      color: Colors.white,
+                                      onPressed: () {
+                                        Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CadastroDepositoObjetivo(
+                                                      user: widget.user,
+                                                      objetivo: data,
+                                                      docId: snapshot
+                                                          .data!.docs[index].id,
+                                                    )));
+                                      }),
+                                ),
+                              ],
                             ),
                             Text(data['nome'],
                                 style: GoogleFonts.poppins(
@@ -151,7 +170,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                             SizedBox(
                               height: he * 0.04,
                             ),
-                            Text(data['valor'],
+                            Text(data['valor'].toString(),
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   letterSpacing: 0.5,
@@ -166,7 +185,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                                       CustomSliderWidths(progressBarWidth: 10)),
                               min: 0,
                               max: 100,
-                              initialValue: 0,
+                              initialValue: data['deposito'],
                             ),
                           ],
                         );
