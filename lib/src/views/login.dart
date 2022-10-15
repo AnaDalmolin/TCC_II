@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:tcc_ll/src/bloc/cadastro.dart';
 import 'package:tcc_ll/src/views/singup.dart';
 import 'package:tcc_ll/src/views/telaPrincipal.dart';

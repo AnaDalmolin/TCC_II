@@ -31,7 +31,6 @@ class _TelaPerfilState extends State<TelaPerfil> {
 
   @override
   void initState() {
-    bloc.listarAnotacoesMovimentacao(widget.user, movimentacao);
     // TODO: implement initState
     super.initState();
   }
@@ -82,13 +81,7 @@ class _TelaPerfilState extends State<TelaPerfil> {
               height: he * 0.04,
             ),
             TextButton(
-              onPressed: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => CadastroDepositoSaque(
-                          user: widget.user,
-                          movimento: true,
-                        )));
-              },
+              onPressed: () {},
               child: Text(
                 "Trocar Foto",
                 style: GoogleFonts.poppins(
@@ -115,13 +108,7 @@ class _TelaPerfilState extends State<TelaPerfil> {
               height: he * 0.02,
             ),
             TextButton(
-              onPressed: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => CadastroDepositoSaque(
-                          user: widget.user,
-                          movimento: true,
-                        )));
-              },
+              onPressed: () {},
               child: Text(
                 "Trocar Senha",
                 style: GoogleFonts.poppins(
@@ -148,13 +135,7 @@ class _TelaPerfilState extends State<TelaPerfil> {
               height: he * 0.02,
             ),
             TextButton(
-              onPressed: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => CadastroDepositoSaque(
-                          user: widget.user,
-                          movimento: true,
-                        )));
-              },
+              onPressed: () {},
               child: Text(
                 "Termos de Condição",
                 style: GoogleFonts.poppins(

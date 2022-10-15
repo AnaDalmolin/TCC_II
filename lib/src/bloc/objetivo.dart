@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:quickalert/quickalert.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final CollectionReference _mainCollection = _firestore.collection('Objetivo');
@@ -22,6 +23,28 @@ class DatabaseObjetivo {
       "valor": valor,
       "deposito": deposito,
       "descricao": descricao,
+    };
+
+    await documentReferencer
+        .set(data)
+        // ignore: avoid_print
+        .whenComplete(() => print("Note item added to the database"))
+        // ignore: avoid_print
+        .catchError((e) => print(e));
+  }
+
+// ADD ITEM
+  static Future<void> addObjetivoConcluido({
+    required String nome,
+    required double valor,
+    required String userId,
+  }) async {
+    DocumentReference documentReferencer =
+        _mainCollection.doc(userId).collection('ObjetivosConcluido').doc();
+
+    Map<String, dynamic> data = <String, dynamic>{
+      "nome": nome,
+      "valor": valor,
     };
 
     await documentReferencer
@@ -58,20 +81,27 @@ class DatabaseObjetivo {
   }
 
 // READ ITEM
-  static Stream<QuerySnapshot> readItems({user}) {
+  static Stream<QuerySnapshot> readItems({userId}) {
     CollectionReference notesItemCollection =
-        _mainCollection.doc(user.uid).collection('Objetivos');
+        _mainCollection.doc(userId).collection('Objetivos');
+
+    return notesItemCollection.snapshots();
+  }
+
+// READ OBJETIVOS CONCLUIDOS
+  static Stream<QuerySnapshot> readObjetivosConcluidos({userId}) {
+    CollectionReference notesItemCollection =
+        _mainCollection.doc(userId).collection('ObjetivosConcluido');
 
     return notesItemCollection.snapshots();
   }
 
 // DELETE ITEM
 
-  static Future<void> deleteItem({
-    required String docId,
-  }) async {
+  static Future<void> deleteItem(
+      {required String docId, required userId}) async {
     DocumentReference documentReferencer =
-        _mainCollection.doc(userUid).collection('Objetivos').doc(docId);
+        _mainCollection.doc(userId).collection('Objetivos').doc(docId);
 
     await documentReferencer
         .delete()
@@ -80,14 +110,35 @@ class DatabaseObjetivo {
   }
 
   //PORCENTAGEM OBJETIVO
-
   static porcentagemObjetivo({valorObjetivo, valorDepositado}) {
     double total = valorObjetivo - valorDepositado;
     return total;
   }
 
+  //VALOR A SER DEPOSITADO NO OBJETIVO
   static somaDeposito({valorExistente, valorDepositado}) {
     double total = valorExistente + valorDepositado;
+    //
     return total;
+  }
+
+  //VALIDAR OBJETIVO CONCLUIDO E MOVER PARA LISTA DE FINALIZADO
+  static objetivoConcluido({
+    user,
+    docId,
+    nome,
+    valor,
+  }) async {
+    addObjetivoConcluido(nome: nome, userId: user, valor: valor);
+    await deleteItem(docId: docId, userId: user);
+  }
+
+  //VALIDAR A QUANTIDADE DE OBJETIVO CADASTRADO
+  static validaTotalObjetivo({user}) {
+    CollectionReference notesItemCollection =
+        _mainCollection.doc(user).collection('Objetivos');
+    print(notesItemCollection);
+
+    return notesItemCollection.snapshots();
   }
 }

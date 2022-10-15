@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:tcc_ll/src/bloc/basebloc.dart';
 import 'package:tcc_ll/src/bloc/movimentacao.dart';
 import 'package:tcc_ll/src/bloc/objetivo.dart';
@@ -124,24 +125,55 @@ class _CadastroDepositoObjetivoState extends State<CadastroDepositoObjetivo> {
               child: TextButton(
                 onPressed: () async {
                   var data = widget.objetivo as Map;
-                  await DatabaseObjetivo.updateItem(
-                      nome: data["nome"],
-                      valor: data["valor"],
-                      descricao: data["descricao"],
-                      deposito: DatabaseObjetivo.somaDeposito(
-                        valorExistente: data['deposito'],
-                        valorDepositado:
-                            blocBase.formatValor(valorController.text),
-                      ),
-                      userId: widget.user.uid,
-                      docId: widget.docId);
-
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                        builder: (context) => TelaObjetivo(
-                              user: widget.user,
-                            )),
-                  );
+                  if (DatabaseObjetivo.somaDeposito(
+                          valorExistente: data['deposito'],
+                          valorDepositado:
+                              blocBase.formatValor(valorController.text)) >
+                      data['valor']) {
+                    return QuickAlert.show(
+                      context: context,
+                      type: QuickAlertType.error,
+                      title: 'Oops...',
+                      text:
+                          'O valor do seu deposito é maior que o valor do objetivo!',
+                    );
+                  } else {
+                    await DatabaseObjetivo.updateItem(
+                        nome: data["nome"],
+                        valor: data["valor"],
+                        descricao: data["descricao"],
+                        deposito: DatabaseObjetivo.somaDeposito(
+                            valorExistente: data['deposito'],
+                            valorDepositado:
+                                blocBase.formatValor(valorController.text)),
+                        userId: widget.user.uid,
+                        docId: widget.docId);
+                    if (data['valor'] ==
+                        DatabaseObjetivo.somaDeposito(
+                            valorExistente: data['deposito'],
+                            valorDepositado:
+                                blocBase.formatValor(valorController.text))) {
+                      return QuickAlert.show(
+                        context: context,
+                        type: QuickAlertType.success,
+                        title: 'AEEEEE',
+                        text: 'Parabéns você finalizou o seu objetivo!',
+                        onConfirmBtnTap: () {
+                          DatabaseObjetivo.objetivoConcluido(
+                              user: widget.user.uid,
+                              valor: data['valor'],
+                              nome: data['nome'],
+                              docId: widget.docId);
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                                builder: (context) => TelaObjetivo(
+                                      user: widget.user,
+                                    )),
+                          );
+                        },
+                      );
+                    }
+                  }
                 },
                 child: Text(
                   "Cadastrar Movimentação",

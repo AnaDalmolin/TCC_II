@@ -1,124 +1,65 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:intl/intl.dart';
+
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+final CollectionReference _mainCollection = _firestore.collection('Movimento');
 
 class MovimentacaoBloc {
-  final db = FirebaseFirestore.instance;
-
-  listarAnotacoesMovimentacao(user, list) async {
-    List listFilter = [];
-    final QuerySnapshot result = await Future.value(
-        FirebaseFirestore.instance.collection("CadastroMovimentacao").get());
-    for (var i = 0; i < result.size; i++) {
-      listFilter.add(result.docs[i].data());
-      listFilter[i]["Data"];
-      if (listFilter[i]["id"] == user.uid) {
-        list.add(listFilter[i]);
+  //FUNÇÃO PARA MOVIMENTAR O SALDO
+  static Future<void> movimentaSaldo(
+      {required double saldoAtual,
+      required double valoradicionado,
+      required String userId,
+      required bool movimento,
+      required String docId}) async {
+    double valor;
+    if (docId == null || docId == '') {
+      if (movimento == true) {
+        valor = valoradicionado + saldoAtual;
+      } else {
+        valor = valoradicionado - saldoAtual;
       }
-    }
-    return list;
-  }
+      DocumentReference documentReferencer =
+          _mainCollection.doc(userId).collection('Saldo').doc();
 
-  listarUltimaAnotacao(user, list) async {
-    List listFilter = [];
-    final QuerySnapshot result = await Future.value(
-        FirebaseFirestore.instance.collection("CadastroMovimentacao").get());
-    for (var i = 0; i < result.size; i++) {
-      listFilter.add(result.docs[i].data());
-      listFilter[i]["Data"];
-      if (listFilter[i]["id"] == user.uid) {
-        list.add(listFilter[i]);
-      }
-    }
-    return list;
-  }
+      Map<String, dynamic> data = <String, dynamic>{
+        "valor": valor,
+      };
 
-  movimentoPoridUsuario(user) async {
-    final QuerySnapshot result = await Future.value(FirebaseFirestore.instance
-        .collection("CadastroMovimentacao")
-        .where("id", isEqualTo: user.uid)
-        .get());
-  }
-
-  movimentacao(listMovimentacao, movimento) {
-    if (movimento == true) {
-    } else if (movimento == false) {}
-  }
-
-  // ignore: non_constant_identifier_names
-  CadastroAnotacaoMovimentacao(valor, user, movimentacao) async {
-    List listMovimetacao = [];
-
-    await listarAnotacoesMovimentacao(user, listMovimetacao);
-    if (listMovimetacao.isNotEmpty) {
-      for (var i = 0; i < listMovimetacao.length; i++) {
-        print(listMovimetacao[i].db);
-        // if (listMovimetacao[i]["id"] == user.uid) {
-        //   print(listMovimetacao[i].reference.id);
-        //   db.collection('CadastroMovimentacao').doc(user.uid).set(
-        //     {
-        //       "valor": valor,
-        //     },
-        //   );
-        // } else {
-        //   print(listMovimetacao[i].reference.id);
-        //   db.collection('CadastroMovimentacao').add(
-        //     {
-        //       "id": user.uid,
-        //       "valor": valor,
-        //       "movimentacao": movimentacao,
-        //       "data": DateFormat("yyyy-MM-dd").format(DateTime.now())
-        //     },
-        //   );
-        // }
-      }
+      await documentReferencer
+          .set(data)
+          // ignore: avoid_print
+          .whenComplete(() => print("Note item added to the database"))
+          // ignore: avoid_print
+          .catchError((e) => print(e));
     } else {
-      db.collection('CadastroMovimentacao').add(
-        {
-          "id": user.uid,
-          "valor": valor,
-          "movimentacao": movimentacao,
-          "data": DateFormat("yyyy-MM-dd").format(DateTime.now())
-        },
-      );
+      double valor;
+
+      if (movimento == true) {
+        valor = valoradicionado + saldoAtual;
+      } else {
+        valor = valoradicionado - saldoAtual;
+      }
+      DocumentReference documentReferencer =
+          _mainCollection.doc(userId).collection('Saldo').doc(docId);
+
+      Map<String, dynamic> data = <String, dynamic>{
+        "valor": valor,
+      };
+
+      await documentReferencer
+          .update(data)
+          .whenComplete(() => print("Note item updated in the database"))
+          .catchError((e) => print(e));
     }
-
-    // db.collection('CadastroMovimentacao').add(
-    //   {
-    //     "id": user.uid,
-    //     "Valor": valor,
-    //     "Movimentação": movimentacao,
-    //     "Data": DateFormat("yyyy-MM-dd").format(DateTime.now())
-    //   },
-    // );
   }
-  // // ignore: non_constant_identifier_names
-  // CadastroAnotacaoMovimentacao(valor, user, movimentacao) async {
-  //   List listMovimetacao = [];
-  //   List ultimoMovimento = [];
-  //   await listarAnotacoesMovimentacao(user, listMovimetacao);
 
-  //   for (var i = 0; i < listMovimetacao.length; i++) {
-  //     print('PELO MENOS ENTREI AQUI');
+  // READ ITEM
+  static Stream<QuerySnapshot> readItems({userId}) {
+    CollectionReference notesItemCollection =
+        _mainCollection.doc(userId).collection('Saldo');
 
-  //     if (ultimoMovimento.isEmpty) {
-  //       ultimoMovimento.add(listMovimetacao[i]);
-  //     } else if (DateTime.parse(listMovimetacao[i]["Data"])
-  //         .isBefore(DateTime.parse(ultimoMovimento[0]["Data"]))) {
-  //       ultimoMovimento.clear();
-  //       ultimoMovimento.add(listMovimetacao[i]);
-  //       print("Entrou   AQUI NESSA else");
-  //     }
-  //   }
-
-  //   // db.collection('CadastroMovimentacao').add(
-  //   //   {
-  //   //     "id": user.uid,
-  //   //     "Valor": valor,
-  //   //     "Movimentação": movimentacao,
-  //   //     "Data": DateFormat("yyyy-MM-dd").format(DateTime.now())
-  //   //   },
-  //   // );
-  // }
+    return notesItemCollection.snapshots();
+  }
 
   // @override
   // void dispose() {}

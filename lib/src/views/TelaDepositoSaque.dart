@@ -15,10 +15,19 @@ import 'package:tcc_ll/src/views/telaPrincipal.dart';
 
 // ignore: must_be_immutable
 class CadastroDepositoSaque extends StatefulWidget {
-  CadastroDepositoSaque({Key? key, required this.user, required this.movimento})
+  CadastroDepositoSaque(
+      {Key? key,
+      required this.user,
+      required this.movimento,
+      required this.docId,
+      required this.saldoAtual,
+      required this.valorMovimento})
       : super(key: key);
   final User user;
   bool movimento;
+  String docId;
+  double saldoAtual;
+  double valorMovimento;
   @override
   State<CadastroDepositoSaque> createState() => _CadastroDepositoSaqueState();
 }
@@ -119,9 +128,10 @@ class _CadastroDepositoSaqueState extends State<CadastroDepositoSaque> {
                 onPressed: () {
                   double valorMovimento =
                       blocBase.formatValor(valorController.text);
-
-                  bloc.CadastroAnotacaoMovimentacao(
-                      valorMovimento, widget.user, widget.movimento);
+                  // MovimentacaoBloc.movimentaSaldo(
+                  //   movimento: widget.movimento,
+                  //   userId: widget.user.uid,
+                  // );
 
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => TelaInicial(

@@ -8,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:scaled_list/scaled_list.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:tcc_ll/src/bloc/objetivo.dart';
-import 'package:tcc_ll/src/models/objetivoModel.dart';
 import 'package:tcc_ll/src/views/TelaConquista.dart';
 import 'package:tcc_ll/src/views/cadastroObjetivo.dart';
 import 'package:tcc_ll/src/views/depositoObjetivo.dart';
@@ -25,8 +24,6 @@ class TelaObjetivo extends StatefulWidget {
 }
 
 class _TelaObjetivoState extends State<TelaObjetivo> {
-  List<Objetivo> objetivos = [];
-
   @override
   void initState() {
     super.initState();
@@ -45,6 +42,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
         backgroundColor: const Color.fromARGB(255, 230, 46, 0),
       ),
       body: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
         child: Column(
           children: [
             ClipPath(
@@ -64,6 +62,8 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                             margin: const EdgeInsets.only(left: 60, right: 5),
                             child: TextButton(
                               onPressed: () {
+                                DatabaseObjetivo.validaTotalObjetivo(
+                                    user: widget.user.uid);
                                 Navigator.of(context)
                                     .pushReplacement(MaterialPageRoute(
                                         builder: (context) => CadastroObjetivo(
@@ -104,7 +104,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
               height: he * 0.04,
             ),
             StreamBuilder<QuerySnapshot>(
-                stream: DatabaseObjetivo.readItems(user: widget.user),
+                stream: DatabaseObjetivo.readItems(userId: widget.user.uid),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return Text('Something went wrong');
@@ -133,8 +133,9 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                                       color: Colors.white,
                                       onPressed: () async {
                                         await DatabaseObjetivo.deleteItem(
-                                          docId: snapshot.data!.docs[index].id,
-                                        );
+                                            docId:
+                                                snapshot.data!.docs[index].id,
+                                            userId: widget.user.uid);
                                       }),
                                 ),
                                 Container(
@@ -167,7 +168,18 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                             SizedBox(
                               height: he * 0.04,
                             ),
-                            Text(data['valor'].toString(),
+                            Text("Valor Objetivo: " + data['valor'].toString(),
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  letterSpacing: 0.5,
+                                  fontSize: 20,
+                                )),
+                            SizedBox(
+                              height: he * 0.02,
+                            ),
+                            Text(
+                                "Valor Guardado: " +
+                                    data['deposito'].toString(),
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   letterSpacing: 0.5,
@@ -209,6 +221,31 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                     ),
                   );
                 }),
+            // if (DatabaseObjetivo.readObjetivosConcluidos(
+            //         userId: widget.user.uid) !=
+            //     null)
+            //   StreamBuilder<QuerySnapshot>(
+            //       stream: DatabaseObjetivo.readObjetivosConcluidos(
+            //           userId: widget.user.uid),
+            //       builder: (context, snapshot) {
+            //         // ignore: unnecessary_null_comparison
+            //         if (snapshot.data!.docs.length != null) {
+            //           return ListView.builder(
+            //             itemCount: snapshot.data!.docs.length,
+            //             itemBuilder: (context, index) {
+            //               var doc = snapshot.data!.docs[index];
+            //               var data = doc.data() as Map;
+
+            //               return ListTile(
+            //                 title: data['nome'].buildTitle(context),
+            //                 subtitle: data['valor'].buildSubtitle(context),
+            //               );
+            //             },
+            //           );
+            //         } else {
+            //           return Container();
+            //         }
+            //       }),
           ],
         ),
       ),
