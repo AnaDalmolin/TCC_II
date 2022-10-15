@@ -14,9 +14,9 @@ class MovimentacaoBloc {
     double valor;
     if (docId == null || docId == '') {
       if (movimento == true) {
-        valor = valoradicionado + saldoAtual;
+        valor = saldoAtual + valoradicionado;
       } else {
-        valor = valoradicionado - saldoAtual;
+        valor = saldoAtual - valoradicionado;
       }
       DocumentReference documentReferencer =
           _mainCollection.doc(userId).collection('Saldo').doc();
@@ -35,9 +35,9 @@ class MovimentacaoBloc {
       double valor;
 
       if (movimento == true) {
-        valor = valoradicionado + saldoAtual;
+        valor = saldoAtual + valoradicionado;
       } else {
-        valor = valoradicionado - saldoAtual;
+        valor = saldoAtual - valoradicionado;
       }
       DocumentReference documentReferencer =
           _mainCollection.doc(userId).collection('Saldo').doc(docId);
@@ -53,8 +53,38 @@ class MovimentacaoBloc {
     }
   }
 
+  // ADD MOVIMENTAÇÃO NO HISTORICO
+  static Future<void> addObjetivoConcluido({
+    required DateTime dataMovimento,
+    required double valor,
+    required String userId,
+  }) async {
+    DocumentReference documentReferencer =
+        _mainCollection.doc(userId).collection('HistoricodeMovimentacao').doc();
+
+    Map<String, dynamic> data = <String, dynamic>{
+      "data": dataMovimento,
+      "valor": valor,
+    };
+
+    await documentReferencer
+        .set(data)
+        // ignore: avoid_print
+        .whenComplete(() => print("Note item added to the database"))
+        // ignore: avoid_print
+        .catchError((e) => print(e));
+  }
+
   // READ ITEM
   static Stream<QuerySnapshot> readItems({userId}) {
+    CollectionReference notesItemCollection =
+        _mainCollection.doc(userId).collection('Saldo');
+
+    return notesItemCollection.snapshots();
+  }
+
+  // READ ITEM HISTORICO
+  static Stream<QuerySnapshot> readItemsHistorico({userId}) {
     CollectionReference notesItemCollection =
         _mainCollection.doc(userId).collection('Saldo');
 

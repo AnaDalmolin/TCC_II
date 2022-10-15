@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:avatars/avatars.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_bottom_navigation_2/fancy_bottom_navigation.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -152,15 +153,15 @@ class _TelaInicialState extends State<TelaInicial> {
                           Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Container(
-                              margin: const EdgeInsets.only(left: 20, right: 5),
-                              child: StreamBuilder<Object>(
+                              margin: const EdgeInsets.only(left: 8, right: 5),
+                              child: StreamBuilder<QuerySnapshot>(
                                   stream: MovimentacaoBloc.readItems(
                                       userId: widget.user.uid),
                                   builder: (context, snapshot) {
-                                    //  snapshot.data!.docs[index].id
-                                    print(snapshot.data);
+                                    var doc = snapshot.data!.docs[0];
+                                    var data = doc.data() as Map;
                                     return Text(
-                                      "0,00",
+                                      data['valor'].toString(),
                                       style: GoogleFonts.poppins(
                                         color: Colors.white,
                                         letterSpacing: 0.5,
@@ -181,12 +182,11 @@ class _TelaInicialState extends State<TelaInicial> {
             SizedBox(
               height: he * 0.02,
             ),
-            StreamBuilder<Object>(
+            StreamBuilder<QuerySnapshot>(
                 stream: MovimentacaoBloc.readItems(userId: widget.user.uid),
                 builder: (context, snapshot) {
-                  // var doc = snapshot.data!.docs[index];
-                  // var data = doc.data() as Map;
-                  print(snapshot.data);
+                  var doc = snapshot.data!.docs[0];
+                  var data = doc.data() as Map;
                   return Row(
                     children: [
                       FadeAnimation(
@@ -194,7 +194,17 @@ class _TelaInicialState extends State<TelaInicial> {
                         child: Padding(
                           padding: const EdgeInsets.all(20.0),
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          CadastroDepositoSaque(
+                                            user: widget.user,
+                                            movimento: false,
+                                            docId: doc.id != null ? doc.id : '',
+                                            saldoAtual: data['valor'],
+                                          )));
+                            },
                             child: Text(
                               "Anotar Saque",
                               style: GoogleFonts.poppins(
@@ -225,15 +235,15 @@ class _TelaInicialState extends State<TelaInicial> {
                           padding: const EdgeInsets.all(16.0),
                           child: TextButton(
                             onPressed: () {
-                              // Navigator.of(context).pushReplacement(
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             CadastroDepositoSaque(
-                              //               user: widget.user,
-                              //               movimento: true,
-                              //               docId:
-                              //                   snapshot.data!.docs[index].id,
-                              //             )));
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          CadastroDepositoSaque(
+                                            user: widget.user,
+                                            movimento: true,
+                                            docId: doc.id != null ? doc.id : '',
+                                            saldoAtual: data['valor'],
+                                          )));
                             },
                             child: Text(
                               "Anotar Deposito",
