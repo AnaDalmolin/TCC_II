@@ -27,18 +27,18 @@ class _TelaConquistaState extends State<TelaConquista> {
     var he = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tela Conquistas"),
+        title: Text("Suas Conquistas"),
         backgroundColor: const Color.fromARGB(255, 230, 46, 0),
       ),
       body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
+        scrollDirection: Axis.vertical,
         child: Column(
           children: [
             ClipPath(
               clipper: WaveClipperOne(),
               child: Container(
                 height: 100,
-                width: 400,
+                width: 450,
                 color: const Color.fromARGB(255, 230, 46, 0),
                 child: Center(
                   child: Padding(
@@ -49,9 +49,6 @@ class _TelaConquistaState extends State<TelaConquista> {
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: he * 0.04,
             ),
             FadeAnimation(
               delay: 1,
@@ -75,6 +72,84 @@ class _TelaConquistaState extends State<TelaConquista> {
                   // padding: const EdgeInsets.all(8.0),
                 ),
               ),
+            ),
+            SizedBox(
+              height: he * 0.04,
+            ),
+            FadeAnimation(
+              delay: 1,
+              child: Container(
+                width: we * 0.9,
+                height: he * 0.11,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: Color.fromARGB(255, 152, 10, 165),
+                ),
+                padding: const EdgeInsets.all(8.0),
+              ),
+            ),
+            SizedBox(
+              height: he * 0.04,
+            ),
+            FadeAnimation(
+              delay: 1,
+              child: Container(
+                width: we * 0.9,
+                height: he * 0.11,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: Color.fromARGB(255, 152, 10, 165),
+                ),
+                padding: const EdgeInsets.all(8.0),
+              ),
+            ),
+            SizedBox(
+              height: he * 0.04,
+            ),
+            FadeAnimation(
+              delay: 1,
+              child: Container(
+                width: we * 0.9,
+                height: he * 0.11,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: Color.fromARGB(255, 152, 10, 165),
+                ),
+                padding: const EdgeInsets.all(8.0),
+              ),
+            ),
+            SizedBox(
+              height: he * 0.04,
+            ),
+            FadeAnimation(
+              delay: 1,
+              child: Container(
+                width: we * 0.9,
+                height: he * 0.11,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: Color.fromARGB(255, 152, 10, 165),
+                ),
+                padding: const EdgeInsets.all(8.0),
+              ),
+            ),
+            SizedBox(
+              height: he * 0.04,
+            ),
+            FadeAnimation(
+              delay: 1,
+              child: Container(
+                width: we * 0.9,
+                height: he * 0.11,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: Color.fromARGB(255, 152, 10, 165),
+                ),
+                padding: const EdgeInsets.all(8.0),
+              ),
+            ),
+            SizedBox(
+              height: he * 0.04,
             ),
           ],
         ),
