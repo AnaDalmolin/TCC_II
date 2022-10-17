@@ -158,8 +158,8 @@ class _TelaInicialState extends State<TelaInicial> {
                                   stream: MovimentacaoBloc.readItems(
                                       userId: widget.user.uid),
                                   builder: (context, snapshot) {
-                                    var doc = snapshot.data!.docs[0];
-                                    var data = doc.data() as Map;
+                                    var doc = snapshot.data?.docs[0];
+                                    var data = doc?.data() as Map;
                                     return Text(
                                       data['valor'].toString(),
                                       style: GoogleFonts.poppins(
@@ -185,8 +185,8 @@ class _TelaInicialState extends State<TelaInicial> {
             StreamBuilder<QuerySnapshot>(
                 stream: MovimentacaoBloc.readItems(userId: widget.user.uid),
                 builder: (context, snapshot) {
-                  var doc = snapshot.data!.docs[0];
-                  var data = doc.data() as Map;
+                  var doc = snapshot.data?.docs[0];
+                  var data = doc?.data() as Map;
                   return Row(
                     children: [
                       FadeAnimation(
@@ -201,7 +201,7 @@ class _TelaInicialState extends State<TelaInicial> {
                                           CadastroDepositoSaque(
                                             user: widget.user,
                                             movimento: false,
-                                            docId: doc.id != null ? doc.id : '',
+                                            docId: doc?.id ?? '',
                                             saldoAtual: data['valor'],
                                           )));
                             },
@@ -241,7 +241,7 @@ class _TelaInicialState extends State<TelaInicial> {
                                           CadastroDepositoSaque(
                                             user: widget.user,
                                             movimento: true,
-                                            docId: doc.id != null ? doc.id : '',
+                                            docId: doc?.id ?? '',
                                             saldoAtual: data['valor'],
                                           )));
                             },

@@ -11,6 +11,7 @@ import 'package:tcc_ll/src/bloc/objetivo.dart';
 import 'package:tcc_ll/src/views/TelaConquista.dart';
 import 'package:tcc_ll/src/views/cadastroObjetivo.dart';
 import 'package:tcc_ll/src/views/depositoObjetivo.dart';
+import 'package:tcc_ll/src/views/objetivosConcluidos.dart';
 import 'package:tcc_ll/src/views/singup.dart';
 import 'package:tcc_ll/src/views/telaPrincipal.dart';
 
@@ -42,7 +43,6 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
         backgroundColor: const Color.fromARGB(255, 230, 46, 0),
       ),
       body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
         child: Column(
           children: [
             ClipPath(
@@ -221,31 +221,41 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                     ),
                   );
                 }),
-            // if (DatabaseObjetivo.readObjetivosConcluidos(
-            //         userId: widget.user.uid) !=
-            //     null)
-            //   StreamBuilder<QuerySnapshot>(
-            //       stream: DatabaseObjetivo.readObjetivosConcluidos(
-            //           userId: widget.user.uid),
-            //       builder: (context, snapshot) {
-            //         // ignore: unnecessary_null_comparison
-            //         if (snapshot.data!.docs.length != null) {
-            //           return ListView.builder(
-            //             itemCount: snapshot.data!.docs.length,
-            //             itemBuilder: (context, index) {
-            //               var doc = snapshot.data!.docs[index];
-            //               var data = doc.data() as Map;
-
-            //               return ListTile(
-            //                 title: data['nome'].buildTitle(context),
-            //                 subtitle: data['valor'].buildSubtitle(context),
-            //               );
-            //             },
-            //           );
-            //         } else {
-            //           return Container();
-            //         }
-            //       }),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                margin: const EdgeInsets.only(left: 5, right: 5),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => TelaObjetivoConcluido(
+                              user: widget.user,
+                            )));
+                  },
+                  child: Text(
+                    "Objetivos Concluidos",
+                    style: GoogleFonts.poppins(
+                      color: const Color.fromARGB(255, 230, 46, 0),
+                      letterSpacing: 0.2,
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  style: TextButton.styleFrom(
+                    side: const BorderSide(
+                      width: 3.0,
+                      color: Colors.deepPurple,
+                    ),
+                    backgroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 25),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

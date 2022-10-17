@@ -39,6 +39,13 @@ class _CadastroDepositoObjetivoState extends State<CadastroDepositoObjetivo> {
   var blocBase = BaseBloc();
 
   final TextEditingController valorController = TextEditingController();
+  @override
+  void initState() {
+    // var doc = snapshot.data!.docs[index];
+    // var data = doc.data() as Map;
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,6 +132,9 @@ class _CadastroDepositoObjetivoState extends State<CadastroDepositoObjetivo> {
               child: TextButton(
                 onPressed: () async {
                   var data = widget.objetivo as Map;
+                  var saldo =
+                      MovimentacaoBloc.readItems(userId: widget.user.uid);
+                  print(saldo.first);
                   if (DatabaseObjetivo.somaDeposito(
                           valorExistente: data['deposito'],
                           valorDepositado:
@@ -148,6 +158,7 @@ class _CadastroDepositoObjetivoState extends State<CadastroDepositoObjetivo> {
                                 blocBase.formatValor(valorController.text)),
                         userId: widget.user.uid,
                         docId: widget.docId);
+
                     if (data['valor'] ==
                         DatabaseObjetivo.somaDeposito(
                             valorExistente: data['deposito'],
@@ -171,6 +182,14 @@ class _CadastroDepositoObjetivoState extends State<CadastroDepositoObjetivo> {
                                     )),
                           );
                         },
+                      );
+                    } else if (data['valor'] == null) {
+                    } else {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                            builder: (context) => TelaObjetivo(
+                                  user: widget.user,
+                                )),
                       );
                     }
                   }

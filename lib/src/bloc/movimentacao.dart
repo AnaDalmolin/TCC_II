@@ -79,7 +79,7 @@ class MovimentacaoBloc {
   static Stream<QuerySnapshot> readItems({userId}) {
     CollectionReference notesItemCollection =
         _mainCollection.doc(userId).collection('Saldo');
-
+    print(notesItemCollection);
     return notesItemCollection.snapshots();
   }
 
