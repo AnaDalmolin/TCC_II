@@ -162,7 +162,7 @@ class _TelaInicialState extends State<TelaInicial> {
                                       return Text('Something went wrong');
                                     } else if (snapshot.hasData ||
                                         snapshot.data != null) {
-                                      var doc = snapshot.data!.docs[index];
+                                      var doc = snapshot.data!.docs[0];
                                       var data = doc.data() as Map;
                                       return Text(
                                         data['valor'].toString(),

@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:fancy_bottom_navigation_2/fancy_bottom_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -129,89 +130,134 @@ class _CadastroDepositoObjetivoState extends State<CadastroDepositoObjetivo> {
             ),
             FadeAnimation(
               delay: 1,
-              child: TextButton(
-                onPressed: () async {
-                  var data = widget.objetivo as Map;
-                  var saldo =
-                      MovimentacaoBloc.readItems(userId: widget.user.uid);
-                  print(saldo.first);
-                  if (DatabaseObjetivo.somaDeposito(
-                          valorExistente: data['deposito'],
-                          valorDepositado:
-                              blocBase.formatValor(valorController.text)) >
-                      data['valor']) {
-                    return QuickAlert.show(
-                      context: context,
-                      type: QuickAlertType.error,
-                      title: 'Oops...',
-                      text:
-                          'O valor do seu deposito é maior que o valor do objetivo!',
-                    );
-                  } else {
-                    await DatabaseObjetivo.updateItem(
-                        nome: data["nome"],
-                        valor: data["valor"],
-                        descricao: data["descricao"],
-                        deposito: DatabaseObjetivo.somaDeposito(
-                            valorExistente: data['deposito'],
-                            valorDepositado:
-                                blocBase.formatValor(valorController.text)),
-                        userId: widget.user.uid,
-                        docId: widget.docId);
+              child: StreamBuilder<QuerySnapshot>(
+                  stream: MovimentacaoBloc.readItems(userId: widget.user.uid),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return const Text('Something went wrong');
+                    } else if (snapshot.hasData || snapshot.data != null) {
+                      var doc = snapshot.data!.docs[0];
+                      var dataSaldo = doc.data() as Map;
+                      return TextButton(
+                        onPressed: () async {
+                          var data = widget.objetivo as Map;
+                          if (DatabaseObjetivo.somaDeposito(
+                                  valorExistente: data['deposito'],
+                                  valorDepositado: blocBase
+                                      .formatValor(valorController.text)) >
+                              data['valor']) {
+                            return QuickAlert.show(
+                              context: context,
+                              type: QuickAlertType.error,
+                              title: 'Oops...',
+                              text:
+                                  'O valor do seu deposito é maior que o valor do objetivo!',
+                            );
+                          } else if (blocBase
+                                  .formatValor(valorController.text) >
+                              dataSaldo['valor']) {
+                            return QuickAlert.show(
+                              context: context,
+                              type: QuickAlertType.error,
+                              title: 'Oops...',
+                              text:
+                                  'O valor do seu deposito é maior que o valor do seu saldo!',
+                            );
+                          } else {
+                            await DatabaseObjetivo.updateItem(
+                                nome: data["nome"],
+                                valor: data["valor"],
+                                descricao: data["descricao"],
+                                deposito: DatabaseObjetivo.somaDeposito(
+                                    valorExistente: data['deposito'],
+                                    valorDepositado: blocBase
+                                        .formatValor(valorController.text)),
+                                userId: widget.user.uid,
+                                docId: widget.docId,
+                                saldo: dataSaldo['valor'],
+                                valorDigitado:
+                                    blocBase.formatValor(valorController.text),
+                                docIdSaldo: snapshot.data!.docs[0].id);
 
-                    if (data['valor'] ==
-                        DatabaseObjetivo.somaDeposito(
-                            valorExistente: data['deposito'],
-                            valorDepositado:
-                                blocBase.formatValor(valorController.text))) {
-                      return QuickAlert.show(
-                        context: context,
-                        type: QuickAlertType.success,
-                        title: 'AEEEEE',
-                        text: 'Parabéns você finalizou o seu objetivo!',
-                        onConfirmBtnTap: () {
-                          DatabaseObjetivo.objetivoConcluido(
-                              user: widget.user.uid,
-                              valor: data['valor'],
-                              nome: data['nome'],
-                              docId: widget.docId);
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                                builder: (context) => TelaObjetivo(
-                                      user: widget.user,
-                                    )),
-                          );
+                            QuickAlert.show(
+                              context: context,
+                              type: QuickAlertType.confirm,
+                              title: 'Atenção!',
+                              text:
+                                  'Você guardou dinheiro do seu saldo, Não podera gastar o mesmo até finalizar o Objetivo!',
+                              onConfirmBtnTap: () async {},
+                            );
+
+                            if (data['valor'] ==
+                                DatabaseObjetivo.somaDeposito(
+                                    valorExistente: data['deposito'],
+                                    valorDepositado: blocBase
+                                        .formatValor(valorController.text))) {
+                              return QuickAlert.show(
+                                context: context,
+                                type: QuickAlertType.success,
+                                title: 'AEEEEE',
+                                text: 'Parabéns você finalizou o seu objetivo!',
+                                onConfirmBtnTap: () {
+                                  DatabaseObjetivo.objetivoConcluido(
+                                      user: widget.user.uid,
+                                      valor: data['valor'],
+                                      nome: data['nome'],
+                                      docId: widget.docId);
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) => TelaObjetivo(
+                                              user: widget.user,
+                                            )),
+                                  );
+                                },
+                              );
+                            } else if (data['valor'] == null) {
+                              QuickAlert.show(
+                                context: context,
+                                type: QuickAlertType.confirm,
+                                title: 'Ops!',
+                                text:
+                                    'Você não digitou nenhum valor para ser depositado!',
+                                onConfirmBtnTap: () async {},
+                              );
+                            } else {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => TelaObjetivo(
+                                          user: widget.user,
+                                        )),
+                              );
+                            }
+                          }
                         },
-                      );
-                    } else if (data['valor'] == null) {
-                    } else {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                            builder: (context) => TelaObjetivo(
-                                  user: widget.user,
-                                )),
+                        child: Text(
+                          "Cadastrar Movimentação",
+                          style: GoogleFonts.heebo(
+                            color: Colors.white,
+                            letterSpacing: 0.2,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        style: TextButton.styleFrom(
+                          backgroundColor: Color.fromARGB(226, 171, 7, 177),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 15.0, horizontal: 80),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                        ),
                       );
                     }
-                  }
-                },
-                child: Text(
-                  "Cadastrar Movimentação",
-                  style: GoogleFonts.heebo(
-                    color: Colors.white,
-                    letterSpacing: 0.2,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                style: TextButton.styleFrom(
-                  backgroundColor: Color.fromARGB(226, 171, 7, 177),
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 15.0, horizontal: 80),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                ),
-              ),
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          Colors.orangeAccent,
+                        ),
+                      ),
+                    );
+                  }),
             ),
           ],
         ),

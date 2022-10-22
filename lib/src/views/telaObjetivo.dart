@@ -5,8 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:scaled_list/scaled_list.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:tcc_ll/src/bloc/movimentacao.dart';
 import 'package:tcc_ll/src/bloc/objetivo.dart';
 import 'package:tcc_ll/src/views/TelaConquista.dart';
 import 'package:tcc_ll/src/views/cadastroObjetivo.dart';
@@ -60,38 +62,70 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                           padding: const EdgeInsets.all(20.0),
                           child: Container(
                             margin: const EdgeInsets.only(left: 60, right: 5),
-                            child: TextButton(
-                              onPressed: () {
-                                DatabaseObjetivo.validaTotalObjetivo(
-                                    user: widget.user.uid);
-                                Navigator.of(context)
-                                    .pushReplacement(MaterialPageRoute(
-                                        builder: (context) => CadastroObjetivo(
-                                              user: widget.user,
-                                            )));
-                              },
-                              child: Text(
-                                "Criar Novo Objetivo +",
-                                style: GoogleFonts.poppins(
-                                  color: const Color.fromARGB(255, 230, 46, 0),
-                                  letterSpacing: 0.2,
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              style: TextButton.styleFrom(
-                                side: const BorderSide(
-                                  width: 3.0,
-                                  color: Colors.deepPurple,
-                                ),
-                                backgroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 25),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                              ),
-                            ),
+                            child: StreamBuilder<QuerySnapshot>(
+                                stream: DatabaseObjetivo.readItems(
+                                    userId: widget.user.uid),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasError) {
+                                    return const Text('Something went wrong');
+                                  } else if (snapshot.hasData ||
+                                      snapshot.data != null) {
+                                    int numObjetivo =
+                                        snapshot.data!.docs.length;
+                                    return TextButton(
+                                      onPressed: () {
+                                        if (numObjetivo >= 5) {
+                                          QuickAlert.show(
+                                            context: context,
+                                            type: QuickAlertType.error,
+                                            title: 'Oops...',
+                                            text:
+                                                'Você já cadastrou o maximo de objetivos liberados!',
+                                          );
+                                        } else {
+                                          DatabaseObjetivo.validaTotalObjetivo(
+                                              user: widget.user.uid);
+                                          Navigator.of(context).pushReplacement(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CadastroObjetivo(
+                                                        user: widget.user,
+                                                      )));
+                                        }
+                                      },
+                                      child: Text(
+                                        "Criar Novo Objetivo +",
+                                        style: GoogleFonts.poppins(
+                                          color: const Color.fromARGB(
+                                              255, 230, 46, 0),
+                                          letterSpacing: 0.2,
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      style: TextButton.styleFrom(
+                                        side: const BorderSide(
+                                          width: 3.0,
+                                          color: Colors.deepPurple,
+                                        ),
+                                        backgroundColor: Colors.white,
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 10.0, horizontal: 25),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  return const Center(
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.orangeAccent,
+                                      ),
+                                    ),
+                                  );
+                                }),
                           ),
                         ),
                       ],
@@ -107,7 +141,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                 stream: DatabaseObjetivo.readItems(userId: widget.user.uid),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
-                    return Text('Something went wrong');
+                    return const Text('Something went wrong');
                   } else if (snapshot.hasData || snapshot.data != null) {
                     return ScaledList(
                       cardWidthRatio: 0.75,
@@ -118,6 +152,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                         return kMixedColors[index % kMixedColors.length];
                       },
                       itemBuilder: (index, selectedIndex) {
+                        String idDoc = snapshot.data!.docs[index].id;
                         var doc = snapshot.data!.docs[index];
                         var data = doc.data() as Map;
                         return Column(
@@ -128,14 +163,41 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                                 Container(
                                   margin:
                                       const EdgeInsets.only(left: 25, right: 0),
-                                  child: IconButton(
-                                      icon: const Icon(Icons.delete),
-                                      color: Colors.white,
-                                      onPressed: () async {
-                                        await DatabaseObjetivo.deleteItem(
-                                            docId:
-                                                snapshot.data!.docs[index].id,
-                                            userId: widget.user.uid);
+                                  child: StreamBuilder<QuerySnapshot>(
+                                      stream: MovimentacaoBloc.readItems(
+                                          userId: widget.user.uid),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasError) {
+                                          return const Text(
+                                              'Something went wrong');
+                                        } else if (snapshot.hasData ||
+                                            snapshot.data != null) {
+                                          var doc = snapshot.data!.docs[0];
+                                          var dataSaldo = doc.data() as Map;
+                                          return IconButton(
+                                              icon: const Icon(Icons.delete),
+                                              color: Colors.white,
+                                              onPressed: () async {
+                                                await DatabaseObjetivo
+                                                    .deleteItemESaldo(
+                                                        docId: idDoc,
+                                                        userId: widget.user.uid,
+                                                        docIdSaldo: snapshot
+                                                            .data!.docs[0].id,
+                                                        saldoAtual:
+                                                            dataSaldo['valor'],
+                                                        valorObjetivo:
+                                                            data['deposito']);
+                                              });
+                                        }
+                                        return const Center(
+                                          child: CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                              Colors.orangeAccent,
+                                            ),
+                                          ),
+                                        );
                                       }),
                                 ),
                                 Container(
@@ -301,13 +363,6 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
       ),
     );
   }
-
-  // formatarValor(valor) {
-  //   String retorno = valor.replace(/\D/g, '');
-
-  //   print(retorno);
-  //   return retorno;
-  // }
 
   final List<Color> kMixedColors = [
     Colors.purple,

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tcc_ll/src/bloc/objetivo.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final CollectionReference _mainCollection = _firestore.collection('Movimento');
@@ -79,7 +80,6 @@ class MovimentacaoBloc {
   static Stream<QuerySnapshot> readItems({userId}) {
     CollectionReference notesItemCollection =
         _mainCollection.doc(userId).collection('Saldo');
-    print(notesItemCollection);
     return notesItemCollection.snapshots();
   }
 

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quickalert/quickalert.dart';
+import 'package:tcc_ll/src/bloc/movimentacao.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final CollectionReference _mainCollection = _firestore.collection('Objetivo');
@@ -56,14 +57,16 @@ class DatabaseObjetivo {
   }
 
 // UPDATE ITEM
-  static Future<void> updateItem({
-    required String nome,
-    required double valor,
-    required double deposito,
-    required String descricao,
-    required String userId,
-    required String docId,
-  }) async {
+  static Future<void> updateItem(
+      {required String nome,
+      required double valor,
+      required double deposito,
+      required String descricao,
+      required String userId,
+      required String docId,
+      required double saldo,
+      required double valorDigitado,
+      required String docIdSaldo}) async {
     DocumentReference documentReferencer =
         _mainCollection.doc(userId).collection('Objetivos').doc(docId);
 
@@ -73,11 +76,17 @@ class DatabaseObjetivo {
       "deposito": deposito,
       "descricao": descricao,
     };
-
     await documentReferencer
         .update(data)
         .whenComplete(() => print("Note item updated in the database"))
         .catchError((e) => print(e));
+
+    await MovimentacaoBloc.movimentaSaldo(
+        saldoAtual: saldo,
+        valoradicionado: valorDigitado,
+        userId: userId,
+        movimento: false,
+        docId: docIdSaldo);
   }
 
 // READ ITEM
@@ -98,8 +107,32 @@ class DatabaseObjetivo {
 
 // DELETE ITEM
 
-  static Future<void> deleteItem(
-      {required String docId, required userId}) async {
+  static Future<void> deleteItemESaldo(
+      {required String docId,
+      required userId,
+      required saldoAtual,
+      required valorObjetivo,
+      required docIdSaldo}) async {
+    DocumentReference documentReferencer =
+        _mainCollection.doc(userId).collection('Objetivos').doc(docId);
+
+    await documentReferencer
+        .delete()
+        .whenComplete(() => print('Note item deleted from the database'))
+        .catchError((e) => print(e));
+
+    await MovimentacaoBloc.movimentaSaldo(
+        saldoAtual: saldoAtual,
+        valoradicionado: valorObjetivo,
+        userId: userId,
+        movimento: true,
+        docId: docIdSaldo);
+  }
+
+  static Future<void> deleteItem({
+    required String docId,
+    required userId,
+  }) async {
     DocumentReference documentReferencer =
         _mainCollection.doc(userId).collection('Objetivos').doc(docId);
 
