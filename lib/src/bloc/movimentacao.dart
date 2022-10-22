@@ -32,6 +32,8 @@ class MovimentacaoBloc {
           .whenComplete(() => print("Note item added to the database"))
           // ignore: avoid_print
           .catchError((e) => print(e));
+      await addMovimentoAoHistorico(
+          valor: valor, userId: userId, movimentacao: movimento);
     } else {
       double valor;
 
@@ -51,21 +53,23 @@ class MovimentacaoBloc {
           .update(data)
           .whenComplete(() => print("Note item updated in the database"))
           .catchError((e) => print(e));
+
+      await addMovimentoAoHistorico(
+          valor: valor, userId: userId, movimentacao: movimento);
     }
   }
 
   // ADD MOVIMENTAÇÃO NO HISTORICO
-  static Future<void> addObjetivoConcluido({
-    required DateTime dataMovimento,
-    required double valor,
-    required String userId,
-  }) async {
+  static Future<void> addMovimentoAoHistorico(
+      {required double valor,
+      required String userId,
+      required bool movimentacao}) async {
     DocumentReference documentReferencer =
         _mainCollection.doc(userId).collection('HistoricodeMovimentacao').doc();
 
     Map<String, dynamic> data = <String, dynamic>{
-      "data": dataMovimento,
       "valor": valor,
+      "movimentacao": movimentacao
     };
 
     await documentReferencer
