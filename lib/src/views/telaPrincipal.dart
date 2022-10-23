@@ -101,7 +101,7 @@ class _TelaInicialState extends State<TelaInicial> {
               ),
             ),
             SizedBox(
-              height: he * 0.04,
+              height: he * 0.02,
             ),
             FadeAnimation(
               delay: 1,
@@ -297,8 +297,113 @@ class _TelaInicialState extends State<TelaInicial> {
                   );
                 }),
             SizedBox(
+              height: he * 0.02,
+            ),
+            const Divider(
+              height: 5,
+              thickness: 4,
+              indent: 10,
+              endIndent: 10,
+              color: Color.fromARGB(255, 230, 46, 0),
+            ),
+            SizedBox(
               height: he * 0.03,
             ),
+            Text("Historico de movimentação",
+                style: GoogleFonts.poppins(
+                  color: Colors.deepPurple,
+                  letterSpacing: 0.5,
+                  fontSize: 22,
+                )),
+            SizedBox(
+              height: he * 0.03,
+            ),
+            StreamBuilder<QuerySnapshot>(
+                stream: MovimentacaoBloc.readItemsHistorico(
+                    userId: widget.user.uid),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                  } else if (snapshot.data != null) {
+                    return SizedBox(
+                      width: 350,
+                      child: ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.all(8),
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            var doc = snapshot.data!.docs[index];
+                            var data = doc.data() as Map<String, dynamic>;
+                            bool movimento = data['movimentacao'];
+                            return index > 5
+                                ? SizedBox()
+                                : FadeAnimation(
+                                    delay: 1,
+                                    child: Container(
+                                      margin:
+                                          const EdgeInsets.fromLTRB(0, 4, 0, 0),
+                                      width: we * 0.6,
+                                      height: 60,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                        color:
+                                            Color.fromARGB(207, 152, 10, 165),
+                                      ),
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: [
+                                          IconButton(
+                                            icon: Icon(movimento == true
+                                                ? Icons.currency_exchange
+                                                : Icons.remove_circle_outline),
+                                            color: Colors.white,
+                                            onPressed: () {},
+                                            iconSize: 30,
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                              movimento
+                                                  ? 'Deposito:'
+                                                  : 'Saque:',
+                                              style: GoogleFonts.poppins(
+                                                color: Colors.white,
+                                                letterSpacing: 0.5,
+                                                fontSize: 22,
+                                              )),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          IconButton(
+                                            icon: Icon(
+                                                Icons.attach_money_outlined),
+                                            color: Colors.white,
+                                            onPressed: () {},
+                                            iconSize: 30,
+                                          ),
+                                          Text(data['valor'].toString(),
+                                              style: GoogleFonts.poppins(
+                                                color: Colors.white,
+                                                letterSpacing: 0.2,
+                                                fontSize: 22,
+                                              )),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                          }),
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        Colors.orangeAccent,
+                      ),
+                    ),
+                  );
+                }),
           ],
         ),
       ),

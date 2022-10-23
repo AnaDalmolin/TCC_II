@@ -90,7 +90,7 @@ class MovimentacaoBloc {
   // READ ITEM HISTORICO
   static Stream<QuerySnapshot> readItemsHistorico({userId}) {
     CollectionReference notesItemCollection =
-        _mainCollection.doc(userId).collection('Saldo');
+        _mainCollection.doc(userId).collection('HistoricodeMovimentacao');
 
     return notesItemCollection.snapshots();
   }
