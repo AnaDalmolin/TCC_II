@@ -170,7 +170,6 @@ class DatabaseObjetivo {
   static validaTotalObjetivo({user}) {
     CollectionReference notesItemCollection =
         _mainCollection.doc(user).collection('Objetivos');
-    print(notesItemCollection);
 
     return notesItemCollection.snapshots();
   }

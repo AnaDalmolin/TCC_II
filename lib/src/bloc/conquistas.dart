@@ -23,6 +23,7 @@ class ConquistasBloc {
       "nome": nome,
       "valor": valor,
       "descricao": fraseConquista,
+      "indentificador": indentificador
     };
 
     await documentReferencer
@@ -121,7 +122,7 @@ class ConquistasBloc {
         valor: valor,
         fraseConquista: "Cuidado pra não gastar muito! Brincadeirinha hehe :D",
         userId: userId,
-        indentificador: "DepositoRealizado");
+        indentificador: "SaqueRealizado");
 
     return QuickAlert.show(
       context: context,

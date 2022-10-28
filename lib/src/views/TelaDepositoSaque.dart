@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tcc_ll/src/bloc/basebloc.dart';
+import 'package:tcc_ll/src/bloc/conquistas.dart';
 import 'package:tcc_ll/src/bloc/movimentacao.dart';
 import 'package:tcc_ll/src/bloc/objetivo.dart';
 import 'package:tcc_ll/src/views/TelaConquista.dart';
@@ -37,6 +38,7 @@ class _CadastroDepositoSaqueState extends State<CadastroDepositoSaque> {
   int currentPage = 0;
   var bloc = MovimentacaoBloc();
   var blocBase = BaseBloc();
+  var blocConquista = ConquistasBloc();
 
   final TextEditingController valorController = TextEditingController();
 
@@ -132,6 +134,13 @@ class _CadastroDepositoSaqueState extends State<CadastroDepositoSaque> {
                       docId: widget.docId,
                       saldoAtual: widget.saldoAtual,
                       valoradicionado: valorMovimento);
+                  if (!widget.movimento &&
+                      (widget.docId == null || widget.docId == '')) {
+                    blocConquista.DepositoInicial(
+                        context: context,
+                        userId: widget.user.uid,
+                        valor: valorMovimento);
+                  }
 
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => TelaInicial(

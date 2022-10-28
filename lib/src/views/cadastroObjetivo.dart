@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:fancy_bottom_navigation_2/fancy_bottom_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tcc_ll/src/bloc/basebloc.dart';
+import 'package:tcc_ll/src/bloc/conquistas.dart';
 import 'package:tcc_ll/src/bloc/objetivo.dart';
 import 'package:tcc_ll/src/bloc/objetivo.dart';
 import 'package:tcc_ll/src/views/TelaConquista.dart';
@@ -186,40 +188,108 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
             ),
             FadeAnimation(
               delay: 1,
-              child: TextButton(
-                onPressed: () async {
-                  await DatabaseObjetivo.addItem(
-                      nome: nomeController.text,
-                      valor: blocBase.formatValor(valorController.text),
-                      descricao: descricaoController.text,
-                      deposito: 0,
-                      userId: widget.user.uid);
+              child: StreamBuilder<QuerySnapshot>(
+                  stream: DatabaseObjetivo.readObjetivosConcluidos(
+                      userId: widget.user.uid),
+                  builder: (context, snapshot) {
+                    bool conlcuidos =
+                        snapshot.data!.docs.length > 0 ? true : false;
+                    if (snapshot.hasError) {
+                      print('');
+                    } else if (snapshot.data?.docs.length == 0 ||
+                        snapshot.data == null) {
+                      return TextButton(
+                        onPressed: () async {
+                          StreamBuilder<QuerySnapshot>(
+                            stream: DatabaseObjetivo.readItems(),
+                            builder: ((context, snapshot) {
+                              if (snapshot.hasError) {
+                                print('');
+                              }
+                              if (snapshot.data?.docs.length == 0 ||
+                                  snapshot.data == null &&
+                                      conlcuidos == false) {
+                                return ConquistasBloc().PrimeiroObjetivo(
+                                    context: context,
+                                    userId: widget.user.uid,
+                                    valor: 0);
+                              }
+                              return Container();
+                            }),
+                          );
 
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                        builder: (context) => TelaObjetivo(
-                              user: widget.user,
-                            )),
-                  );
-                },
-                child: Text(
-                  "Cadastrar informações",
-                  style: GoogleFonts.heebo(
-                    color: Colors.white,
-                    letterSpacing: 0.2,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                style: TextButton.styleFrom(
-                  backgroundColor: Color.fromARGB(226, 171, 7, 177),
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 15.0, horizontal: 80),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                ),
-              ),
+                          await DatabaseObjetivo.addItem(
+                              nome: nomeController.text,
+                              valor: blocBase.formatValor(valorController.text),
+                              descricao: descricaoController.text,
+                              deposito: 0,
+                              userId: widget.user.uid);
+
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                                builder: (context) => TelaObjetivo(
+                                      user: widget.user,
+                                    )),
+                          );
+                        },
+                        child: Text(
+                          "Cadastrar informações",
+                          style: GoogleFonts.heebo(
+                            color: Colors.white,
+                            letterSpacing: 0.2,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        style: TextButton.styleFrom(
+                          backgroundColor: Color.fromARGB(226, 171, 7, 177),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 15.0, horizontal: 80),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                        ),
+                      );
+                    }
+                    return TextButton(
+                      onPressed: () async {
+                        await DatabaseObjetivo.addItem(
+                            nome: nomeController.text,
+                            valor: blocBase.formatValor(valorController.text),
+                            descricao: descricaoController.text,
+                            deposito: 0,
+                            userId: widget.user.uid);
+
+                        var objConcluidos =
+                            DatabaseObjetivo.objetivoConcluido();
+                        print(objConcluidos);
+
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              builder: (context) => TelaObjetivo(
+                                    user: widget.user,
+                                  )),
+                        );
+                      },
+                      child: Text(
+                        "Cadastrar informações",
+                        style: GoogleFonts.heebo(
+                          color: Colors.white,
+                          letterSpacing: 0.2,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      style: TextButton.styleFrom(
+                        backgroundColor: Color.fromARGB(226, 171, 7, 177),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15.0, horizontal: 80),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                    );
+                  }),
             ),
           ],
         ),
