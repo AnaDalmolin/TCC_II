@@ -147,6 +147,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                   child: TextField(
                     onTap: () {},
                     controller: telefoneController,
+                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       enabledBorder: InputBorder.none,
                       border: InputBorder.none,
@@ -175,13 +176,14 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                       margin: const EdgeInsets.only(left: 20, right: 5),
                       padding: const EdgeInsets.all(8.0),
                       child: SwitcherButton(
-                        onColor: const Color.fromARGB(187, 171, 7, 177),
-                        offColor: Color.fromARGB(255, 240, 143, 119),
-                        value: bloc.termo,
+                        onColor: Colors.green,
+                        offColor: Colors.red,
+                        value: bloc.responsalvel,
                         onChange: (value) {
                           setState(() {
                             // ignore: unrelated_type_equality_checks
-                            bloc.termo == value;
+                            setState(
+                                () => bloc.responsalvel = !bloc.responsalvel);
                           });
                         },
                       ),
@@ -249,7 +251,9 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                           bloc.termo,
                           widget.user.uid);
 
-                      if (await bloc.validarTipoUsuario(widget.user.uid)) {
+                      bool responsavel =
+                          await bloc.validarTipoUsuario(widget.user.uid);
+                      if (responsavel) {
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                               builder: (context) => TelaPrincipalResponsavel(

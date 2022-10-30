@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:tcc_ll/src/bloc/cadastro.dart';
+import 'package:tcc_ll/src/views/TelaPrincipalResponsavel.dart';
 import 'package:tcc_ll/src/views/singup.dart';
 import 'package:tcc_ll/src/views/telaPrincipal.dart';
 
@@ -27,6 +28,8 @@ class _LoginState extends State<Login> {
   Color backgroundColor = const Color.fromARGB(255, 230, 46, 0);
   bool ispasswordev = true;
   Gender? selected;
+
+  var bloc = CadastroBloc();
 
   FirebaseAuth authHandler = FirebaseAuth.instance;
 
@@ -192,11 +195,23 @@ class _LoginState extends State<Login> {
                               if (await CadastroBloc()
                                       .ValidaCadastro(user.uid) ==
                                   true) {
-                                Navigator.of(context)
-                                    .pushReplacement(MaterialPageRoute(
-                                        builder: (context) => TelaInicial(
-                                              user: user,
-                                            )));
+                                bool responsavel =
+                                    await bloc.validarTipoUsuario(user.uid);
+                                print(responsavel);
+                                if (responsavel) {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              TelaPrincipalResponsavel(
+                                                user: user,
+                                              )));
+                                } else {
+                                  Navigator.of(context)
+                                      .pushReplacement(MaterialPageRoute(
+                                          builder: (context) => TelaInicial(
+                                                user: user,
+                                              )));
+                                }
                               } else {
                                 Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(

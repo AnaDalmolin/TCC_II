@@ -105,7 +105,7 @@ class CadastroBloc {
   validarTipoUsuario(user) async {
     final QuerySnapshot result = await Future.value(
         FirebaseFirestore.instance.collection("CadastroPerfil").get());
-    bool resposanvel = false;
+    bool responsalvel = false;
 
     for (var i = 0; i < result.docs.length; i++) {
       if (result.docs[i]["id"] == user) {
@@ -113,7 +113,7 @@ class CadastroBloc {
       }
     }
 
-    return resposanvel;
+    return responsalvel;
   }
 
   // @override
