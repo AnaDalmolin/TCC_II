@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:fancy_bottom_navigation_2/fancy_bottom_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -134,7 +135,7 @@ class _CadastroDepositoSaqueState extends State<CadastroDepositoSaque> {
                       docId: widget.docId,
                       saldoAtual: widget.saldoAtual,
                       valoradicionado: valorMovimento);
-                  if (!widget.movimento &&
+                  if (widget.movimento &&
                       (widget.docId == null || widget.docId == '')) {
                     blocConquista.DepositoInicial(
                         context: context,

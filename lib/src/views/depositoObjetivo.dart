@@ -8,6 +8,7 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:tcc_ll/src/bloc/basebloc.dart';
+import 'package:tcc_ll/src/bloc/conquistas.dart';
 import 'package:tcc_ll/src/bloc/movimentacao.dart';
 import 'package:tcc_ll/src/bloc/objetivo.dart';
 import 'package:tcc_ll/src/views/TelaConquista.dart';
@@ -179,21 +180,12 @@ class _CadastroDepositoObjetivoState extends State<CadastroDepositoObjetivo> {
                                     blocBase.formatValor(valorController.text),
                                 docIdSaldo: snapshot.data!.docs[0].id);
 
-                            QuickAlert.show(
-                              context: context,
-                              type: QuickAlertType.confirm,
-                              title: 'Atenção!',
-                              text:
-                                  'Você guardou dinheiro do seu saldo, Não podera gastar o mesmo até finalizar o Objetivo!',
-                              onConfirmBtnTap: () async {},
-                            );
-
                             if (data['valor'] ==
                                 DatabaseObjetivo.somaDeposito(
                                     valorExistente: data['deposito'],
                                     valorDepositado: blocBase
                                         .formatValor(valorController.text))) {
-                              return QuickAlert.show(
+                              QuickAlert.show(
                                 context: context,
                                 type: QuickAlertType.success,
                                 title: 'AEEEEE',
@@ -204,6 +196,7 @@ class _CadastroDepositoObjetivoState extends State<CadastroDepositoObjetivo> {
                                       valor: data['valor'],
                                       nome: data['nome'],
                                       docId: widget.docId);
+
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
                                         builder: (context) => TelaObjetivo(

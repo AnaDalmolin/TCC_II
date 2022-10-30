@@ -89,17 +89,31 @@ class CadastroBloc {
   ValidaCadastro(user) async {
     final QuerySnapshot result = await Future.value(
         FirebaseFirestore.instance.collection("CadastroPerfil").get());
+    bool validacaoCadastro = false;
 
     // ignore: unnecessary_null_comparison
     if (result != null) {
-      final map = result.docs[0].data();
-      if (map != null) {
-        return true;
-      } else {
-        return false;
+      for (var i = 0; i < result.docs.length; i++) {
+        if (result.docs[i]["id"] == user) {
+          validacaoCadastro = true;
+        }
       }
     }
-    return false;
+    return validacaoCadastro;
+  }
+
+  validarTipoUsuario(user) async {
+    final QuerySnapshot result = await Future.value(
+        FirebaseFirestore.instance.collection("CadastroPerfil").get());
+    bool resposanvel = false;
+
+    for (var i = 0; i < result.docs.length; i++) {
+      if (result.docs[i]["id"] == user) {
+        responsalvel = result.docs[i]["Responsavel"];
+      }
+    }
+
+    return resposanvel;
   }
 
   // @override

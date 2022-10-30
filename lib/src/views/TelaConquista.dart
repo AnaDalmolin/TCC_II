@@ -123,7 +123,6 @@ class _TelaConquistaState extends State<TelaConquista> {
                                   fontSize: 18,
                                 )),
                             IconButton(
-                              padding: const EdgeInsets.fromLTRB(55, 0, 0, 0),
                               icon: Icon(Icons.cancel_presentation_sharp),
                               color: Colors.red,
                               onPressed: () {},
@@ -134,7 +133,6 @@ class _TelaConquistaState extends State<TelaConquista> {
                       );
                     } else if (snapshot.hasData || snapshot.data != null) {
                       bool concluida = false;
-                      ;
                       for (var i = 0; i < snapshot.data!.docs.length; i++) {
                         var docFor = snapshot.data!.docs[i];
                         var dataFor = docFor.data() as Map;
@@ -222,7 +220,6 @@ class _TelaConquistaState extends State<TelaConquista> {
                                   fontSize: 18,
                                 )),
                             IconButton(
-                              padding: const EdgeInsets.fromLTRB(55, 0, 0, 0),
                               icon: Icon(Icons.cancel_presentation_sharp),
                               color: Colors.red,
                               onPressed: () {},

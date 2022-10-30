@@ -1,12 +1,13 @@
-// ignore: file_names
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:switcher_button/switcher_button.dart';
 import 'package:tcc_ll/src/bloc/cadastro.dart';
+import 'package:tcc_ll/src/views/TelaPrincipalResponsavel.dart';
 import 'package:tcc_ll/src/views/telaPrincipal.dart';
 
 import 'anmition/fadeanimation.dart';
@@ -150,7 +151,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                       enabledBorder: InputBorder.none,
                       border: InputBorder.none,
                       prefixIcon: Icon(
-                        Icons.email_outlined,
+                        Icons.phone,
                         color: Colors.white,
                       ),
                       hintText: 'Telefone',
@@ -227,21 +228,43 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
               FadeAnimation(
                 delay: 1,
                 child: TextButton(
-                  onPressed: () {
-                    bloc.CadastroPerfil(
-                        nomeController.text,
-                        dataNascimentoController.text,
-                        telefoneController.text,
-                        bloc.responsalvel,
-                        bloc.termo,
-                        widget.user.uid);
+                  onPressed: () async {
+                    if (bloc.termo == false) {
+                      QuickAlert.show(
+                        context: context,
+                        type: QuickAlertType.warning,
+                        title: 'Ops!',
+                        text:
+                            'Você prescisa concordar com os termos de compromisso!',
+                        onConfirmBtnTap: () async {
+                          Navigator.of(context).pop();
+                        },
+                      );
+                    } else {
+                      bloc.CadastroPerfil(
+                          nomeController.text,
+                          dataNascimentoController.text,
+                          telefoneController.text,
+                          bloc.responsalvel,
+                          bloc.termo,
+                          widget.user.uid);
 
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                          builder: (context) => TelaInicial(
-                                user: widget.user,
-                              )),
-                    );
+                      if (await bloc.validarTipoUsuario(widget.user.uid)) {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              builder: (context) => TelaPrincipalResponsavel(
+                                    user: widget.user,
+                                  )),
+                        );
+                      } else {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              builder: (context) => TelaInicial(
+                                    user: widget.user,
+                                  )),
+                        );
+                      }
+                    }
                   },
                   child: Text(
                     "Cadastrar informações",

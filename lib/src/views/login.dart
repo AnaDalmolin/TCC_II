@@ -188,12 +188,15 @@ class _LoginState extends State<Login> {
                               password: senhaController.text,
                             );
                             if (user != null) {
-                              if (await CadastroBloc().ValidaCadastro(user) ==
+                              // finalizar validção de cadastro
+                              if (await CadastroBloc()
+                                      .ValidaCadastro(user.uid) ==
                                   true) {
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            TelaInicial(user: user)));
+                                Navigator.of(context)
+                                    .pushReplacement(MaterialPageRoute(
+                                        builder: (context) => TelaInicial(
+                                              user: user,
+                                            )));
                               } else {
                                 Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(

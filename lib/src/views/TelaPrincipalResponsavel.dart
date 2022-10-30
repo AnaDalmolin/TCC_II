@@ -7,7 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:tcc_ll/src/bloc/cadastro.dart';
 import 'package:tcc_ll/src/bloc/movimentacao.dart';
 import 'package:tcc_ll/src/views/Perfil.dart';
@@ -18,14 +17,15 @@ import 'package:tcc_ll/src/views/singup.dart';
 import 'package:tcc_ll/src/views/telaObjetivo.dart';
 
 // ignore: must_be_immutable
-class TelaInicial extends StatefulWidget {
-  TelaInicial({Key? key, required this.user}) : super(key: key);
+class TelaPrincipalResponsavel extends StatefulWidget {
+  TelaPrincipalResponsavel({Key? key, required this.user}) : super(key: key);
   User user;
   @override
-  State<TelaInicial> createState() => _TelaInicialState();
+  State<TelaPrincipalResponsavel> createState() =>
+      _TelaPrincipalResponsavelState();
 }
 
-class _TelaInicialState extends State<TelaInicial> {
+class _TelaPrincipalResponsavelState extends State<TelaPrincipalResponsavel> {
   int currentPage = 0;
   bool ispasswordev = true;
   bool responsalvel = false;
@@ -420,72 +420,6 @@ class _TelaInicialState extends State<TelaInicial> {
           ],
         ),
       ),
-      bottomNavigationBar: FancyBottomNavigation(
-        circleColor: Colors.white,
-        barBackgroundColor: const Color.fromARGB(255, 230, 46, 0),
-        activeIconColor: const Color.fromARGB(255, 230, 46, 0),
-        inactiveIconColor: Colors.white,
-        textColor: Colors.white,
-        tabs: [
-          TabData(
-            iconData: Icons.military_tech_outlined,
-            title: "Conquistas",
-            onclick: () {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => TelaConquista(
-                        user: widget.user,
-                      )));
-            },
-          ),
-          TabData(
-            iconData: Icons.home,
-            title: "Inicio",
-            onclick: () {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => TelaInicial(
-                        user: widget.user,
-                      )));
-            },
-          ),
-          TabData(
-              iconData: Icons.radar,
-              title: "Objetivo",
-              onclick: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => TelaObjetivo(
-                          user: widget.user,
-                        )));
-              })
-        ],
-        initialSelection: 1,
-        onTabChangedListener: (position) {
-          setState(() {
-            currentPage = position;
-          });
-        },
-      ),
     );
   }
-
-  int index = 0;
-  double leftWidth = 75.0;
-  int leftTextColor = 1;
-  int leftBackgroundColor = 0;
-  double rightWidth = 75.0;
-  int rightTextColor = 1;
-  int rightBackgroundColor = 0;
-  final List<Color> colorPallete = <Color>[
-    Colors.white,
-    Colors.black,
-    Colors.blue,
-    Colors.blueAccent,
-    Colors.red,
-    Colors.redAccent,
-    Colors.teal,
-    Colors.orange,
-    Colors.pink,
-    Colors.purple,
-    Colors.lime,
-    Colors.green
-  ];
 }

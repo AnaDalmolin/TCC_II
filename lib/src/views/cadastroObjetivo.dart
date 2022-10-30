@@ -189,87 +189,40 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
             FadeAnimation(
               delay: 1,
               child: StreamBuilder<QuerySnapshot>(
-                  stream: DatabaseObjetivo.readObjetivosConcluidos(
-                      userId: widget.user.uid),
+                  stream: ConquistasBloc.readItems(userId: widget.user.uid),
                   builder: (context, snapshot) {
-                    bool conlcuidos =
-                        snapshot.data!.docs.length > 0 ? true : false;
-                    if (snapshot.hasError) {
-                      print('');
-                    } else if (snapshot.data?.docs.length == 0 ||
-                        snapshot.data == null) {
-                      return TextButton(
-                        onPressed: () async {
-                          StreamBuilder<QuerySnapshot>(
-                            stream: DatabaseObjetivo.readItems(),
-                            builder: ((context, snapshot) {
-                              if (snapshot.hasError) {
-                                print('');
-                              }
-                              if (snapshot.data?.docs.length == 0 ||
-                                  snapshot.data == null &&
-                                      conlcuidos == false) {
-                                return ConquistasBloc().PrimeiroObjetivo(
-                                    context: context,
-                                    userId: widget.user.uid,
-                                    valor: 0);
-                              }
-                              return Container();
-                            }),
-                          );
-
-                          await DatabaseObjetivo.addItem(
-                              nome: nomeController.text,
-                              valor: blocBase.formatValor(valorController.text),
-                              descricao: descricaoController.text,
-                              deposito: 0,
-                              userId: widget.user.uid);
-
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                                builder: (context) => TelaObjetivo(
-                                      user: widget.user,
-                                    )),
-                          );
-                        },
-                        child: Text(
-                          "Cadastrar informações",
-                          style: GoogleFonts.heebo(
-                            color: Colors.white,
-                            letterSpacing: 0.2,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        style: TextButton.styleFrom(
-                          backgroundColor: Color.fromARGB(226, 171, 7, 177),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 15.0, horizontal: 80),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                        ),
-                      );
-                    }
                     return TextButton(
                       onPressed: () async {
+                        bool conquistaLiberada = false;
+
+                        if (snapshot.hasError) {
+                          print('');
+                        }
+                        for (var i = 0; i < snapshot.data!.docs.length; i++) {
+                          var docFor = snapshot.data!.docs[i];
+                          var dataFor = docFor.data() as Map;
+                          if (dataFor['indentificador'] == 'PrimeiroObjetivo') {
+                            conquistaLiberada = true;
+                          }
+                        }
+
                         await DatabaseObjetivo.addItem(
                             nome: nomeController.text,
                             valor: blocBase.formatValor(valorController.text),
                             descricao: descricaoController.text,
                             deposito: 0,
                             userId: widget.user.uid);
-
-                        var objConcluidos =
-                            DatabaseObjetivo.objetivoConcluido();
-                        print(objConcluidos);
-
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                              builder: (context) => TelaObjetivo(
-                                    user: widget.user,
-                                  )),
-                        );
+                        if (conquistaLiberada == false) {
+                          ConquistasBloc().PrimeiroObjetivo(
+                              context: context,
+                              userId: widget.user.uid,
+                              valor:
+                                  BaseBloc().formatValor(valorController.text));
+                        }
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => TelaObjetivo(
+                                  user: widget.user,
+                                )));
                       },
                       child: Text(
                         "Cadastrar informações",
