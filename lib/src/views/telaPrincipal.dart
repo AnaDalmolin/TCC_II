@@ -14,6 +14,7 @@ import 'package:tcc_ll/src/views/Perfil.dart';
 import 'package:tcc_ll/src/views/TelaConquista.dart';
 import 'package:tcc_ll/src/views/TelaDepositoSaque.dart';
 import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
+import 'package:tcc_ll/src/views/login.dart';
 import 'package:tcc_ll/src/views/singup.dart';
 import 'package:tcc_ll/src/views/telaObjetivo.dart';
 
@@ -51,6 +52,15 @@ class _TelaInicialState extends State<TelaInicial> {
       appBar: AppBar(
         title: const Text("Tela Inicial"),
         backgroundColor: const Color.fromARGB(255, 230, 46, 0),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.login),
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => Login()));
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -212,186 +222,98 @@ class _TelaInicialState extends State<TelaInicial> {
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasError) {
                     return Text('Something went wrong');
-                  } else if (snapshot.data != null) {
-                    // snapshot.hasData ||
-                    print('entrou aqui');
-                    return Row(
-                      children: [
-                        FadeAnimation(
-                          delay: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            CadastroDepositoSaque(
-                                              user: widget.user,
-                                              movimento: false,
-                                              docId: '',
-                                              saldoAtual: 0,
-                                            )));
-                              },
-                              child: Text(
-                                "Anotar Saque",
-                                style: GoogleFonts.poppins(
-                                  color: const Color.fromARGB(255, 230, 46, 0),
-                                  letterSpacing: 0.2,
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              style: TextButton.styleFrom(
-                                side: BorderSide(
-                                  width: 3.0,
-                                  color: const Color.fromARGB(255, 230, 46, 0),
-                                ),
-                                backgroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 25),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        FadeAnimation(
-                          delay: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            CadastroDepositoSaque(
-                                                user: widget.user,
-                                                movimento: true,
-                                                docId: '',
-                                                saldoAtual: 0)));
-                              },
-                              child: Text(
-                                "Anotar Deposito",
-                                style: GoogleFonts.poppins(
-                                  color: const Color.fromARGB(255, 230, 46, 0),
-                                  letterSpacing: 0.2,
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              style: TextButton.styleFrom(
-                                side: BorderSide(
-                                  width: 3.0,
-                                  color: const Color.fromARGB(255, 230, 46, 0),
-                                ),
-                                backgroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 25),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  } else if (snapshot.hasData) {
-                    var doc = snapshot.data!.docs[0];
-                    var data = doc.data() as Map<String, dynamic>?;
-                    return Row(
-                      children: [
-                        FadeAnimation(
-                          delay: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            CadastroDepositoSaque(
-                                              user: widget.user,
-                                              movimento: false,
-                                              docId: doc.id,
-                                              saldoAtual: data!['valor'] ?? 0,
-                                            )));
-                              },
-                              child: Text(
-                                "Anotar Saque",
-                                style: GoogleFonts.poppins(
-                                  color: const Color.fromARGB(255, 230, 46, 0),
-                                  letterSpacing: 0.2,
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              style: TextButton.styleFrom(
-                                side: BorderSide(
-                                  width: 3.0,
-                                  color: const Color.fromARGB(255, 230, 46, 0),
-                                ),
-                                backgroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 25),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        FadeAnimation(
-                          delay: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            CadastroDepositoSaque(
-                                                user: widget.user,
-                                                movimento: true,
-                                                docId: doc.id,
-                                                saldoAtual:
-                                                    data!['valor'] ?? 0)));
-                              },
-                              child: Text(
-                                "Anotar Deposito",
-                                style: GoogleFonts.poppins(
-                                  color: const Color.fromARGB(255, 230, 46, 0),
-                                  letterSpacing: 0.2,
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              style: TextButton.styleFrom(
-                                side: BorderSide(
-                                  width: 3.0,
-                                  color: const Color.fromARGB(255, 230, 46, 0),
-                                ),
-                                backgroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 25),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
                   }
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        Colors.orangeAccent,
+                  String idDoc = '';
+                  double saldo = 0;
+                  // snapshot.hasData ||
+                  if (snapshot.hasData) {
+                    var doc = snapshot.data!.docs[0];
+                    var data = doc.data() as Map;
+                    idDoc = doc.id;
+                    saldo = data['valor'];
+                  }
+                  return Row(
+                    children: [
+                      FadeAnimation(
+                        delay: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          CadastroDepositoSaque(
+                                            user: widget.user,
+                                            movimento: false,
+                                            docId: idDoc,
+                                            saldoAtual: saldo,
+                                          )));
+                            },
+                            child: Text(
+                              "Anotar Saque",
+                              style: GoogleFonts.poppins(
+                                color: const Color.fromARGB(255, 230, 46, 0),
+                                letterSpacing: 0.2,
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            style: TextButton.styleFrom(
+                              side: BorderSide(
+                                width: 3.0,
+                                color: const Color.fromARGB(255, 230, 46, 0),
+                              ),
+                              backgroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 25),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      FadeAnimation(
+                        delay: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          CadastroDepositoSaque(
+                                              user: widget.user,
+                                              movimento: true,
+                                              docId: idDoc,
+                                              saldoAtual: saldo ?? 0)));
+                            },
+                            child: Text(
+                              "Anotar Deposito",
+                              style: GoogleFonts.poppins(
+                                color: const Color.fromARGB(255, 230, 46, 0),
+                                letterSpacing: 0.2,
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            style: TextButton.styleFrom(
+                              side: BorderSide(
+                                width: 3.0,
+                                color: const Color.fromARGB(255, 230, 46, 0),
+                              ),
+                              backgroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 25),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   );
                 }),
             SizedBox(

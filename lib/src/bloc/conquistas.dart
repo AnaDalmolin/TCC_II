@@ -51,13 +51,6 @@ class ConquistasBloc {
         fraseConquista: "AEEE, continue assim! :D",
         userId: userId,
         indentificador: "primeiroDeposito1");
-
-    return QuickAlert.show(
-      context: context,
-      type: QuickAlertType.success,
-      title: 'Conquista Realizada: Primeiro deposito a gente nunca esquece!',
-      text: 'AEEE, continue assim! :D',
-    );
   }
 
   // 2- Conquista

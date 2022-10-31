@@ -10,6 +10,8 @@ import 'package:tcc_ll/src/bloc/cadastro.dart';
 import 'package:tcc_ll/src/bloc/movimentacao.dart';
 import 'package:tcc_ll/src/views/Perfil.dart';
 import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
+import 'package:tcc_ll/src/views/cadastroAfiliados.dart';
+import 'package:tcc_ll/src/views/login.dart';
 import 'package:tcc_ll/src/views/singup.dart';
 
 // ignore: must_be_immutable
@@ -47,6 +49,15 @@ class _TelaPrincipalResponsavelState extends State<TelaPrincipalResponsavel> {
       appBar: AppBar(
         title: const Text("Tela Inicial"),
         backgroundColor: const Color.fromARGB(255, 230, 46, 0),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.login),
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => Login()));
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -66,7 +77,7 @@ class _TelaPrincipalResponsavelState extends State<TelaPrincipalResponsavel> {
                           elevation: 3,
                           shape: AvatarShape.rectangle(
                               50, 50, BorderRadius.all(Radius.circular(20.0))),
-                          name: 'Ana Dal Molin',
+                          name: 'Responsavel',
                           onTap: () {
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
@@ -82,7 +93,7 @@ class _TelaPrincipalResponsavelState extends State<TelaPrincipalResponsavel> {
                           padding: const EdgeInsets.all(5.0),
                           child: Container(
                             margin: const EdgeInsets.only(left: 20, right: 5),
-                            child: Text("Ana Dal Molin",
+                            child: Text("Responsavel",
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   letterSpacing: 0.5,
@@ -97,129 +108,58 @@ class _TelaPrincipalResponsavelState extends State<TelaPrincipalResponsavel> {
               ),
             ),
             SizedBox(
-              height: he * 0.02,
+              height: he * 0.04,
             ),
-            FadeAnimation(
-              delay: 1,
-              child: ClipSmoothRect(
-                child: Container(
-                  width: 300,
-                  height: 70,
-                  decoration: ShapeDecoration(
-                    gradient: LinearGradient(colors: const [
-                      Colors.deepOrange,
-                      Color.fromARGB(255, 221, 27, 37),
-                    ]),
-                    shape: SmoothRectangleBorder(
-                      borderRadius: SmoothBorderRadius(
-                        cornerRadius: 10,
-                        cornerSmoothing: 0.5,
-                      ),
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        // ignore: prefer_const_literals_to_create_immutables
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Container(
-                              margin: const EdgeInsets.only(),
-                              child: IconButton(
-                                icon: const Icon(Icons.remove_red_eye),
-                                color: Colors.white,
-                                onPressed: () {},
-                                iconSize: 30,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Container(
-                              margin: const EdgeInsets.only(left: 20, right: 5),
-                              child: Text("Saldo",
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.white,
-                                    letterSpacing: 0.5,
-                                    fontSize: 30,
-                                  )),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Container(
-                              margin: const EdgeInsets.only(left: 8, right: 5),
-                              child: StreamBuilder<QuerySnapshot<Object?>>(
-                                  stream: MovimentacaoBloc.readItems(
-                                      userId: widget.user.uid),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasError) {
-                                      print('');
-                                    } else if (snapshot.data?.docs.length ==
-                                            0 ||
-                                        snapshot.data == null) {
-                                      return Text(
-                                        '0.00',
-                                        style: GoogleFonts.poppins(
-                                          color: Colors.white,
-                                          letterSpacing: 0.5,
-                                          fontSize: 30,
-                                        ),
-                                      );
-                                    } else if (snapshot.hasData ||
-                                        snapshot.data != null) {
-                                      var doc = snapshot.data!.docs[0];
-                                      var data = doc.data() as Map;
-                                      return Text(
-                                        data['valor'].toString(),
-                                        style: GoogleFonts.poppins(
-                                          color: Colors.white,
-                                          letterSpacing: 0.5,
-                                          fontSize: 30,
-                                        ),
-                                      );
-                                    }
-                                    return const Center(
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                          Colors.orangeAccent,
-                                        ),
-                                      ),
-                                    );
-                                  }),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  // padding: const EdgeInsets.all(8.0),
+            TextButton(
+              onPressed: () async {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => CadastroAfiliado(
+                          user: widget.user,
+                        )));
+              },
+              child: Text(
+                "Cadastrar Afiliado",
+                style: GoogleFonts.heebo(
+                  color: Colors.white,
+                  letterSpacing: 0.2,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              style: TextButton.styleFrom(
+                backgroundColor: Color.fromARGB(226, 171, 7, 177),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15.0, horizontal: 80),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: he * 0.04,
+            ),
+            TextButton(
+              onPressed: () async {},
+              child: Text(
+                "Lista de afiliados",
+                style: GoogleFonts.heebo(
+                  color: Colors.white,
+                  letterSpacing: 0.2,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              style: TextButton.styleFrom(
+                backgroundColor: Color.fromARGB(226, 171, 7, 177),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15.0, horizontal: 80),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
                 ),
               ),
             ),
             SizedBox(
               height: he * 0.02,
-            ),
-            const Divider(
-              height: 5,
-              thickness: 4,
-              indent: 10,
-              endIndent: 10,
-              color: Color.fromARGB(255, 230, 46, 0),
-            ),
-            SizedBox(
-              height: he * 0.03,
-            ),
-            Text("Historico de movimentação",
-                style: GoogleFonts.poppins(
-                  color: Colors.deepPurple,
-                  letterSpacing: 0.5,
-                  fontSize: 22,
-                )),
-            SizedBox(
-              height: he * 0.03,
             ),
           ],
         ),

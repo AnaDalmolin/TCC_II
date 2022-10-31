@@ -43,6 +43,17 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
       appBar: AppBar(
         title: const Text("Tela Objetivo"),
         backgroundColor: const Color.fromARGB(255, 230, 46, 0),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => TelaInicial(
+                      user: widget.user,
+                    )));
+          },
+          iconSize: 30,
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

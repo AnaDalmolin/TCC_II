@@ -57,6 +57,17 @@ class _CadastroDepositoObjetivoState extends State<CadastroDepositoObjetivo> {
       appBar: AppBar(
         title: const Text("Guardar para objetivo!"),
         backgroundColor: const Color.fromARGB(255, 230, 46, 0),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => TelaObjetivo(
+                      user: widget.user,
+                    )));
+          },
+          iconSize: 30,
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

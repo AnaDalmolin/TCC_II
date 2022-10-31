@@ -52,7 +52,7 @@ class _SingupState extends State<Singup> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.of(context).pop();
                   },
                   child: Container(
                     alignment: Alignment.topLeft,

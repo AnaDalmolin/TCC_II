@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:tcc_ll/src/bloc/basebloc.dart';
 import 'package:tcc_ll/src/bloc/conquistas.dart';
 import 'package:tcc_ll/src/bloc/movimentacao.dart';
@@ -51,6 +52,17 @@ class _CadastroDepositoSaqueState extends State<CadastroDepositoSaque> {
       appBar: AppBar(
         title: const Text("Nova Movimentação"),
         backgroundColor: const Color.fromARGB(255, 230, 46, 0),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => TelaInicial(
+                      user: widget.user,
+                    )));
+          },
+          iconSize: 30,
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -129,24 +141,44 @@ class _CadastroDepositoSaqueState extends State<CadastroDepositoSaque> {
                 onPressed: () {
                   double valorMovimento =
                       blocBase.formatValor(valorController.text);
-                  MovimentacaoBloc.movimentaSaldo(
-                      movimento: widget.movimento,
-                      userId: widget.user.uid,
-                      docId: widget.docId,
-                      saldoAtual: widget.saldoAtual,
-                      valoradicionado: valorMovimento);
-                  if (widget.movimento &&
-                      (widget.docId == null || widget.docId == '')) {
-                    blocConquista.DepositoInicial(
-                        context: context,
+                  if (valorMovimento > widget.saldoAtual &&
+                      widget.movimento == false) {
+                    print(widget.saldoAtual);
+                    QuickAlert.show(
+                      context: context,
+                      type: QuickAlertType.error,
+                      title: 'Ops!',
+                      text:
+                          'Seu Saldo é menor que o valor que você deseja sacar!',
+                    );
+                  } else {
+                    MovimentacaoBloc.movimentaSaldo(
+                        movimento: widget.movimento,
                         userId: widget.user.uid,
-                        valor: valorMovimento);
-                  }
+                        docId: widget.docId,
+                        saldoAtual: widget.saldoAtual,
+                        valoradicionado: valorMovimento);
+                    if (widget.movimento &&
+                        (widget.docId == null || widget.docId == '')) {
+                      blocConquista.DepositoInicial(
+                          userId: widget.user.uid, valor: valorMovimento);
+                      QuickAlert.show(
+                        context: context,
+                        type: QuickAlertType.success,
+                        title:
+                            'Conquista Realizada: Primeiro deposito a gente nunca esquece!',
+                        text: 'AEEE, continue assim! :D',
+                        onConfirmBtnTap: () {
+                          Navigator.of(context).pop();
+                        },
+                      );
+                    }
 
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => TelaInicial(
-                            user: widget.user,
-                          )));
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => TelaInicial(
+                              user: widget.user,
+                            )));
+                  }
                 },
                 child: Text(
                   "Cadastrar Movimentação",
