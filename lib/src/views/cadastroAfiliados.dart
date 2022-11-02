@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:tcc_ll/src/bloc/cadastro.dart';
 import 'package:tcc_ll/src/bloc/movimentacao.dart';
 import 'package:tcc_ll/src/bloc/responsavel.dart';
@@ -33,6 +34,7 @@ class _CadastroAfiliadoState extends State<CadastroAfiliado> {
 
   var bloc = MovimentacaoBloc();
   var blocCadastro = CadastroBloc();
+  var blocResponsavel = ResponsavelBloc();
 
   @override
   void initState() {
@@ -60,7 +62,7 @@ class _CadastroAfiliadoState extends State<CadastroAfiliado> {
           },
           iconSize: 30,
         ),
-        title: const Text("Tela Inicial"),
+        title: const Text("Tela cadastro afiliado"),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -108,18 +110,8 @@ class _CadastroAfiliadoState extends State<CadastroAfiliado> {
                 ),
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
-                  onTap: () {
-                    ResponsavelBloc.cadastroAfiliado(
-                        userId: widget.user.uid,
-                        idAfiliado: idAfiliadoController.text);
-
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => CadastroAfiliado(
-                              user: widget.user,
-                            )));
-                  },
+                  onTap: () {},
                   controller: idAfiliadoController,
-                  keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     enabledBorder: InputBorder.none,
                     border: InputBorder.none,
@@ -143,9 +135,27 @@ class _CadastroAfiliadoState extends State<CadastroAfiliado> {
             FadeAnimation(
               delay: 1,
               child: TextButton(
-                onPressed: () async {},
+                onPressed: () async {
+                  if (true) {
+                    ResponsavelBloc.cadastroAfiliado(
+                        userId: widget.user.uid,
+                        idAfiliado: idAfiliadoController.text);
+
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => TelaPrincipalResponsavel(
+                              user: widget.user,
+                            )));
+                  } else {
+                    QuickAlert.show(
+                      context: context,
+                      type: QuickAlertType.error,
+                      title: 'Oops...',
+                      text: 'Essse id não existe!',
+                    );
+                  }
+                },
                 child: Text(
-                  "Cadastrar Afiliado",
+                  "Cadastrar afiliado",
                   style: GoogleFonts.heebo(
                     color: Colors.white,
                     letterSpacing: 0.2,
