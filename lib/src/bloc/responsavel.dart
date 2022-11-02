@@ -6,14 +6,15 @@ final CollectionReference _mainCollection = _firestore.collection('Afiliado');
 
 class ResponsavelBloc {
 // ADD ITEM
-  static Future<void> cadastroAfiliado({
-    required String userId,
-    required String idAfiliado,
-  }) async {
+  static Future<void> cadastroAfiliado(
+      {required String userId,
+      required String idAfiliado,
+      required String nome}) async {
     DocumentReference documentReferencer =
         _mainCollection.doc(userId).collection('afiliadosCadastrados').doc();
 
     Map<String, dynamic> data = <String, dynamic>{
+      "nome": nome,
       "idAfiliado": idAfiliado,
     };
 

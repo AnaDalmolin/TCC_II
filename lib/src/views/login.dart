@@ -269,17 +269,6 @@ class _LoginState extends State<Login> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30.0)))),
                   ),
-                  SizedBox(
-                    height: he * 0.01,
-                  ),
-                  FadeAnimation(
-                    delay: 1,
-                    child: Text("Esqueceu sua senha?",
-                        style: GoogleFonts.heebo(
-                          color: Colors.white,
-                          letterSpacing: 0.5,
-                        )),
-                  ),
                   SizedBox(height: he * 0.12),
                   FadeAnimation(
                     delay: 1,

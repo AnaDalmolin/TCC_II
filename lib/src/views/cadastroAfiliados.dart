@@ -33,6 +33,7 @@ class _CadastroAfiliadoState extends State<CadastroAfiliado> {
   List movimentacao = [];
 
   final TextEditingController idAfiliadoController = TextEditingController();
+  final TextEditingController nomeController = TextEditingController();
 
   var bloc = MovimentacaoBloc();
   var blocCadastro = CadastroBloc();
@@ -135,13 +136,47 @@ class _CadastroAfiliadoState extends State<CadastroAfiliado> {
             ),
             FadeAnimation(
               delay: 1,
+              child: Container(
+                width: we * 0.9,
+                height: he * 0.071,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: const Color.fromARGB(255, 241, 67, 24),
+                ),
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  onTap: () {},
+                  controller: nomeController,
+                  decoration: const InputDecoration(
+                    enabledBorder: InputBorder.none,
+                    border: InputBorder.none,
+                    prefixIcon: Icon(
+                      Icons.person_sharp,
+                      color: Colors.white,
+                    ),
+                    hintText: 'Nome afiliado',
+                    hintStyle: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: he * 0.04,
+            ),
+            FadeAnimation(
+              delay: 1,
               child: TextButton(
                 onPressed: () async {
                   if (blocResponsavel
                       .validarUsuario(idAfiliadoController.text)) {
                     ResponsavelBloc.cadastroAfiliado(
                         userId: widget.user.uid,
-                        idAfiliado: idAfiliadoController.text);
+                        idAfiliado: idAfiliadoController.text,
+                        nome: nomeController.text);
 
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => ListarAfiliado(

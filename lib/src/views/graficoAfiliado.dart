@@ -9,20 +9,24 @@ import 'package:tcc_ll/src/bloc/movimentacao.dart';
 import 'package:tcc_ll/src/bloc/responsavel.dart';
 import 'package:tcc_ll/src/views/TelaPrincipalResponsavel.dart';
 import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
-import 'package:tcc_ll/src/views/graficoAfiliado.dart';
 import 'package:tcc_ll/src/views/singup.dart';
 
 // ignore: must_be_immutable
-class ListarAfiliado extends StatefulWidget {
-  ListarAfiliado({Key? key, required this.user, required this.responsalvel})
+class GraficoAfiliado extends StatefulWidget {
+  GraficoAfiliado(
+      {Key? key,
+      required this.user,
+      required this.responsalvel,
+      required this.afiliado})
       : super(key: key);
   User user;
   bool responsalvel;
+  String afiliado;
   @override
-  State<ListarAfiliado> createState() => _ListarAfiliadoState();
+  State<GraficoAfiliado> createState() => _GraficoAfiliadoState();
 }
 
-class _ListarAfiliadoState extends State<ListarAfiliado> {
+class _GraficoAfiliadoState extends State<GraficoAfiliado> {
   int currentPage = 0;
   bool ispasswordev = true;
   bool responsalvel = false;
@@ -62,7 +66,7 @@ class _ListarAfiliadoState extends State<ListarAfiliado> {
           },
           iconSize: 30,
         ),
-        title: const Text("Tela de listagem de filiado"),
+        title: const Text("Relatório do afiliado"),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -81,8 +85,8 @@ class _ListarAfiliadoState extends State<ListarAfiliado> {
                         Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Container(
-                            margin: const EdgeInsets.only(left: 80, right: 5),
-                            child: Text("Lista de afiliados",
+                            margin: const EdgeInsets.only(left: 130, right: 5),
+                            child: Text("Relatório",
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   letterSpacing: 0.5,
@@ -99,8 +103,82 @@ class _ListarAfiliadoState extends State<ListarAfiliado> {
             SizedBox(
               height: he * 0.03,
             ),
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                "Gráfico movimento",
+                style: GoogleFonts.poppins(
+                  color: const Color.fromARGB(255, 230, 46, 0),
+                  letterSpacing: 0.2,
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              style: TextButton.styleFrom(
+                side: BorderSide(
+                  width: 3.0,
+                  color: const Color.fromARGB(255, 230, 46, 0),
+                ),
+                backgroundColor: Colors.white,
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: he * 0.03,
+            ),
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                "Objetivos",
+                style: GoogleFonts.poppins(
+                  color: const Color.fromARGB(255, 230, 46, 0),
+                  letterSpacing: 0.2,
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              style: TextButton.styleFrom(
+                side: BorderSide(
+                  width: 3.0,
+                  color: const Color.fromARGB(255, 230, 46, 0),
+                ),
+                backgroundColor: Colors.white,
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: he * 0.03,
+            ),
+            const Divider(
+              height: 5,
+              thickness: 4,
+              indent: 10,
+              endIndent: 10,
+              color: Color.fromARGB(255, 230, 46, 0),
+            ),
+            SizedBox(
+              height: he * 0.03,
+            ),
+            Text("Historico de movimentação",
+                style: GoogleFonts.poppins(
+                  color: Colors.deepPurple,
+                  letterSpacing: 0.5,
+                  fontSize: 22,
+                )),
+            SizedBox(
+              height: he * 0.03,
+            ),
             StreamBuilder<QuerySnapshot>(
-                stream: ResponsavelBloc.readItems(userId: widget.user.uid),
+                stream: MovimentacaoBloc.readItemsHistorico(
+                    userId: widget.afiliado),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                   } else if (snapshot.data != null) {
@@ -114,6 +192,7 @@ class _ListarAfiliadoState extends State<ListarAfiliado> {
                           itemBuilder: (BuildContext context, int index) {
                             var doc = snapshot.data!.docs[index];
                             var data = doc.data() as Map<String, dynamic>;
+                            bool movimento = data['movimentacao'];
                             return index > 5
                                 ? SizedBox()
                                 : FadeAnimation(
@@ -126,17 +205,17 @@ class _ListarAfiliadoState extends State<ListarAfiliado> {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(20.0),
-                                        color:
-                                            Color.fromARGB(207, 152, 10, 165),
+                                        color: movimento == true
+                                            ? Colors.green
+                                            : Colors.red,
                                       ),
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
                                         children: [
-                                          SizedBox(
-                                            width: 10,
-                                          ),
                                           IconButton(
-                                            icon: Icon(Icons.family_restroom),
+                                            icon: Icon(movimento == true
+                                                ? Icons.currency_exchange
+                                                : Icons.remove_circle_outline),
                                             color: Colors.white,
                                             onPressed: () {},
                                             iconSize: 30,
@@ -144,33 +223,31 @@ class _ListarAfiliadoState extends State<ListarAfiliado> {
                                           SizedBox(
                                             width: 10,
                                           ),
-                                          Text(data['nome'],
+                                          Text(
+                                              movimento
+                                                  ? 'Deposito:'
+                                                  : 'Saque:',
                                               style: GoogleFonts.poppins(
                                                 color: Colors.white,
                                                 letterSpacing: 0.5,
-                                                fontSize: 20,
+                                                fontSize: 22,
                                               )),
-                                          Spacer(),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
                                           IconButton(
                                             icon: Icon(
-                                                Icons.view_timeline_outlined),
+                                                Icons.attach_money_outlined),
                                             color: Colors.white,
-                                            onPressed: () {
-                                              Navigator.of(context)
-                                                  .pushReplacement(
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              GraficoAfiliado(
-                                                                user:
-                                                                    widget.user,
-                                                                responsalvel: widget
-                                                                    .responsalvel,
-                                                                afiliado: data[
-                                                                    'idAfiliado'],
-                                                              )));
-                                            },
+                                            onPressed: () {},
                                             iconSize: 30,
                                           ),
+                                          Text(data['valor'].toString(),
+                                              style: GoogleFonts.poppins(
+                                                color: Colors.white,
+                                                letterSpacing: 0.2,
+                                                fontSize: 22,
+                                              )),
                                         ],
                                       ),
                                     ),
