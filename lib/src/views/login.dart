@@ -197,13 +197,13 @@ class _LoginState extends State<Login> {
                                   true) {
                                 bool responsavel =
                                     await bloc.validarTipoUsuario(user.uid);
-                                print(responsavel);
                                 if (responsavel) {
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               TelaPrincipalResponsavel(
                                                 user: user,
+                                                responsavel: responsavel,
                                               )));
                                 } else {
                                   Navigator.of(context)

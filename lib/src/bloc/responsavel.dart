@@ -34,23 +34,19 @@ class ResponsavelBloc {
   }
 
   // // VALIDA AFILIADO
-  // static Stream<QuerySnapshot> validaCadastroAfiliado({userId}) {
-  //   CollectionReference notesItemCollection = _mainCollection
-  //       .doc(idAfiliado)
-  //       .collection('afiliadosCadastrados')
-  //       .get();
-  //   bool validacaoCadastro = false;
+  validarUsuario(user) async {
+    final QuerySnapshot result = await Future.value(
+        FirebaseFirestore.instance.collection("CadastroPerfil").get());
+    bool usuarioExistente = false;
 
-  //   // ignore: unnecessary_null_comparison
-  //   if (result != null) {
-  //     for (var i = 0; i < result.docs.length; i++) {
-  //       if (result.docs[i]["id"] == idAfiliado) {
-  //         validacaoCadastro = true;
-  //       }
-  //     }
-  //   }
-  //   return validacaoCadastro;
-  // }
+    for (var i = 0; i < result.docs.length; i++) {
+      if (result.docs[i]["id"] == user) {
+        usuarioExistente = true;
+      }
+    }
+
+    return usuarioExistente;
+  }
 
   // //LISTAGEM DE AFILIADO
   // static Future<void> listagemAfiliado({

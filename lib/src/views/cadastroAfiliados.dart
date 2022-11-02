@@ -10,6 +10,7 @@ import 'package:quickalert/quickalert.dart';
 import 'package:tcc_ll/src/bloc/cadastro.dart';
 import 'package:tcc_ll/src/bloc/movimentacao.dart';
 import 'package:tcc_ll/src/bloc/responsavel.dart';
+import 'package:tcc_ll/src/views/ListarAfiliado.dart';
 import 'package:tcc_ll/src/views/Perfil.dart';
 import 'package:tcc_ll/src/views/TelaPrincipalResponsavel.dart';
 import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
@@ -17,8 +18,10 @@ import 'package:tcc_ll/src/views/singup.dart';
 
 // ignore: must_be_immutable
 class CadastroAfiliado extends StatefulWidget {
-  CadastroAfiliado({Key? key, required this.user}) : super(key: key);
+  CadastroAfiliado({Key? key, required this.user, required this.responsalvel})
+      : super(key: key);
   User user;
+  bool responsalvel;
   @override
   State<CadastroAfiliado> createState() => _CadastroAfiliadoState();
 }
@@ -26,7 +29,6 @@ class CadastroAfiliado extends StatefulWidget {
 class _CadastroAfiliadoState extends State<CadastroAfiliado> {
   int currentPage = 0;
   bool ispasswordev = true;
-  bool responsalvel = false;
   Gender? selected;
   List movimentacao = [];
 
@@ -38,8 +40,6 @@ class _CadastroAfiliadoState extends State<CadastroAfiliado> {
 
   @override
   void initState() {
-    blocCadastro.IndentificarResponsavel(widget.user, responsalvel);
-
     // TODO: implement initState
     super.initState();
   }
@@ -58,6 +58,7 @@ class _CadastroAfiliadoState extends State<CadastroAfiliado> {
             Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (context) => TelaPrincipalResponsavel(
                       user: widget.user,
+                      responsavel: widget.responsalvel,
                     )));
           },
           iconSize: 30,
@@ -136,14 +137,16 @@ class _CadastroAfiliadoState extends State<CadastroAfiliado> {
               delay: 1,
               child: TextButton(
                 onPressed: () async {
-                  if (true) {
+                  if (blocResponsavel
+                      .validarUsuario(idAfiliadoController.text)) {
                     ResponsavelBloc.cadastroAfiliado(
                         userId: widget.user.uid,
                         idAfiliado: idAfiliadoController.text);
 
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => TelaPrincipalResponsavel(
+                        builder: (context) => ListarAfiliado(
                               user: widget.user,
+                              responsalvel: widget.responsalvel,
                             )));
                   } else {
                     QuickAlert.show(

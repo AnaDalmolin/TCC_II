@@ -258,6 +258,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                           MaterialPageRoute(
                               builder: (context) => TelaPrincipalResponsavel(
                                     user: widget.user,
+                                    responsavel: responsavel,
                                   )),
                         );
                       } else {

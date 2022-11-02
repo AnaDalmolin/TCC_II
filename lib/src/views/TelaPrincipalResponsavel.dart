@@ -8,6 +8,7 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tcc_ll/src/bloc/cadastro.dart';
 import 'package:tcc_ll/src/bloc/movimentacao.dart';
+import 'package:tcc_ll/src/bloc/responsavel.dart';
 import 'package:tcc_ll/src/views/ListarAfiliado.dart';
 import 'package:tcc_ll/src/views/Perfil.dart';
 import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
@@ -17,8 +18,11 @@ import 'package:tcc_ll/src/views/singup.dart';
 
 // ignore: must_be_immutable
 class TelaPrincipalResponsavel extends StatefulWidget {
-  TelaPrincipalResponsavel({Key? key, required this.user}) : super(key: key);
+  TelaPrincipalResponsavel(
+      {Key? key, required this.user, required this.responsavel})
+      : super(key: key);
   User user;
+  bool responsavel;
   @override
   State<TelaPrincipalResponsavel> createState() =>
       _TelaPrincipalResponsavelState();
@@ -72,38 +76,57 @@ class _TelaPrincipalResponsavelState extends State<TelaPrincipalResponsavel> {
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
-                    child: Row(
-                      children: [
-                        Avatar(
-                          elevation: 3,
-                          shape: AvatarShape.rectangle(
-                              50, 50, BorderRadius.all(Radius.circular(20.0))),
-                          name: 'Responsavel',
-                          onTap: () {
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => TelaPerfil(
-                                  user: widget.user,
-                                  responsavel: responsalvel,
+                    child: StreamBuilder<QuerySnapshot>(
+                        stream: CadastroBloc.readItems(userId: widget.user.uid),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return const Text('Something went wrong');
+                          }
+                          if (snapshot.hasData || snapshot.data != null) {
+                            var doc = snapshot.data!.docs[0];
+                            var data = doc.data() as Map;
+                            return Row(
+                              children: [
+                                Avatar(
+                                  elevation: 3,
+                                  shape: AvatarShape.rectangle(50, 50,
+                                      BorderRadius.all(Radius.circular(20.0))),
+                                  name: data['Nome'],
+                                  onTap: () {
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                        builder: (context) => TelaPerfil(
+                                          user: widget.user,
+                                          responsavel: data['Responsavel'],
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
-                              ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 20, right: 5),
+                                    child: Text(data['Nome'],
+                                        style: GoogleFonts.poppins(
+                                          color: Colors.white,
+                                          letterSpacing: 0.5,
+                                          fontSize: 20,
+                                        )),
+                                  ),
+                                ),
+                              ],
                             );
-                          },
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 20, right: 5),
-                            child: Text("Responsavel",
-                                style: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                  letterSpacing: 0.5,
-                                  fontSize: 20,
-                                )),
-                          ),
-                        ),
-                      ],
-                    ),
+                          }
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                Colors.orangeAccent,
+                              ),
+                            ),
+                          );
+                        }),
                   ),
                 ),
               ),
@@ -116,6 +139,7 @@ class _TelaPrincipalResponsavelState extends State<TelaPrincipalResponsavel> {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (context) => CadastroAfiliado(
                           user: widget.user,
+                          responsalvel: widget.responsavel,
                         )));
               },
               child: Text(
@@ -144,6 +168,7 @@ class _TelaPrincipalResponsavelState extends State<TelaPrincipalResponsavel> {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (context) => ListarAfiliado(
                           user: widget.user,
+                          responsalvel: widget.responsavel,
                         )));
               },
               child: Text(

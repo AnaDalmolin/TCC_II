@@ -85,6 +85,15 @@ class CadastroBloc {
     );
   }
 
+// READ ITEM
+  static Stream<QuerySnapshot> readItems({userId}) {
+    Query<Map<String, dynamic>> users = FirebaseFirestore.instance
+        .collection('CadastroPerfil')
+        .where("id", isEqualTo: userId);
+    print(users.snapshots());
+    return users.snapshots();
+  }
+
   // ignore: non_constant_identifier_names
   ValidaCadastro(user) async {
     final QuerySnapshot result = await Future.value(
