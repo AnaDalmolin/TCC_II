@@ -251,7 +251,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                               height: he * 0.02,
                             ),
                             Text(
-                                "Valor Guardado: " +
+                                "Valor guardado: " +
                                     data['deposito'].toString(),
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
@@ -306,7 +306,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                             )));
                   },
                   child: Text(
-                    "Objetivos Concluidos",
+                    "Objetivos concluidos",
                     style: GoogleFonts.poppins(
                       color: const Color.fromARGB(255, 230, 46, 0),
                       letterSpacing: 0.2,

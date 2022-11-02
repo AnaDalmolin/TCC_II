@@ -149,7 +149,7 @@ class _CadastroDepositoSaqueState extends State<CadastroDepositoSaque> {
                       type: QuickAlertType.error,
                       title: 'Ops!',
                       text:
-                          'Seu Saldo é menor que o valor que você deseja sacar!',
+                          'Seu saldo é menor que o valor que você deseja sacar!',
                     );
                   } else {
                     MovimentacaoBloc.movimentaSaldo(
@@ -166,7 +166,7 @@ class _CadastroDepositoSaqueState extends State<CadastroDepositoSaque> {
                         context: context,
                         type: QuickAlertType.success,
                         title:
-                            'Conquista Realizada: Primeiro deposito a gente nunca esquece!',
+                            'Conquista realizada: Primeiro deposito a gente nunca esquece!',
                         text: 'AEEE, continue assim! :D',
                         onConfirmBtnTap: () {
                           Navigator.of(context).pop();
@@ -181,7 +181,7 @@ class _CadastroDepositoSaqueState extends State<CadastroDepositoSaque> {
                   }
                 },
                 child: Text(
-                  "Cadastrar Movimentação",
+                  "Cadastrar movimentação",
                   style: GoogleFonts.heebo(
                     color: Colors.white,
                     letterSpacing: 0.2,

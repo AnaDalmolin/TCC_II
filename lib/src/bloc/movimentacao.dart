@@ -13,9 +13,7 @@ class MovimentacaoBloc {
       required bool movimento,
       required String docId}) async {
     double valor;
-    print(docId);
     if (docId == null || docId == '' || docId == 'idDoc') {
-      print('entroi no if');
       if (movimento == true) {
         valor = valoradicionado + saldoAtual;
       } else {
@@ -38,8 +36,6 @@ class MovimentacaoBloc {
           valor: valor, userId: userId, movimentacao: movimento);
     } else {
       double valor;
-      print('entroi no else');
-      print(docId);
       if (movimento == true) {
         valor = saldoAtual + valoradicionado;
       } else {

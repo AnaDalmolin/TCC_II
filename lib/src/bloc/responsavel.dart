@@ -32,6 +32,39 @@ class ResponsavelBloc {
 
     return notesItemCollection.snapshots();
   }
+
+  // // VALIDA AFILIADO
+  // static Stream<QuerySnapshot> validaCadastroAfiliado({userId}) {
+  //   CollectionReference notesItemCollection = _mainCollection
+  //       .doc(idAfiliado)
+  //       .collection('afiliadosCadastrados')
+  //       .get();
+  //   bool validacaoCadastro = false;
+
+  //   // ignore: unnecessary_null_comparison
+  //   if (result != null) {
+  //     for (var i = 0; i < result.docs.length; i++) {
+  //       if (result.docs[i]["id"] == idAfiliado) {
+  //         validacaoCadastro = true;
+  //       }
+  //     }
+  //   }
+  //   return validacaoCadastro;
+  // }
+
+  // //LISTAGEM DE AFILIADO
+  // static Future<void> listagemAfiliado({
+  //   required String filiadoId,
+  //   required userId,
+  // }) async {
+  //   DocumentReference documentReferencer =
+  //       _mainCollection.doc(userId).collection('Objetivos').doc(docId);
+
+  //   await documentReferencer
+  //       .delete()
+  //       .whenComplete(() => print('Note item deleted from the database'))
+  //       .catchError((e) => print(e));
+  // }
   // @override
   // void dispose() {}
 }

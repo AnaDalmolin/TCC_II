@@ -8,6 +8,7 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tcc_ll/src/bloc/cadastro.dart';
 import 'package:tcc_ll/src/bloc/movimentacao.dart';
+import 'package:tcc_ll/src/views/ListarAfiliado.dart';
 import 'package:tcc_ll/src/views/Perfil.dart';
 import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
 import 'package:tcc_ll/src/views/cadastroAfiliados.dart';
@@ -139,7 +140,12 @@ class _TelaPrincipalResponsavelState extends State<TelaPrincipalResponsavel> {
               height: he * 0.04,
             ),
             TextButton(
-              onPressed: () async {},
+              onPressed: () async {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => ListarAfiliado(
+                          user: widget.user,
+                        )));
+              },
               child: Text(
                 "Lista de afiliados",
                 style: GoogleFonts.heebo(
