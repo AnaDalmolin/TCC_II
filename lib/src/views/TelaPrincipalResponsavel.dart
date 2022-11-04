@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:avatars/avatars.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -87,21 +87,26 @@ class _TelaPrincipalResponsavelState extends State<TelaPrincipalResponsavel> {
                             var data = doc.data() as Map;
                             return Row(
                               children: [
-                                Avatar(
-                                  elevation: 3,
-                                  shape: AvatarShape.rectangle(50, 50,
-                                      BorderRadius.all(Radius.circular(20.0))),
-                                  name: data['Nome'],
-                                  onTap: () {
-                                    Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                        builder: (context) => TelaPerfil(
-                                          user: widget.user,
-                                          responsavel: data['Responsavel'],
-                                        ),
-                                      ),
-                                    );
-                                  },
+                                Container(
+                                  width: 60,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                  ),
+                                  child: IconButton(
+                                    iconSize: 30,
+                                    icon: Icon(Icons.person),
+                                    color: Colors.white,
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pushReplacement(MaterialPageRoute(
+                                              builder: (context) => TelaPerfil(
+                                                    user: widget.user,
+                                                    responsavel: responsalvel,
+                                                  )));
+                                    },
+                                  ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(5.0),

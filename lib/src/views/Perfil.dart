@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:avatars/avatars.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_bottom_navigation_2/fancy_bottom_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -50,7 +49,6 @@ class _TelaPerfilState extends State<TelaPerfil> {
           icon: Icon(Icons.arrow_back),
           color: Colors.white,
           onPressed: () {
-            print(widget.responsavel);
             if (widget.responsavel) {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => TelaPrincipalResponsavel(
@@ -81,11 +79,18 @@ class _TelaPerfilState extends State<TelaPerfil> {
                   children: [
                     Center(
                       heightFactor: 1.5,
-                      child: Avatar(
-                        elevation: 3,
-                        shape: AvatarShape.rectangle(
-                            200, 200, BorderRadius.all(Radius.circular(30.0))),
-                        name: data['Nome'],
+                      child: Container(
+                        width: 200,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        child: IconButton(
+                          iconSize: 150,
+                          icon: Icon(Icons.person),
+                          color: Colors.deepPurple,
+                          onPressed: () {},
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -121,33 +126,6 @@ class _TelaPerfilState extends State<TelaPerfil> {
                               )),
                         ),
                       ],
-                    ),
-                    SizedBox(
-                      height: he * 0.04,
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Trocar foto",
-                        style: GoogleFonts.poppins(
-                          color: const Color.fromARGB(255, 230, 46, 0),
-                          letterSpacing: 0.2,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      style: TextButton.styleFrom(
-                        side: BorderSide(
-                          width: 3.0,
-                          color: const Color.fromARGB(255, 230, 46, 0),
-                        ),
-                        backgroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 25),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                      ),
                     ),
                     SizedBox(
                       height: he * 0.02,

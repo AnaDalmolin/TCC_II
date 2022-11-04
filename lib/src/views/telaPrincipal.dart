@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:avatars/avatars.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_bottom_navigation_2/fancy_bottom_navigation.dart';
 import 'package:figma_squircle/figma_squircle.dart';
@@ -86,11 +85,25 @@ class _TelaInicialState extends State<TelaInicial> {
                             return Row(
                               children: [
                                 Container(
-                                  width: 50,
-                                  height: 50,
+                                  width: 60,
+                                  height: 60,
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(20))),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                  ),
+                                  child: IconButton(
+                                    iconSize: 30,
+                                    icon: Icon(Icons.person),
+                                    color: Colors.white,
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pushReplacement(MaterialPageRoute(
+                                              builder: (context) => TelaPerfil(
+                                                    user: widget.user,
+                                                    responsavel: responsalvel,
+                                                  )));
+                                    },
+                                  ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(5.0),
