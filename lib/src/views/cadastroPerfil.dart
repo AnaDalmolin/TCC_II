@@ -51,7 +51,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                   color: const Color.fromARGB(187, 171, 7, 177),
                   child: Center(
                     child: Text(
-                      "Cadastro Dados Básicos",
+                      "Cadastro dados básicos",
                       style: GoogleFonts.heebo(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -81,7 +81,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                         Icons.person_pin_outlined,
                         color: Colors.white,
                       ),
-                      hintText: 'Nome Completo',
+                      hintText: 'Nome completo',
                       hintStyle: TextStyle(
                         color: Colors.white,
                       ),
@@ -114,7 +114,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                         Icons.date_range_outlined,
                         color: Colors.white,
                       ),
-                      hintText: 'Data Nascimento',
+                      hintText: 'Data nascimento',
                       hintStyle: TextStyle(
                         color: Colors.white,
                       ),

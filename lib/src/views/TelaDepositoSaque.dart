@@ -50,7 +50,7 @@ class _CadastroDepositoSaqueState extends State<CadastroDepositoSaque> {
     var he = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Nova Movimentação"),
+        title: const Text("Nova movimentação"),
         backgroundColor: const Color.fromARGB(255, 230, 46, 0),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -80,7 +80,7 @@ class _CadastroDepositoSaqueState extends State<CadastroDepositoSaque> {
                       children: [
                         Container(
                           margin: const EdgeInsets.only(left: 5, right: 0),
-                          child: Text("Cadastre Sua nova movimentação!",
+                          child: Text("Cadastre sua nova movimentação!",
                               style: GoogleFonts.poppins(
                                 color: Colors.white,
                                 letterSpacing: 0.5,
@@ -122,7 +122,7 @@ class _CadastroDepositoSaqueState extends State<CadastroDepositoSaque> {
                       Icons.attach_money_rounded,
                       color: Colors.white,
                     ),
-                    hintText: 'Valor Movimentação',
+                    hintText: 'Valor movimentação',
                     hintStyle: TextStyle(
                       color: Colors.white,
                     ),
@@ -166,7 +166,7 @@ class _CadastroDepositoSaqueState extends State<CadastroDepositoSaque> {
                         context: context,
                         type: QuickAlertType.success,
                         title:
-                            'Conquista realizada: Primeiro deposito a gente nunca esquece!',
+                            'Conquista realizada: primeiro deposito a gente nunca esquece!',
                         text: 'AEEE, continue assim! :D',
                         onConfirmBtnTap: () {
                           Navigator.of(context).pop();

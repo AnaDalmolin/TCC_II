@@ -36,7 +36,7 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
     var he = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Novo Objetivo"),
+        title: const Text("Novo objetivo"),
         backgroundColor: const Color.fromARGB(255, 230, 46, 0),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -73,7 +73,7 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
                               child: Container(
                                 margin:
                                     const EdgeInsets.only(left: 10, right: 5),
-                                child: Text("Cadastre Seu Novo Objetivo!",
+                                child: Text("Cadastre seu novo objetivo!",
                                     style: GoogleFonts.poppins(
                                       color: Colors.white,
                                       letterSpacing: 0.5,
@@ -112,7 +112,7 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
                       Icons.radar,
                       color: Colors.white,
                     ),
-                    hintText: 'Nome Objetivo',
+                    hintText: 'Nome objetivo',
                     hintStyle: TextStyle(
                       color: Colors.white,
                     ),
@@ -151,7 +151,7 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
                       Icons.attach_money_rounded,
                       color: Colors.white,
                     ),
-                    hintText: 'Valor Objetivo',
+                    hintText: 'Valor objetivo',
                     hintStyle: TextStyle(
                       color: Colors.white,
                     ),
@@ -184,7 +184,7 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
                       Icons.description_outlined,
                       color: Colors.white,
                     ),
-                    hintText: 'Descrição Objetivo',
+                    hintText: 'Descrição objetivo',
                     hintStyle: TextStyle(
                       color: Colors.white,
                     ),

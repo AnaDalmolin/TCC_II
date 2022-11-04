@@ -52,7 +52,7 @@ class _TelaPrincipalResponsavelState extends State<TelaPrincipalResponsavel> {
     var he = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tela Inicial"),
+        title: const Text("Tela inicial"),
         backgroundColor: const Color.fromARGB(255, 230, 46, 0),
         actions: <Widget>[
           IconButton(
@@ -143,7 +143,7 @@ class _TelaPrincipalResponsavelState extends State<TelaPrincipalResponsavel> {
                         )));
               },
               child: Text(
-                "Cadastrar Afiliado",
+                "Cadastrar afiliado",
                 style: GoogleFonts.heebo(
                   color: Colors.white,
                   letterSpacing: 0.2,

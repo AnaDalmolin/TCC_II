@@ -280,7 +280,7 @@ class _SingupState extends State<Singup> {
                             const SnackBar(
                               backgroundColor: Colors.redAccent,
                               content: Text(
-                                'Dados Invalido',
+                                'Dados invalido',
                                 style: TextStyle(
                                   color: Colors.white,
                                   // background: Colors.white,

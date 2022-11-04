@@ -90,7 +90,6 @@ class CadastroBloc {
     Query<Map<String, dynamic>> users = FirebaseFirestore.instance
         .collection('CadastroPerfil')
         .where("id", isEqualTo: userId);
-    print(users.snapshots());
     return users.snapshots();
   }
 

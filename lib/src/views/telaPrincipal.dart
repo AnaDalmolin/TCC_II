@@ -74,38 +74,48 @@ class _TelaInicialState extends State<TelaInicial> {
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
-                    child: Row(
-                      children: [
-                        Avatar(
-                          elevation: 3,
-                          shape: AvatarShape.rectangle(
-                              50, 50, BorderRadius.all(Radius.circular(20.0))),
-                          name: 'Ana Dal Molin',
-                          onTap: () {
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => TelaPerfil(
-                                  user: widget.user,
-                                  responsavel: responsalvel,
+                    child: StreamBuilder<QuerySnapshot>(
+                        stream: CadastroBloc.readItems(userId: widget.user.uid),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return const Text('Something went wrong');
+                          }
+                          if (snapshot.hasData || snapshot.data != null) {
+                            var doc = snapshot.data!.docs[0];
+                            var data = doc.data() as Map;
+                            return Row(
+                              children: [
+                                Container(
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))),
                                 ),
-                              ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 20, right: 5),
+                                    child: Text(data['Nome'],
+                                        style: GoogleFonts.poppins(
+                                          color: Colors.white,
+                                          letterSpacing: 0.5,
+                                          fontSize: 20,
+                                        )),
+                                  ),
+                                ),
+                              ],
                             );
-                          },
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 20, right: 5),
-                            child: Text("Ana Dal Molin",
-                                style: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                  letterSpacing: 0.5,
-                                  fontSize: 20,
-                                )),
-                          ),
-                        ),
-                      ],
-                    ),
+                          }
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                Colors.orangeAccent,
+                              ),
+                            ),
+                          );
+                        }),
                   ),
                 ),
               ),
@@ -141,9 +151,13 @@ class _TelaInicialState extends State<TelaInicial> {
                             child: Container(
                               margin: const EdgeInsets.only(),
                               child: IconButton(
-                                icon: const Icon(Icons.remove_red_eye),
+                                icon: Icon(ispasswordev == true
+                                    ? Icons.remove_red_eye
+                                    : Icons.visibility_off),
                                 color: Colors.white,
-                                onPressed: () {},
+                                onPressed: () {
+                                  setState(() => ispasswordev = !ispasswordev);
+                                },
                                 iconSize: 30,
                               ),
                             ),
@@ -174,7 +188,7 @@ class _TelaInicialState extends State<TelaInicial> {
                                             0 ||
                                         snapshot.data == null) {
                                       return Text(
-                                        '0.00',
+                                        ispasswordev == true ? '0.00' : '****',
                                         style: GoogleFonts.poppins(
                                           color: Colors.white,
                                           letterSpacing: 0.5,
@@ -186,7 +200,9 @@ class _TelaInicialState extends State<TelaInicial> {
                                       var doc = snapshot.data!.docs[0];
                                       var data = doc.data() as Map;
                                       return Text(
-                                        data['valor'].toString(),
+                                        ispasswordev == true
+                                            ? data['valor'].toString()
+                                            : '****',
                                         style: GoogleFonts.poppins(
                                           color: Colors.white,
                                           letterSpacing: 0.5,
@@ -243,7 +259,7 @@ class _TelaInicialState extends State<TelaInicial> {
                                             )));
                               },
                               child: Text(
-                                "Anotar Saque",
+                                "Anotar saque",
                                 style: GoogleFonts.poppins(
                                   color: const Color.fromARGB(255, 230, 46, 0),
                                   letterSpacing: 0.2,
@@ -282,7 +298,7 @@ class _TelaInicialState extends State<TelaInicial> {
                                                 saldoAtual: 0)));
                               },
                               child: Text(
-                                "Anotar Deposito",
+                                "Anotar deposito",
                                 style: GoogleFonts.poppins(
                                   color: const Color.fromARGB(255, 230, 46, 0),
                                   letterSpacing: 0.2,
@@ -329,7 +345,7 @@ class _TelaInicialState extends State<TelaInicial> {
                                             )));
                               },
                               child: Text(
-                                "Anotar Saque",
+                                "Anotar saque",
                                 style: GoogleFonts.poppins(
                                   color: const Color.fromARGB(255, 230, 46, 0),
                                   letterSpacing: 0.2,
@@ -369,7 +385,7 @@ class _TelaInicialState extends State<TelaInicial> {
                                             )));
                               },
                               child: Text(
-                                "Anotar Deposito",
+                                "Anotar deposito",
                                 style: GoogleFonts.poppins(
                                   color: const Color.fromARGB(255, 230, 46, 0),
                                   letterSpacing: 0.2,

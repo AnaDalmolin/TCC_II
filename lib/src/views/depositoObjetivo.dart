@@ -127,7 +127,7 @@ class _CadastroDepositoObjetivoState extends State<CadastroDepositoObjetivo> {
                       Icons.attach_money_rounded,
                       color: Colors.white,
                     ),
-                    hintText: 'Valor Movimentação',
+                    hintText: 'Valor movimentação',
                     hintStyle: TextStyle(
                       color: Colors.white,
                     ),
@@ -236,7 +236,7 @@ class _CadastroDepositoObjetivoState extends State<CadastroDepositoObjetivo> {
                           }
                         },
                         child: Text(
-                          "Cadastrar Movimentação",
+                          "Cadastrar movimentação",
                           style: GoogleFonts.heebo(
                             color: Colors.white,
                             letterSpacing: 0.2,

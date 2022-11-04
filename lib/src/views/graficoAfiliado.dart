@@ -9,6 +9,7 @@ import 'package:tcc_ll/src/bloc/movimentacao.dart';
 import 'package:tcc_ll/src/bloc/responsavel.dart';
 import 'package:tcc_ll/src/views/TelaPrincipalResponsavel.dart';
 import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
+import 'package:tcc_ll/src/views/graficoObjetivo.dart';
 import 'package:tcc_ll/src/views/singup.dart';
 
 // ignore: must_be_immutable
@@ -131,7 +132,14 @@ class _GraficoAfiliadoState extends State<GraficoAfiliado> {
               height: he * 0.03,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => GraficoObjetivo(
+                          user: widget.user,
+                          responsalvel: widget.responsalvel,
+                          afiliado: widget.afiliado,
+                        )));
+              },
               child: Text(
                 "Objetivos",
                 style: GoogleFonts.poppins(

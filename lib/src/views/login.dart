@@ -241,7 +241,7 @@ class _LoginState extends State<Login> {
                               const SnackBar(
                                 backgroundColor: Colors.redAccent,
                                 content: Text(
-                                  'Dados Invalido',
+                                  'Dados invalido',
                                   style: TextStyle(
                                     color: Colors.white,
                                     // background: Colors.white,
@@ -275,7 +275,7 @@ class _LoginState extends State<Login> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Ainda Não tem conta? ",
+                        Text("Ainda não tem conta? ",
                             style: GoogleFonts.heebo(
                               color: Colors.white,
                               letterSpacing: 0.5,

@@ -39,7 +39,7 @@ class _TelaObjetivoConcluidoState extends State<TelaObjetivoConcluido> {
     var he = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tela Objetivos Concluidos"),
+        title: const Text("Tela objetivos concluidos"),
         backgroundColor: const Color.fromARGB(255, 230, 46, 0),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -71,7 +71,7 @@ class _TelaObjetivoConcluidoState extends State<TelaObjetivoConcluido> {
                           padding: const EdgeInsets.all(20.0),
                           child: Container(
                             margin: const EdgeInsets.only(left: 60, right: 5),
-                            child: Text("Objetivos Concluidos",
+                            child: Text("Objetivos concluidos",
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   letterSpacing: 0.5,
@@ -118,7 +118,7 @@ class _TelaObjetivoConcluidoState extends State<TelaObjetivoConcluido> {
                             SizedBox(
                               height: he * 0.04,
                             ),
-                            Text("Valor Objetivo: " + data['valor'].toString(),
+                            Text("Valor objetivo: " + data['valor'].toString(),
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   letterSpacing: 0.5,

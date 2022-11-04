@@ -128,7 +128,7 @@ class _TelaPerfilState extends State<TelaPerfil> {
                     TextButton(
                       onPressed: () {},
                       child: Text(
-                        "Trocar Foto",
+                        "Trocar foto",
                         style: GoogleFonts.poppins(
                           color: const Color.fromARGB(255, 230, 46, 0),
                           letterSpacing: 0.2,
@@ -155,7 +155,7 @@ class _TelaPerfilState extends State<TelaPerfil> {
                     TextButton(
                       onPressed: () {},
                       child: Text(
-                        "Trocar Senha",
+                        "Trocar senha",
                         style: GoogleFonts.poppins(
                           color: const Color.fromARGB(255, 230, 46, 0),
                           letterSpacing: 0.2,
@@ -182,7 +182,7 @@ class _TelaPerfilState extends State<TelaPerfil> {
                     TextButton(
                       onPressed: () {},
                       child: Text(
-                        "Termos de Condição",
+                        "Termos de condição",
                         style: GoogleFonts.poppins(
                           color: Color.fromARGB(226, 171, 7, 177),
                           letterSpacing: 0.2,

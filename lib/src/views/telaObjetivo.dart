@@ -41,7 +41,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
     var he = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tela Objetivo"),
+        title: const Text("Tela objetivo"),
         backgroundColor: const Color.fromARGB(255, 230, 46, 0),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -105,7 +105,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                                         }
                                       },
                                       child: Text(
-                                        "Criar Novo Objetivo +",
+                                        "Criar novo objetivo +",
                                         style: GoogleFonts.poppins(
                                           color: const Color.fromARGB(
                                               255, 230, 46, 0),
@@ -181,10 +181,18 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                                         if (snapshot.hasError) {
                                           return const Text(
                                               'Something went wrong');
-                                        } else if (snapshot.hasData ||
+                                        } else if (snapshot.data != null ||
                                             snapshot.data != null) {
-                                          var doc = snapshot.data!.docs[0];
-                                          var dataSaldo = doc.data() as Map;
+                                          var dataSaldo = {};
+                                          if (snapshot.data!.docs.isNotEmpty) {
+                                            var doc = snapshot.data!.docs[0];
+                                            dataSaldo = doc.data() as Map;
+                                          } else {
+                                            dataSaldo = {
+                                              'valor': 0,
+                                            };
+                                          }
+
                                           return IconButton(
                                               icon: const Icon(Icons.delete),
                                               color: Colors.white,
@@ -241,7 +249,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                             SizedBox(
                               height: he * 0.04,
                             ),
-                            Text("Valor Objetivo: " + data['valor'].toString(),
+                            Text("Valor objetivo: " + data['valor'].toString(),
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   letterSpacing: 0.5,
