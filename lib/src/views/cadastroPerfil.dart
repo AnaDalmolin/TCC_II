@@ -221,6 +221,30 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                           color: Color.fromARGB(255, 241, 67, 24),
                           fontWeight: FontWeight.bold),
                     ),
+                    IconButton(
+                      icon: const Icon(Icons.text_snippet_sharp),
+                      color: Colors.deepOrange,
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("Termos de condição."),
+                                content: const Text(
+                                    "Por este instrumento particular de Contrato de Prestação de Serviços, de um lado a, (Aplicativo desenvolvido pela estudante Ana Caroline), com sede a rua Mário de barros, nº 922, residência – Centro Sul – Dois Vizinhos - Paraná, CEP nº 85660-000, doravante denominada simplesmente  CONTRATADA, e de outro lado, como CONTRATANTE  a pessoa física/ jurídica identificada no “TERMO DE ADESÃO” , tem entre si justo e acordado uma vez aceita a referida proposta, o que se segue”: 1- OBJETO Na qualidade de prestador de serviços de controle financeiro para jovens e adolescentes, a CONTRATADA  coloca a disposição da CONTRATANTE os serviços de serviços de controle financeiro para jovens e adolescentes  via online descritos no “TERMO DE ADESÃO”. – Os serviços oferecidos são: - Cadastro de progressão e conclusão de objetivos. - Anotações de depósitos e saques. - Movimentações e gráficos referentes a das as ações realizadas pelo afiliado no aplicativo. - Controle para os responsáveis referentes as movimentações realizadas pelos jovens e adolescentes. - Disponibilização de conquistas referentes a progressão do usuário. 3 – DAS OBRIGAÇÕES DA CONTRATADA 3.1 – A  CONTRATADA disponibilizará um “username” (“Nome do Usuário”) e um “password” (“Senha de Acesso”), “Data de Nascimento”(Data de nascimento do usuário), “Telefone” e “Email”   que serão sua identificação junto a CONTRATADA; 3.2 – A CONTRATADA disponibilizará os serviços ora contratados e manterá os serviços conforme o plano escolhido pela CONTRATANTE especificado no Termo de Adesão, enviando a CONTRATANTE as informações via e-mail, ao endereço previamente fornecido pela  CONTRATANTE. 3.3 – A CONTRATADA envidará os melhores esforços para assegurar e desenvolver a qualidade do serviço ora contratado, comprometendo-se ainda, a respeitar a privacidade do CONTRATANTE, garantindo que não divulgara sua senha de acesso ou e-mail de acesso. Não será efetuada nenhum tipo de MULTA/REAJUSTE devido aos serviços fornecidos serem completamente gratuitos. Sendo contratado o acesso à Prestação de Serviços via on-line (Aplicativo móvel), o mesmo poderá, eventualmente, sofrer interrupções devido a: (a) manutenções técnicas e/ou operacionais que exijam o desligamento temporário do sistema ou impossibilitem o acesso; (b) casos fortuitos ou força maior; (c) falta de fornecimento de energia elétrica para o sistema da CONTRATADA; (e) ocorrências de falhas no sistema de transmissão e/ou roteamento no acesso à internet;"),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text("OK"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            });
+                      },
+                      iconSize: 30,
+                    ),
                   ],
                 ),
               ),
