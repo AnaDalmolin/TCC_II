@@ -105,33 +105,6 @@ class _GraficoAfiliadoState extends State<GraficoAfiliado> {
               height: he * 0.03,
             ),
             TextButton(
-              onPressed: () {},
-              child: Text(
-                "Gráfico movimento",
-                style: GoogleFonts.poppins(
-                  color: const Color.fromARGB(255, 230, 46, 0),
-                  letterSpacing: 0.2,
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              style: TextButton.styleFrom(
-                side: BorderSide(
-                  width: 3.0,
-                  color: const Color.fromARGB(255, 230, 46, 0),
-                ),
-                backgroundColor: Colors.white,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: he * 0.03,
-            ),
-            TextButton(
               onPressed: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (context) => GraficoObjetivo(
