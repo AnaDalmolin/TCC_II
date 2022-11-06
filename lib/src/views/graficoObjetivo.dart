@@ -12,6 +12,7 @@ import 'package:tcc_ll/src/bloc/movimentacao.dart';
 import 'package:tcc_ll/src/bloc/objetivo.dart';
 import 'package:tcc_ll/src/bloc/responsavel.dart';
 import 'package:tcc_ll/src/views/TelaPrincipalResponsavel.dart';
+import 'package:tcc_ll/src/views/anmition/fadeanimation.dart';
 import 'package:tcc_ll/src/views/graficoAfiliado.dart';
 import 'package:tcc_ll/src/views/singup.dart';
 
@@ -135,33 +136,310 @@ class _GraficoObjetivoState extends State<GraficoObjetivo> {
             SizedBox(
               height: he * 0.03,
             ),
-            StreamBuilder<QuerySnapshot>(
-                stream: DatabaseObjetivo.readItems(userId: widget.afiliado),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                  } else if (snapshot.data != null) {
-                    var doc = snapshot.data!.docs;
-                    // var data = doc.data() as Map<String, dynamic>;
-                    LineGraph(
-                      features: features,
-                      size: Size(320, 300),
-                      labelX: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5'],
-                      labelY: ['20%', '40%', '60%', '80%', '100%'],
-                      showDescription: true,
-                      graphColor: Colors.white30,
-                      graphOpacity: 0.2,
-                      verticalFeatureDirection: true,
-                      descriptionHeight: 130,
-                    );
-                  }
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        Colors.orangeAccent,
+            Row(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 70, right: 0),
+                  child: Text("Objetivos em andamento.",
+                      style: GoogleFonts.poppins(
+                        color: Colors.deepPurple,
+                        letterSpacing: 0.5,
+                        fontSize: 20,
+                      )),
+                ),
+              ],
+            ),
+            Container(
+              child: StreamBuilder<QuerySnapshot>(
+                  stream: DatabaseObjetivo.readItems(userId: widget.afiliado),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                    } else if (snapshot.data != null) {
+                      return SizedBox(
+                        width: 350,
+                        child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            padding: const EdgeInsets.all(8),
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              var doc = snapshot.data!.docs[index];
+                              var data = doc.data() as Map<String, dynamic>;
+                              return index > 5
+                                  ? SizedBox()
+                                  : FadeAnimation(
+                                      delay: 1,
+                                      child: Container(
+                                          margin: const EdgeInsets.fromLTRB(
+                                              0, 4, 0, 0),
+                                          width: 300,
+                                          height: 160,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                            color: Colors.red,
+                                          ),
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  IconButton(
+                                                    icon: Icon(Icons
+                                                        .ads_click_rounded),
+                                                    color: Colors.white,
+                                                    onPressed: () {},
+                                                    iconSize: 30,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text('Objetivo:',
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                        color: Colors.white,
+                                                        letterSpacing: 0.5,
+                                                        fontSize: 22,
+                                                      )),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(data['nome'].toString(),
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                        color: Colors.white,
+                                                        letterSpacing: 0.2,
+                                                        fontSize: 22,
+                                                      )),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  IconButton(
+                                                    icon: Icon(Icons
+                                                        .ads_click_rounded),
+                                                    color: Colors.red,
+                                                    onPressed: () {},
+                                                    iconSize: 30,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text('Valor:',
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                        color: Colors.white,
+                                                        letterSpacing: 0.5,
+                                                        fontSize: 22,
+                                                      )),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(data['valor'].toString(),
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                        color: Colors.white,
+                                                        letterSpacing: 0.2,
+                                                        fontSize: 22,
+                                                      )),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  IconButton(
+                                                    icon: Icon(Icons
+                                                        .ads_click_rounded),
+                                                    color: Colors.red,
+                                                    onPressed: () {},
+                                                    iconSize: 30,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text('Valor guardado:',
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                        color: Colors.white,
+                                                        letterSpacing: 0.5,
+                                                        fontSize: 22,
+                                                      )),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(
+                                                      data['deposito']
+                                                          .toString(),
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                        color: Colors.white,
+                                                        letterSpacing: 0.2,
+                                                        fontSize: 22,
+                                                      )),
+                                                ],
+                                              ),
+                                            ],
+                                          )),
+                                    );
+                            }),
+                      );
+                    } else if (snapshot.data == null) {
+                      return Container(
+                        margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                        child: Text('Nenhum objetivo cadastrado!',
+                            style: GoogleFonts.poppins(
+                              color: Colors.deepOrange,
+                              letterSpacing: 0.5,
+                              fontSize: 22,
+                            )),
+                      );
+                    }
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          Colors.orangeAccent,
+                        ),
                       ),
-                    ),
-                  );
-                }),
+                    );
+                  }),
+            ),
+            SizedBox(
+              height: he * 0.03,
+            ),
+            Row(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 70, right: 0),
+                  child: Text("Objetivos em andamento.",
+                      style: GoogleFonts.poppins(
+                        color: Colors.deepPurple,
+                        letterSpacing: 0.5,
+                        fontSize: 20,
+                      )),
+                ),
+              ],
+            ),
+            Container(
+              width: 350,
+              height: 200,
+              child: StreamBuilder<QuerySnapshot>(
+                  stream: DatabaseObjetivo.readObjetivosConcluidos(
+                      userId: widget.afiliado),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                    } else if (snapshot.data != null) {
+                      return SizedBox(
+                        width: 350,
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            padding: const EdgeInsets.all(8),
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              var doc = snapshot.data!.docs[index];
+                              var data = doc.data() as Map<String, dynamic>;
+                              return index > 5
+                                  ? SizedBox()
+                                  : FadeAnimation(
+                                      delay: 1,
+                                      child: Container(
+                                          margin: const EdgeInsets.fromLTRB(
+                                              0, 4, 0, 0),
+                                          width: 300,
+                                          height: 120,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                            color: Colors.red,
+                                          ),
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  IconButton(
+                                                    icon: Icon(Icons
+                                                        .ads_click_rounded),
+                                                    color: Colors.white,
+                                                    onPressed: () {},
+                                                    iconSize: 30,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text('Objetivo:',
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                        color: Colors.white,
+                                                        letterSpacing: 0.5,
+                                                        fontSize: 22,
+                                                      )),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(data['nome'].toString(),
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                        color: Colors.white,
+                                                        letterSpacing: 0.2,
+                                                        fontSize: 22,
+                                                      )),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  IconButton(
+                                                    icon: Icon(Icons
+                                                        .ads_click_rounded),
+                                                    color: Colors.red,
+                                                    onPressed: () {},
+                                                    iconSize: 30,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text('Valor:',
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                        color: Colors.white,
+                                                        letterSpacing: 0.5,
+                                                        fontSize: 22,
+                                                      )),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(data['valor'].toString(),
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                        color: Colors.white,
+                                                        letterSpacing: 0.2,
+                                                        fontSize: 22,
+                                                      )),
+                                                ],
+                                              ),
+                                            ],
+                                          )),
+                                    );
+                            }),
+                      );
+                    } else if (snapshot.data == null) {
+                      return Container(
+                        margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                        child: Text('Nenhum objetivo cadastrado!',
+                            style: GoogleFonts.poppins(
+                              color: Colors.deepOrange,
+                              letterSpacing: 0.5,
+                              fontSize: 22,
+                            )),
+                      );
+                    }
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          Colors.orangeAccent,
+                        ),
+                      ),
+                    );
+                  }),
+            ),
           ],
         ),
       ),
