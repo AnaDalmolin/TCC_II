@@ -82,7 +82,7 @@ class _ListarAfiliadoState extends State<ListarAfiliado> {
                           padding: const EdgeInsets.all(5.0),
                           child: Container(
                             margin: const EdgeInsets.only(left: 80, right: 5),
-                            child: Text("Lista de afiliados",
+                            child: Text("Lista de dependentes",
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   letterSpacing: 0.5,

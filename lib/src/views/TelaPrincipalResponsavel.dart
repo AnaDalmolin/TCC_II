@@ -148,7 +148,7 @@ class _TelaPrincipalResponsavelState extends State<TelaPrincipalResponsavel> {
                         )));
               },
               child: Text(
-                "Cadastrar afiliado",
+                "Cadastrar dependente",
                 style: GoogleFonts.heebo(
                   color: Colors.white,
                   letterSpacing: 0.2,
@@ -177,7 +177,7 @@ class _TelaPrincipalResponsavelState extends State<TelaPrincipalResponsavel> {
                         )));
               },
               child: Text(
-                "Lista de afiliados",
+                "Lista de dependente",
                 style: GoogleFonts.heebo(
                   color: Colors.white,
                   letterSpacing: 0.2,

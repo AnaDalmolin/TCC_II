@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -226,22 +228,26 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                       color: Colors.deepOrange,
                       onPressed: () {
                         showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text("Termos de condição."),
-                                content: const Text(
-                                    "Por este instrumento particular de Contrato de Prestação de Serviços, de um lado a, (Aplicativo desenvolvido pela estudante Ana Caroline), com sede a rua Mário de barros, nº 922, residência – Centro Sul – Dois Vizinhos - Paraná, CEP nº 85660-000, doravante denominada simplesmente  CONTRATADA, e de outro lado, como CONTRATANTE  a pessoa física/ jurídica identificada no “TERMO DE ADESÃO” , tem entre si justo e acordado uma vez aceita a referida proposta, o que se segue”: 1- OBJETO Na qualidade de prestador de serviços de controle financeiro para jovens e adolescentes, a CONTRATADA  coloca a disposição da CONTRATANTE os serviços de serviços de controle financeiro para jovens e adolescentes  via online descritos no “TERMO DE ADESÃO”. – Os serviços oferecidos são: - Cadastro de progressão e conclusão de objetivos. - Anotações de depósitos e saques. - Movimentações e gráficos referentes a das as ações realizadas pelo afiliado no aplicativo. - Controle para os responsáveis referentes as movimentações realizadas pelos jovens e adolescentes. - Disponibilização de conquistas referentes a progressão do usuário. 3 – DAS OBRIGAÇÕES DA CONTRATADA 3.1 – A  CONTRATADA disponibilizará um “username” (“Nome do Usuário”) e um “password” (“Senha de Acesso”), “Data de Nascimento”(Data de nascimento do usuário), “Telefone” e “Email”   que serão sua identificação junto a CONTRATADA; 3.2 – A CONTRATADA disponibilizará os serviços ora contratados e manterá os serviços conforme o plano escolhido pela CONTRATANTE especificado no Termo de Adesão, enviando a CONTRATANTE as informações via e-mail, ao endereço previamente fornecido pela  CONTRATANTE. 3.3 – A CONTRATADA envidará os melhores esforços para assegurar e desenvolver a qualidade do serviço ora contratado, comprometendo-se ainda, a respeitar a privacidade do CONTRATANTE, garantindo que não divulgara sua senha de acesso ou e-mail de acesso. Não será efetuada nenhum tipo de MULTA/REAJUSTE devido aos serviços fornecidos serem completamente gratuitos. Sendo contratado o acesso à Prestação de Serviços via on-line (Aplicativo móvel), o mesmo poderá, eventualmente, sofrer interrupções devido a: (a) manutenções técnicas e/ou operacionais que exijam o desligamento temporário do sistema ou impossibilitem o acesso; (b) casos fortuitos ou força maior; (c) falta de fornecimento de energia elétrica para o sistema da CONTRATADA; (e) ocorrências de falhas no sistema de transmissão e/ou roteamento no acesso à internet;"),
-                                actions: <Widget>[
-                                  FlatButton(
-                                    child: Text("OK"),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                ],
-                              );
-                            });
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("Política de privacidade."),
+                              content: const SingleChildScrollView(
+                                scrollDirection: Axis.vertical,
+                                child: Text(
+                                    "Ao utilizar as aplicações  Ana Caroline Dal Molin, você concorda com estas condições. Por gentileza, leia com atenção todas as informações. Caso não concorde com estas condições, não utilize a aplicação.  Sobre o Aplicativo É um aplicativo mobile, onde tem o intuído de fazer com que adolecentes e jovens aprendam a gerenciar seu dinheirode uma maneira organizada e divertida. No aplicativo é possível iniciar com alguns objetivos para guardar o dinheiro para comprar um determinado item que esse usuário deseja. Além disso é possível depositar algum valor direto no objetivo para saber o quanto já tem e quanto falta para conseguir alcançar. Além disso a aplicação, tem a opção de depositar e sacar valores que já foram inseridos na aplicação. Todas os calculos de quanto o usuário já tem na aplicação ou retirou fica armazenado nos históricos. Depois que o usuário já atingiu alguma conquista essa fica armazenada nas conquistas. Existe a possibilidade de ter um usuário que vai ser o responsável, no qual vai conseguir acompanhar as movimentações, objetivos e conquistas de se afiliados. Essa funcionalidade é para os pais terem controle sobre como os seus filhos estão gerenciando seu dinheiro e aonde está sendo gasto esses valores que estarem visiveis nas conquistas. CONTATO: anadv21@gmail.com. Princípios de Privacidade Sobre as principais práticas de privacidade: ● Essa aplicação foi desenvolvida para auxiliar os adolecentes e jovens a controlar sua vida financeira; ● As informações coletadas no aplicativo mobile vão ser utilizados somente para uso na aplicação; ● Não é feita a venda de informações pessoais ou quais quer tipos de informações coletadas no aplicativo. ● Suas informações são armazenadas em bancos de dados onde os dados sensíveis serão criptografados. CONTATO: anadv21@gmail.com. Informações pessoais que podemos coletar: As informações coletadas no aplicativo são as informações inseridas na hora do cadastro. Não vamos perdir para informar novamente os dados durante o usuário da aplicação. Os seus dados serão utilizados dentro da aplicação para exibição, autenticação e validação. CONTATO: anadv21@gmail.com. Mudanças na Política de privacidade Quaisquer mudanças que venham a ocorrer na política de privacidade ou em outra área da aplicação serão enviadas aos usuários através dos meios de comunicação como e-mail, redes sociais e até mesmo avisos no aplicativo. CONTATO: anadv21@gmail.com. Termos de serviço SUA CONTA Ao utilizar o aplicativo Ana Caroline Dal Molin você é responsável por manter a confidencialidade de sua conta e senha e restringir o acesso ao seu aparelho celular, e responsabiliza-se por todas as atividades que ocorram com sua conta ou sua senha.  reserva-se o direito de encerrar contas, remover ou editar conteúdo da aplicação; CONTATO: anadv21@gmail.com."),
+                              ),
+                              actions: <Widget>[
+                                FlatButton(
+                                  child: Text("OK"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
                       iconSize: 30,
                     ),

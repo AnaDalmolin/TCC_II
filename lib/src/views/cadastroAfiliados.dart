@@ -64,7 +64,7 @@ class _CadastroAfiliadoState extends State<CadastroAfiliado> {
           },
           iconSize: 30,
         ),
-        title: const Text("Tela cadastro afiliado"),
+        title: const Text("Tela cadastro dependente"),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -83,8 +83,8 @@ class _CadastroAfiliadoState extends State<CadastroAfiliado> {
                         Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Container(
-                            margin: const EdgeInsets.only(left: 60, right: 5),
-                            child: Text("Cadastro de afiliados",
+                            margin: const EdgeInsets.only(left: 49, right: 5),
+                            child: Text("Cadastro de dependentes",
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   letterSpacing: 0.5,
@@ -121,7 +121,7 @@ class _CadastroAfiliadoState extends State<CadastroAfiliado> {
                       Icons.person_sharp,
                       color: Colors.white,
                     ),
-                    hintText: 'ID Afiliado',
+                    hintText: 'ID dependente',
                     hintStyle: TextStyle(
                       color: Colors.white,
                     ),
@@ -154,7 +154,7 @@ class _CadastroAfiliadoState extends State<CadastroAfiliado> {
                       Icons.person_sharp,
                       color: Colors.white,
                     ),
-                    hintText: 'Nome afiliado',
+                    hintText: 'Nome dependente',
                     hintStyle: TextStyle(
                       color: Colors.white,
                     ),
@@ -193,7 +193,7 @@ class _CadastroAfiliadoState extends State<CadastroAfiliado> {
                   }
                 },
                 child: Text(
-                  "Cadastrar afiliado",
+                  "Cadastrar dependente",
                   style: GoogleFonts.heebo(
                     color: Colors.white,
                     letterSpacing: 0.2,

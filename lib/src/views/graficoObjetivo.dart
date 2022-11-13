@@ -99,7 +99,7 @@ class _GraficoObjetivoState extends State<GraficoObjetivo> {
           },
           iconSize: 30,
         ),
-        title: const Text("Relatório do afiliado"),
+        title: const Text("Relatório do dependente"),
       ),
       body: SingleChildScrollView(
         child: Column(
