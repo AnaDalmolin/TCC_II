@@ -62,7 +62,7 @@ class _ListarAfiliadoState extends State<ListarAfiliado> {
           },
           iconSize: 30,
         ),
-        title: const Text("Tela de listagem de filiado"),
+        title: const Text("Tela de listagem de dependentes"),
       ),
       body: SingleChildScrollView(
         child: Column(
