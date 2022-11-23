@@ -44,7 +44,7 @@ class _TelaPerfilState extends State<TelaPerfil> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Perfil"),
-        backgroundColor: const Color.fromARGB(255, 230, 46, 0),
+        backgroundColor: Colors.blueAccent,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           color: Colors.white,
@@ -100,7 +100,7 @@ class _TelaPerfilState extends State<TelaPerfil> {
                       margin: const EdgeInsets.only(left: 20, right: 5),
                       child: Text(data['Nome'],
                           style: GoogleFonts.poppins(
-                            color: Colors.deepOrange,
+                            color: Colors.orange,
                             letterSpacing: 0.5,
                             fontSize: 30,
                           )),
@@ -111,7 +111,7 @@ class _TelaPerfilState extends State<TelaPerfil> {
                           margin: const EdgeInsets.only(left: 45, right: 5),
                           child: Text("ID: ",
                               style: GoogleFonts.poppins(
-                                color: Colors.deepOrange,
+                                color: Colors.orange,
                                 letterSpacing: 0.5,
                                 fontSize: 25,
                               )),
@@ -157,7 +157,7 @@ class _TelaPerfilState extends State<TelaPerfil> {
                       child: Text(
                         "Termos de condição",
                         style: GoogleFonts.poppins(
-                          color: Color.fromARGB(226, 171, 7, 177),
+                          color: Colors.blueAccent,
                           letterSpacing: 0.2,
                           fontSize: 15.0,
                           fontWeight: FontWeight.bold,
@@ -166,7 +166,7 @@ class _TelaPerfilState extends State<TelaPerfil> {
                       style: TextButton.styleFrom(
                         side: BorderSide(
                           width: 3.0,
-                          color: Color.fromARGB(226, 171, 7, 177),
+                          color: Colors.blueAccent,
                         ),
                         backgroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(

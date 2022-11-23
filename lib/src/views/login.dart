@@ -43,7 +43,7 @@ class _LoginState extends State<Login> {
     var we = MediaQuery.of(context).size.width;
     var he = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: const Color.fromARGB(187, 171, 7, 177),
+      backgroundColor: Colors.blueAccent,
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -75,7 +75,7 @@ class _LoginState extends State<Login> {
                       height: he * 0.071,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
-                        color: const Color.fromARGB(255, 241, 67, 24),
+                        color: Colors.orange,
                       ),
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
@@ -122,7 +122,7 @@ class _LoginState extends State<Login> {
                       height: he * 0.071,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
-                          color: const Color.fromARGB(255, 241, 67, 24)),
+                          color: Colors.orange),
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         controller: senhaController,
@@ -262,8 +262,7 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         style: TextButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromARGB(255, 230, 46, 0),
+                            backgroundColor: Colors.orange,
                             padding: const EdgeInsets.symmetric(
                                 vertical: 15.0, horizontal: 80),
                             shape: RoundedRectangleBorder(
@@ -289,8 +288,7 @@ class _LoginState extends State<Login> {
                           },
                           child: Text("Cadastre-se",
                               style: GoogleFonts.heebo(
-                                color: const Color.fromARGB(255, 230, 46, 0)
-                                    .withOpacity(0.9),
+                                color: Colors.orange.withOpacity(0.9),
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 0.5,
                               )),

@@ -42,7 +42,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Tela objetivo"),
-        backgroundColor: const Color.fromARGB(255, 230, 46, 0),
+        backgroundColor: Colors.blueAccent,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           color: Colors.white,
@@ -63,7 +63,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
               child: Container(
                 height: 100,
                 width: 450,
-                color: const Color.fromARGB(255, 230, 46, 0),
+                color: Colors.blueAccent,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -107,8 +107,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                                       child: Text(
                                         "Criar novo objetivo +",
                                         style: GoogleFonts.poppins(
-                                          color: const Color.fromARGB(
-                                              255, 230, 46, 0),
+                                          color: Colors.orange,
                                           letterSpacing: 0.2,
                                           fontSize: 15.0,
                                           fontWeight: FontWeight.bold,
@@ -117,7 +116,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                                       style: TextButton.styleFrom(
                                         side: const BorderSide(
                                           width: 3.0,
-                                          color: Colors.deepPurple,
+                                          color: Colors.orange,
                                         ),
                                         backgroundColor: Colors.white,
                                         padding: const EdgeInsets.symmetric(
@@ -316,7 +315,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                   child: Text(
                     "Objetivos concluidos",
                     style: GoogleFonts.poppins(
-                      color: const Color.fromARGB(255, 230, 46, 0),
+                      color: Colors.orange,
                       letterSpacing: 0.2,
                       fontSize: 10.0,
                       fontWeight: FontWeight.bold,
@@ -325,7 +324,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                   style: TextButton.styleFrom(
                     side: const BorderSide(
                       width: 3.0,
-                      color: Colors.deepPurple,
+                      color: Colors.orange,
                     ),
                     backgroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(
@@ -342,8 +341,8 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
       ),
       bottomNavigationBar: FancyBottomNavigation(
         circleColor: Colors.white,
-        barBackgroundColor: const Color.fromARGB(255, 230, 46, 0),
-        activeIconColor: const Color.fromARGB(255, 230, 46, 0),
+        barBackgroundColor: Colors.blueAccent,
+        activeIconColor: Colors.blueAccent,
         inactiveIconColor: Colors.white,
         textColor: Colors.white,
         tabs: [
@@ -384,8 +383,6 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
   }
 
   final List<Color> kMixedColors = [
-    Colors.purple,
     Colors.blue,
-    Colors.red,
   ];
 }

@@ -40,7 +40,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
         title: const Text(
           "Bem vindo",
         ),
-        backgroundColor: const Color.fromARGB(187, 171, 7, 177),
+        backgroundColor: Colors.blueAccent,
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -50,7 +50,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                 clipper: WaveClipperOne(),
                 child: Container(
                   height: 100,
-                  color: const Color.fromARGB(187, 171, 7, 177),
+                  color: Colors.blueAccent,
                   child: Center(
                     child: Text(
                       "Cadastro dados básicos",
@@ -70,7 +70,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                   height: he * 0.071,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
-                    color: const Color.fromARGB(255, 241, 67, 24),
+                    color: Colors.orange,
                   ),
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
@@ -103,7 +103,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                   height: he * 0.071,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
-                    color: const Color.fromARGB(255, 241, 67, 24),
+                    color: Colors.orange,
                   ),
                   padding: const EdgeInsets.all(8.0),
                   child: DateTimeField(
@@ -143,7 +143,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                   height: he * 0.071,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
-                    color: const Color.fromARGB(255, 241, 67, 24),
+                    color: Colors.orange,
                   ),
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
@@ -196,8 +196,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                     const Text(
                       "Você é responsalvel por alguém?",
                       style: TextStyle(
-                          color: Color.fromARGB(255, 241, 67, 24),
-                          fontWeight: FontWeight.bold),
+                          color: Colors.orange, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -210,7 +209,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                       margin: const EdgeInsets.only(left: 20, right: 5),
                       child: Checkbox(
                         checkColor: Colors.white,
-                        activeColor: Color.fromARGB(255, 241, 67, 24),
+                        activeColor: Colors.orange,
                         value: bloc.termo,
                         onChanged: (value) {
                           setState(() => bloc.termo = !bloc.termo);
@@ -220,12 +219,11 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                     const Text(
                       "Aceita os termos de compromisso?",
                       style: TextStyle(
-                          color: Color.fromARGB(255, 241, 67, 24),
-                          fontWeight: FontWeight.bold),
+                          color: Colors.orange, fontWeight: FontWeight.bold),
                     ),
                     IconButton(
                       icon: const Icon(Icons.text_snippet_sharp),
-                      color: Colors.deepOrange,
+                      color: Colors.orange,
                       onPressed: () {
                         showDialog(
                           context: context,
@@ -311,7 +309,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                     ),
                   ),
                   style: TextButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 230, 46, 0),
+                    backgroundColor: Colors.orange,
                     padding: const EdgeInsets.symmetric(
                         vertical: 15.0, horizontal: 80),
                     shape: RoundedRectangleBorder(

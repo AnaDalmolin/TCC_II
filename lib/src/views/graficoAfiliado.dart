@@ -54,7 +54,7 @@ class _GraficoAfiliadoState extends State<GraficoAfiliado> {
     var he = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 230, 46, 0),
+        backgroundColor: Colors.blueAccent,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           color: Colors.white,
@@ -77,7 +77,7 @@ class _GraficoAfiliadoState extends State<GraficoAfiliado> {
               child: Container(
                 height: 100,
                 width: 450,
-                color: const Color.fromARGB(255, 230, 46, 0),
+                color: Colors.blueAccent,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
@@ -116,7 +116,7 @@ class _GraficoAfiliadoState extends State<GraficoAfiliado> {
               child: Text(
                 "Objetivos",
                 style: GoogleFonts.poppins(
-                  color: const Color.fromARGB(255, 230, 46, 0),
+                  color: Colors.orange,
                   letterSpacing: 0.2,
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
@@ -125,7 +125,7 @@ class _GraficoAfiliadoState extends State<GraficoAfiliado> {
               style: TextButton.styleFrom(
                 side: BorderSide(
                   width: 3.0,
-                  color: const Color.fromARGB(255, 230, 46, 0),
+                  color: Colors.orange,
                 ),
                 backgroundColor: Colors.white,
                 padding:
@@ -143,14 +143,14 @@ class _GraficoAfiliadoState extends State<GraficoAfiliado> {
               thickness: 4,
               indent: 10,
               endIndent: 10,
-              color: Color.fromARGB(255, 230, 46, 0),
+              color: Colors.orange,
             ),
             SizedBox(
               height: he * 0.03,
             ),
             Text("Historico de movimentação",
                 style: GoogleFonts.poppins(
-                  color: Colors.deepPurple,
+                  color: Colors.blueAccent,
                   letterSpacing: 0.5,
                   fontSize: 22,
                 )),

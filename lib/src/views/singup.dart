@@ -39,7 +39,7 @@ class _SingupState extends State<Singup> {
     var we = MediaQuery.of(context).size.width;
     var he = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: const Color.fromARGB(187, 171, 7, 177),
+      backgroundColor: Colors.blueAccent,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Form(
@@ -89,7 +89,7 @@ class _SingupState extends State<Singup> {
                     height: he * 0.071,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
-                      color: const Color.fromARGB(255, 241, 67, 24),
+                      color: Colors.orange,
                     ),
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
@@ -136,7 +136,7 @@ class _SingupState extends State<Singup> {
                     height: he * 0.071,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
-                        color: const Color.fromARGB(255, 241, 67, 24)),
+                        color: Colors.orange),
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       validator: (value) {
@@ -201,7 +201,7 @@ class _SingupState extends State<Singup> {
                     height: he * 0.071,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
-                        color: const Color.fromARGB(255, 241, 67, 24)),
+                        color: Colors.orange),
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       validator: (value) {
@@ -301,8 +301,7 @@ class _SingupState extends State<Singup> {
                         ),
                       ),
                       style: TextButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 230, 46, 0),
+                          backgroundColor: Colors.orange,
                           padding: const EdgeInsets.symmetric(
                               vertical: 15.0, horizontal: 80),
                           shape: RoundedRectangleBorder(
@@ -328,8 +327,7 @@ class _SingupState extends State<Singup> {
                         },
                         child: Text("Logar",
                             style: GoogleFonts.heebo(
-                              color: const Color.fromARGB(255, 230, 46, 0)
-                                  .withOpacity(0.9),
+                              color: Colors.orange.withOpacity(0.9),
                               fontWeight: FontWeight.bold,
                               letterSpacing: 0.5,
                             )),

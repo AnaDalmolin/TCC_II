@@ -40,7 +40,7 @@ class _TelaObjetivoConcluidoState extends State<TelaObjetivoConcluido> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Tela objetivos concluidos"),
-        backgroundColor: const Color.fromARGB(255, 230, 46, 0),
+        backgroundColor: Colors.blueAccent,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           color: Colors.white,
@@ -61,7 +61,7 @@ class _TelaObjetivoConcluidoState extends State<TelaObjetivoConcluido> {
               child: Container(
                 height: 100,
                 width: 450,
-                color: const Color.fromARGB(255, 230, 46, 0),
+                color: Colors.blueAccent,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -109,21 +109,47 @@ class _TelaObjetivoConcluidoState extends State<TelaObjetivoConcluido> {
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(data['nome'],
-                                style: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                  letterSpacing: 0.5,
-                                  fontSize: 30,
-                                )),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: he * 0.05,
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.radar),
+                                  color: Colors.orange,
+                                  onPressed: () {},
+                                  iconSize: 30,
+                                ),
+                                Text(data['nome'],
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.white,
+                                      letterSpacing: 0.5,
+                                      fontSize: 30,
+                                    )),
+                              ],
+                            ),
                             SizedBox(
                               height: he * 0.04,
                             ),
-                            Text("Valor objetivo: " + data['valor'].toString(),
-                                style: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                  letterSpacing: 0.5,
-                                  fontSize: 20,
-                                )),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: he * 0.05,
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.monetization_on_outlined),
+                                  color: Colors.orange,
+                                  onPressed: () {},
+                                  iconSize: 30,
+                                ),
+                                Text("Valor: " + data['valor'].toString(),
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.white,
+                                      letterSpacing: 0.5,
+                                      fontSize: 20,
+                                    )),
+                              ],
+                            ),
                             SizedBox(
                               height: he * 0.04,
                             ),
@@ -145,8 +171,8 @@ class _TelaObjetivoConcluidoState extends State<TelaObjetivoConcluido> {
       ),
       bottomNavigationBar: FancyBottomNavigation(
         circleColor: Colors.white,
-        barBackgroundColor: const Color.fromARGB(255, 230, 46, 0),
-        activeIconColor: const Color.fromARGB(255, 230, 46, 0),
+        barBackgroundColor: Colors.blueAccent,
+        activeIconColor: Colors.blueAccent,
         inactiveIconColor: Colors.white,
         textColor: Colors.white,
         tabs: [
@@ -193,9 +219,5 @@ class _TelaObjetivoConcluidoState extends State<TelaObjetivoConcluido> {
   //   return retorno;
   // }
 
-  final List<Color> kMixedColors = [
-    Colors.purple,
-    Colors.blue,
-    Colors.red,
-  ];
+  final List<Color> kMixedColors = [Colors.blueAccent];
 }

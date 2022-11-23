@@ -53,7 +53,7 @@ class _TelaPrincipalResponsavelState extends State<TelaPrincipalResponsavel> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Tela inicial"),
-        backgroundColor: const Color.fromARGB(255, 230, 46, 0),
+        backgroundColor: Colors.blueAccent,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.login),
@@ -72,7 +72,7 @@ class _TelaPrincipalResponsavelState extends State<TelaPrincipalResponsavel> {
               child: Container(
                 height: 100,
                 width: 450,
-                color: const Color.fromARGB(255, 230, 46, 0),
+                color: Colors.blueAccent,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
@@ -157,7 +157,7 @@ class _TelaPrincipalResponsavelState extends State<TelaPrincipalResponsavel> {
                 ),
               ),
               style: TextButton.styleFrom(
-                backgroundColor: Color.fromARGB(226, 171, 7, 177),
+                backgroundColor: Colors.orange,
                 padding:
                     const EdgeInsets.symmetric(vertical: 15.0, horizontal: 80),
                 shape: RoundedRectangleBorder(
@@ -186,7 +186,7 @@ class _TelaPrincipalResponsavelState extends State<TelaPrincipalResponsavel> {
                 ),
               ),
               style: TextButton.styleFrom(
-                backgroundColor: Color.fromARGB(226, 171, 7, 177),
+                backgroundColor: Colors.orange,
                 padding:
                     const EdgeInsets.symmetric(vertical: 15.0, horizontal: 80),
                 shape: RoundedRectangleBorder(

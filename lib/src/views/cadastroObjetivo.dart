@@ -37,7 +37,7 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Novo objetivo"),
-        backgroundColor: const Color.fromARGB(255, 230, 46, 0),
+        backgroundColor: Colors.blueAccent,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           color: Colors.white,
@@ -58,7 +58,7 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
               child: Container(
                 height: 100,
                 width: 450,
-                color: const Color.fromARGB(255, 230, 46, 0),
+                color: Colors.blueAccent,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -99,7 +99,7 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
                 height: he * 0.071,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
-                  color: const Color.fromARGB(255, 241, 67, 24),
+                  color: Colors.orange,
                 ),
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
@@ -132,7 +132,7 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
                 height: he * 0.071,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
-                  color: const Color.fromARGB(255, 241, 67, 24),
+                  color: Colors.orange,
                 ),
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
@@ -171,7 +171,7 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
                 height: he * 0.071,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
-                  color: const Color.fromARGB(255, 241, 67, 24),
+                  color: Colors.orange,
                 ),
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
@@ -245,7 +245,7 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
                         ),
                       ),
                       style: TextButton.styleFrom(
-                        backgroundColor: Color.fromARGB(226, 171, 7, 177),
+                        backgroundColor: Colors.blueAccent,
                         padding: const EdgeInsets.symmetric(
                             vertical: 15.0, horizontal: 80),
                         shape: RoundedRectangleBorder(
@@ -260,8 +260,8 @@ class _CadastroObjetivoState extends State<CadastroObjetivo> {
       ),
       bottomNavigationBar: FancyBottomNavigation(
         circleColor: Colors.white,
-        barBackgroundColor: const Color.fromARGB(255, 230, 46, 0),
-        activeIconColor: const Color.fromARGB(255, 230, 46, 0),
+        barBackgroundColor: Colors.blueAccent,
+        activeIconColor: Colors.blueAccent,
         inactiveIconColor: Colors.white,
         textColor: Colors.white,
         tabs: [

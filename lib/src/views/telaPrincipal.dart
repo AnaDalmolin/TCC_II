@@ -50,7 +50,7 @@ class _TelaInicialState extends State<TelaInicial> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Tela Inicial"),
-        backgroundColor: const Color.fromARGB(255, 230, 46, 0),
+        backgroundColor: Colors.blueAccent,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.login),
@@ -69,7 +69,7 @@ class _TelaInicialState extends State<TelaInicial> {
               child: Container(
                 height: 100,
                 width: 450,
-                color: const Color.fromARGB(255, 230, 46, 0),
+                color: Colors.blueAccent,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
@@ -144,8 +144,8 @@ class _TelaInicialState extends State<TelaInicial> {
                   height: 70,
                   decoration: ShapeDecoration(
                     gradient: LinearGradient(colors: const [
-                      Colors.deepOrange,
-                      Color.fromARGB(255, 221, 27, 37),
+                      Colors.orange,
+                      Color.fromARGB(255, 238, 87, 16),
                     ]),
                     shape: SmoothRectangleBorder(
                       borderRadius: SmoothBorderRadius(
@@ -274,7 +274,7 @@ class _TelaInicialState extends State<TelaInicial> {
                               child: Text(
                                 "Anotar saque",
                                 style: GoogleFonts.poppins(
-                                  color: const Color.fromARGB(255, 230, 46, 0),
+                                  color: Colors.orange,
                                   letterSpacing: 0.2,
                                   fontSize: 15.0,
                                   fontWeight: FontWeight.bold,
@@ -283,7 +283,7 @@ class _TelaInicialState extends State<TelaInicial> {
                               style: TextButton.styleFrom(
                                 side: BorderSide(
                                   width: 3.0,
-                                  color: const Color.fromARGB(255, 230, 46, 0),
+                                  color: Colors.orange,
                                 ),
                                 backgroundColor: Colors.white,
                                 padding: const EdgeInsets.symmetric(
@@ -313,7 +313,7 @@ class _TelaInicialState extends State<TelaInicial> {
                               child: Text(
                                 "Anotar deposito",
                                 style: GoogleFonts.poppins(
-                                  color: const Color.fromARGB(255, 230, 46, 0),
+                                  color: Colors.orange,
                                   letterSpacing: 0.2,
                                   fontSize: 15.0,
                                   fontWeight: FontWeight.bold,
@@ -322,7 +322,7 @@ class _TelaInicialState extends State<TelaInicial> {
                               style: TextButton.styleFrom(
                                 side: BorderSide(
                                   width: 3.0,
-                                  color: const Color.fromARGB(255, 230, 46, 0),
+                                  color: Colors.orange,
                                 ),
                                 backgroundColor: Colors.white,
                                 padding: const EdgeInsets.symmetric(
@@ -360,7 +360,7 @@ class _TelaInicialState extends State<TelaInicial> {
                               child: Text(
                                 "Anotar saque",
                                 style: GoogleFonts.poppins(
-                                  color: const Color.fromARGB(255, 230, 46, 0),
+                                  color: Colors.orange,
                                   letterSpacing: 0.2,
                                   fontSize: 15.0,
                                   fontWeight: FontWeight.bold,
@@ -369,7 +369,7 @@ class _TelaInicialState extends State<TelaInicial> {
                               style: TextButton.styleFrom(
                                 side: BorderSide(
                                   width: 3.0,
-                                  color: const Color.fromARGB(255, 230, 46, 0),
+                                  color: Colors.orange,
                                 ),
                                 backgroundColor: Colors.white,
                                 padding: const EdgeInsets.symmetric(
@@ -400,7 +400,7 @@ class _TelaInicialState extends State<TelaInicial> {
                               child: Text(
                                 "Anotar deposito",
                                 style: GoogleFonts.poppins(
-                                  color: const Color.fromARGB(255, 230, 46, 0),
+                                  color: Colors.orange,
                                   letterSpacing: 0.2,
                                   fontSize: 15.0,
                                   fontWeight: FontWeight.bold,
@@ -409,7 +409,7 @@ class _TelaInicialState extends State<TelaInicial> {
                               style: TextButton.styleFrom(
                                 side: BorderSide(
                                   width: 3.0,
-                                  color: const Color.fromARGB(255, 230, 46, 0),
+                                  color: Colors.orange,
                                 ),
                                 backgroundColor: Colors.white,
                                 padding: const EdgeInsets.symmetric(
@@ -440,14 +440,14 @@ class _TelaInicialState extends State<TelaInicial> {
               thickness: 4,
               indent: 10,
               endIndent: 10,
-              color: Color.fromARGB(255, 230, 46, 0),
+              color: Colors.orange,
             ),
             SizedBox(
               height: he * 0.03,
             ),
             Text("Historico de movimentação",
                 style: GoogleFonts.poppins(
-                  color: Colors.deepPurple,
+                  color: Colors.blueAccent,
                   letterSpacing: 0.5,
                   fontSize: 22,
                 )),
@@ -483,8 +483,9 @@ class _TelaInicialState extends State<TelaInicial> {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(20.0),
-                                        color:
-                                            Color.fromARGB(207, 152, 10, 165),
+                                        color: movimento
+                                            ? Colors.green
+                                            : Colors.red,
                                       ),
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
@@ -545,8 +546,8 @@ class _TelaInicialState extends State<TelaInicial> {
       ),
       bottomNavigationBar: FancyBottomNavigation(
         circleColor: Colors.white,
-        barBackgroundColor: const Color.fromARGB(255, 230, 46, 0),
-        activeIconColor: const Color.fromARGB(255, 230, 46, 0),
+        barBackgroundColor: Colors.blueAccent,
+        activeIconColor: Colors.blueAccent,
         inactiveIconColor: Colors.white,
         textColor: Colors.white,
         tabs: [

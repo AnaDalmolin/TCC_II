@@ -51,41 +51,13 @@ class _GraficoObjetivoState extends State<GraficoObjetivo> {
     super.initState();
   }
 
-  final List<Feature> features = [
-    Feature(
-      title: "Drink Water",
-      color: Colors.blue,
-      data: [0.2, 0.8, 0.4, 0.7, 0.6],
-    ),
-    Feature(
-      title: "Exercise",
-      color: Colors.pink,
-      data: [1, 0.8, 0.6, 0.7, 0.3],
-    ),
-    Feature(
-      title: "Study",
-      color: Colors.cyan,
-      data: [0.5, 0.4, 0.85, 0.4, 0.7],
-    ),
-    Feature(
-      title: "Water Plants",
-      color: Colors.green,
-      data: [0.6, 0.2, 0, 0.1, 1],
-    ),
-    Feature(
-      title: "Grocery Shopping",
-      color: Colors.amber,
-      data: [0.25, 1, 0.3, 0.8, 0.6],
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     var we = MediaQuery.of(context).size.width;
     var he = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 230, 46, 0),
+        backgroundColor: Colors.blueAccent,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           color: Colors.white,
@@ -109,7 +81,7 @@ class _GraficoObjetivoState extends State<GraficoObjetivo> {
               child: Container(
                 height: 100,
                 width: 450,
-                color: const Color.fromARGB(255, 230, 46, 0),
+                color: Colors.blueAccent,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
@@ -142,7 +114,7 @@ class _GraficoObjetivoState extends State<GraficoObjetivo> {
                   margin: const EdgeInsets.only(left: 70, right: 0),
                   child: Text("Objetivos em andamento.",
                       style: GoogleFonts.poppins(
-                        color: Colors.deepPurple,
+                        color: Colors.blueAccent,
                         letterSpacing: 0.5,
                         fontSize: 20,
                       )),
@@ -177,7 +149,7 @@ class _GraficoObjetivoState extends State<GraficoObjetivo> {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(20.0),
-                                            color: Colors.red,
+                                            color: Colors.orange,
                                           ),
                                           padding: const EdgeInsets.all(8.0),
                                           child: Column(
@@ -218,7 +190,7 @@ class _GraficoObjetivoState extends State<GraficoObjetivo> {
                                                   IconButton(
                                                     icon: Icon(Icons
                                                         .ads_click_rounded),
-                                                    color: Colors.red,
+                                                    color: Colors.white,
                                                     onPressed: () {},
                                                     iconSize: 30,
                                                   ),
@@ -249,7 +221,7 @@ class _GraficoObjetivoState extends State<GraficoObjetivo> {
                                                   IconButton(
                                                     icon: Icon(Icons
                                                         .ads_click_rounded),
-                                                    color: Colors.red,
+                                                    color: Colors.white,
                                                     onPressed: () {},
                                                     iconSize: 30,
                                                   ),
@@ -287,7 +259,7 @@ class _GraficoObjetivoState extends State<GraficoObjetivo> {
                         margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                         child: Text('Nenhum objetivo cadastrado!',
                             style: GoogleFonts.poppins(
-                              color: Colors.deepOrange,
+                              color: Colors.blueAccent,
                               letterSpacing: 0.5,
                               fontSize: 22,
                             )),
@@ -311,7 +283,7 @@ class _GraficoObjetivoState extends State<GraficoObjetivo> {
                   margin: const EdgeInsets.only(left: 70, right: 0),
                   child: Text("Objetivos em andamento.",
                       style: GoogleFonts.poppins(
-                        color: Colors.deepPurple,
+                        color: Colors.blueAccent,
                         letterSpacing: 0.5,
                         fontSize: 20,
                       )),
@@ -348,7 +320,7 @@ class _GraficoObjetivoState extends State<GraficoObjetivo> {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(20.0),
-                                            color: Colors.red,
+                                            color: Colors.orange,
                                           ),
                                           padding: const EdgeInsets.all(8.0),
                                           child: Column(
@@ -389,7 +361,7 @@ class _GraficoObjetivoState extends State<GraficoObjetivo> {
                                                   IconButton(
                                                     icon: Icon(Icons
                                                         .ads_click_rounded),
-                                                    color: Colors.red,
+                                                    color: Colors.white,
                                                     onPressed: () {},
                                                     iconSize: 30,
                                                   ),

@@ -34,7 +34,7 @@ class _TelaConquistaState extends State<TelaConquista> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Suas Conquistas"),
-        backgroundColor: const Color.fromARGB(255, 230, 46, 0),
+        backgroundColor: Colors.blueAccent,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           color: Colors.white,
@@ -56,7 +56,7 @@ class _TelaConquistaState extends State<TelaConquista> {
               child: Container(
                 height: 100,
                 width: 450,
-                color: const Color.fromARGB(255, 230, 46, 0),
+                color: Colors.blueAccent,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -116,7 +116,7 @@ class _TelaConquistaState extends State<TelaConquista> {
                         height: he * 0.11,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
-                          color: Color.fromARGB(255, 152, 10, 165),
+                          color: Colors.orange,
                         ),
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
@@ -156,7 +156,7 @@ class _TelaConquistaState extends State<TelaConquista> {
                         height: he * 0.11,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
-                          color: Color.fromARGB(255, 152, 10, 165),
+                          color: Colors.orange,
                         ),
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
@@ -213,7 +213,7 @@ class _TelaConquistaState extends State<TelaConquista> {
                         height: he * 0.11,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
-                          color: Color.fromARGB(255, 152, 10, 165),
+                          color: Colors.orange,
                         ),
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
@@ -254,7 +254,7 @@ class _TelaConquistaState extends State<TelaConquista> {
                         height: he * 0.11,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
-                          color: Color.fromARGB(255, 152, 10, 165),
+                          color: Colors.orange,
                         ),
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
@@ -303,8 +303,8 @@ class _TelaConquistaState extends State<TelaConquista> {
       ),
       bottomNavigationBar: FancyBottomNavigation(
         circleColor: Colors.white,
-        barBackgroundColor: const Color.fromARGB(255, 230, 46, 0),
-        activeIconColor: const Color.fromARGB(255, 230, 46, 0),
+        barBackgroundColor: Colors.blueAccent,
+        activeIconColor: Colors.blueAccent,
         inactiveIconColor: Colors.white,
         textColor: Colors.white,
         tabs: [

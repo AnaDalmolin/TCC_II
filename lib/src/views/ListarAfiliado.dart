@@ -49,7 +49,7 @@ class _ListarAfiliadoState extends State<ListarAfiliado> {
     var he = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 230, 46, 0),
+        backgroundColor: Colors.blueAccent,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           color: Colors.white,
@@ -72,7 +72,7 @@ class _ListarAfiliadoState extends State<ListarAfiliado> {
               child: Container(
                 height: 100,
                 width: 450,
-                color: const Color.fromARGB(255, 230, 46, 0),
+                color: Colors.blueAccent,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
@@ -126,8 +126,7 @@ class _ListarAfiliadoState extends State<ListarAfiliado> {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(20.0),
-                                        color:
-                                            Color.fromARGB(207, 152, 10, 165),
+                                        color: Colors.orange,
                                       ),
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
