@@ -398,7 +398,7 @@ class _TelaInicialState extends State<TelaInicial> {
                                             )));
                               },
                               child: Text(
-                                "Anotar deposito",
+                                "Anotar depósito",
                                 style: GoogleFonts.poppins(
                                   color: Colors.orange,
                                   letterSpacing: 0.2,
@@ -445,7 +445,7 @@ class _TelaInicialState extends State<TelaInicial> {
             SizedBox(
               height: he * 0.03,
             ),
-            Text("Historico de movimentação",
+            Text("Histórico de movimentação",
                 style: GoogleFonts.poppins(
                   color: Colors.blueAccent,
                   letterSpacing: 0.5,
@@ -503,7 +503,7 @@ class _TelaInicialState extends State<TelaInicial> {
                                           ),
                                           Text(
                                               movimento
-                                                  ? 'Deposito:'
+                                                  ? 'Depósito:'
                                                   : 'Saque:',
                                               style: GoogleFonts.poppins(
                                                 color: Colors.white,

@@ -148,7 +148,7 @@ class _GraficoAfiliadoState extends State<GraficoAfiliado> {
             SizedBox(
               height: he * 0.03,
             ),
-            Text("Historico de movimentação",
+            Text("Histórico de movimentação",
                 style: GoogleFonts.poppins(
                   color: Colors.blueAccent,
                   letterSpacing: 0.5,
@@ -206,7 +206,7 @@ class _GraficoAfiliadoState extends State<GraficoAfiliado> {
                                           ),
                                           Text(
                                               movimento
-                                                  ? 'Deposito:'
+                                                  ? 'Depósito:'
                                                   : 'Saque:',
                                               style: GoogleFonts.poppins(
                                                 color: Colors.white,

@@ -99,7 +99,7 @@ class _LoginState extends State<Login> {
                             color:
                                 selected == Gender.Email ? enabledtxt : deaible,
                           ),
-                          hintText: 'Email',
+                          hintText: 'E-mail',
                           hintStyle: TextStyle(
                             color:
                                 selected == Gender.Email ? enabledtxt : deaible,

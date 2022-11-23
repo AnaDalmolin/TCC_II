@@ -33,7 +33,7 @@ class _TelaConquistaState extends State<TelaConquista> {
     var he = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Suas Conquistas"),
+        title: Text("Suas conquistas"),
         backgroundColor: Colors.blueAccent,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -64,7 +64,7 @@ class _TelaConquistaState extends State<TelaConquista> {
                       children: [
                         Container(
                           margin: const EdgeInsets.only(left: 100, right: 0),
-                          child: Text("Suas Conquistas",
+                          child: Text("Suas conquistas",
                               style: GoogleFonts.poppins(
                                 color: Colors.white,
                                 letterSpacing: 0.5,

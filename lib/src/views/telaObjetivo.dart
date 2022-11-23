@@ -315,7 +315,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                             )));
                   },
                   child: Text(
-                    "Objetivos concluidos",
+                    "Objetivos concluídos",
                     style: GoogleFonts.poppins(
                       color: Colors.orange,
                       letterSpacing: 0.2,

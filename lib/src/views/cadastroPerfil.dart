@@ -116,7 +116,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                         Icons.date_range_outlined,
                         color: Colors.white,
                       ),
-                      hintText: 'Data nascimento',
+                      hintText: 'Data de nascimento',
                       hintStyle: TextStyle(
                         color: Colors.white,
                       ),
@@ -179,7 +179,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                       padding: const EdgeInsets.all(8.0),
                       child: SwitcherButton(
                         onColor: Colors.green,
-                        offColor: Colors.red,
+                        offColor: Color.fromARGB(255, 233, 84, 14),
                         value: bloc.responsalvel,
                         onChange: (value) {
                           setState(() {
@@ -194,7 +194,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                       height: he * 0.02,
                     ),
                     const Text(
-                      "Você é responsalvel por alguém?",
+                      "Você é responsálvel por alguém?",
                       style: TextStyle(
                           color: Colors.orange, fontWeight: FontWeight.bold),
                     ),
