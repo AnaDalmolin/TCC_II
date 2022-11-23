@@ -223,7 +223,7 @@ class _GraficoAfiliadoState extends State<GraficoAfiliado> {
                                             onPressed: () {},
                                             iconSize: 30,
                                           ),
-                                          Text(data['valor'].toString(),
+                                          Text(data['valor'].toStringAsFixed(2),
                                               style: GoogleFonts.poppins(
                                                 color: Colors.white,
                                                 letterSpacing: 0.2,

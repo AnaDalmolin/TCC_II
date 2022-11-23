@@ -178,7 +178,7 @@ class _TelaInicialState extends State<TelaInicial> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Container(
-                              margin: const EdgeInsets.only(left: 20, right: 5),
+                              margin: const EdgeInsets.only(left: 15, right: 5),
                               child: Text("Saldo",
                                   style: GoogleFonts.poppins(
                                     color: Colors.white,
@@ -190,7 +190,7 @@ class _TelaInicialState extends State<TelaInicial> {
                           Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Container(
-                              margin: const EdgeInsets.only(left: 8, right: 5),
+                              margin: const EdgeInsets.only(left: 6, right: 5),
                               child: StreamBuilder<QuerySnapshot<Object?>>(
                                   stream: MovimentacaoBloc.readItems(
                                       userId: widget.user.uid),
@@ -214,7 +214,7 @@ class _TelaInicialState extends State<TelaInicial> {
                                       var data = doc.data() as Map;
                                       return Text(
                                         ispasswordev == true
-                                            ? data['valor'].toString()
+                                            ? data['valor'].toStringAsFixed(2)
                                             : '****',
                                         style: GoogleFonts.poppins(
                                           color: Colors.white,
@@ -520,7 +520,7 @@ class _TelaInicialState extends State<TelaInicial> {
                                             onPressed: () {},
                                             iconSize: 30,
                                           ),
-                                          Text(data['valor'].toString(),
+                                          Text(data['valor'].toStringAsFixed(2),
                                               style: GoogleFonts.poppins(
                                                 color: Colors.white,
                                                 letterSpacing: 0.2,

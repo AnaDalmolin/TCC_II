@@ -118,7 +118,7 @@ class _TelaPerfilState extends State<TelaPerfil> {
                         ),
                         Container(
                           margin: const EdgeInsets.only(left: 5, right: 5),
-                          child: Text(doc.id,
+                          child: SelectableText(doc.id,
                               style: GoogleFonts.poppins(
                                 color: Colors.purple[900],
                                 letterSpacing: 0.5,
@@ -175,6 +175,9 @@ class _TelaPerfilState extends State<TelaPerfil> {
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                       ),
+                    ),
+                    SizedBox(
+                      height: he * 0.02,
                     ),
                   ],
                 );

@@ -240,7 +240,7 @@ class _GraficoObjetivoState extends State<GraficoObjetivo> {
                                                   ),
                                                   Text(
                                                       data['deposito']
-                                                          .toString(),
+                                                          .toStringAsFixed(2),
                                                       style:
                                                           GoogleFonts.poppins(
                                                         color: Colors.white,
@@ -281,7 +281,7 @@ class _GraficoObjetivoState extends State<GraficoObjetivo> {
               children: [
                 Container(
                   margin: const EdgeInsets.only(left: 70, right: 0),
-                  child: Text("Objetivos em andamento.",
+                  child: Text("Objetivos finalizados.",
                       style: GoogleFonts.poppins(
                         color: Colors.blueAccent,
                         letterSpacing: 0.5,
@@ -378,7 +378,9 @@ class _GraficoObjetivoState extends State<GraficoObjetivo> {
                                                   SizedBox(
                                                     width: 10,
                                                   ),
-                                                  Text(data['valor'].toString(),
+                                                  Text(
+                                                      data['valor']
+                                                          .toStringAsFixed(2),
                                                       style:
                                                           GoogleFonts.poppins(
                                                         color: Colors.white,

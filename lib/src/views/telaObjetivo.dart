@@ -248,7 +248,9 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                             SizedBox(
                               height: he * 0.04,
                             ),
-                            Text("Valor objetivo: " + data['valor'].toString(),
+                            Text(
+                                "Valor objetivo: " +
+                                    data['valor'].toStringAsFixed(2),
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   letterSpacing: 0.5,
@@ -259,7 +261,7 @@ class _TelaObjetivoState extends State<TelaObjetivo> {
                             ),
                             Text(
                                 "Valor guardado: " +
-                                    data['deposito'].toString(),
+                                    data['deposito'].toStringAsFixed(2),
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   letterSpacing: 0.5,

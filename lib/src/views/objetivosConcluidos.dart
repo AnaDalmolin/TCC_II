@@ -142,7 +142,9 @@ class _TelaObjetivoConcluidoState extends State<TelaObjetivoConcluido> {
                                   onPressed: () {},
                                   iconSize: 30,
                                 ),
-                                Text("Valor: " + data['valor'].toString(),
+                                Text(
+                                    "Valor: " +
+                                        data['valor'].toStringAsFixed(2),
                                     style: GoogleFonts.poppins(
                                       color: Colors.white,
                                       letterSpacing: 0.5,
